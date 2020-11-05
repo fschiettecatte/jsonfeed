@@ -117,15 +117,40 @@ public class DefaultHub implements Hub, JSONString {
      * @exception   MalformedURLException
      *              If the URL is invalid
      */
-    protected DefaultHub(final JSONObject jsonObject) throws MalformedURLException {
+    public DefaultHub(final JSONObject jsonObject) throws MalformedURLException {
 
         /* Get the type */
-        this.type = jsonObject.optString("type");
+        this.setType(jsonObject.optString("type"));
 
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {
-            this.url = new URL(jsonObject.getString("url"));
+            this.setUrl(new URL(jsonObject.getString("url")));
         }
+
+    }
+
+
+
+    /**
+     * Constructor
+     *
+     * @param   type  the type
+     * @param   url   the URL
+     */
+    public DefaultHub(final String type, final URL url) {
+
+        /* Set the type and URL */
+        this.setType(type);
+        this.setUrl(url);
+
+    }
+
+
+
+    /**
+     * Constructor
+     */
+    public DefaultHub() {
 
     }
 
@@ -146,6 +171,20 @@ public class DefaultHub implements Hub, JSONString {
 
 
     /**
+     * Set the type
+     *
+     * @param   type  the type
+     */
+    @Override
+    public void setType(String type) {
+
+       this.type = type;
+
+    }
+
+
+
+    /**
      * Get the URL
      *
      * @return  the URL, null if not specified
@@ -154,6 +193,20 @@ public class DefaultHub implements Hub, JSONString {
     public URL getUrl() {
 
         return (this.url);
+
+    }
+
+
+
+    /**
+     * Set the URL
+     *
+     * @param   url  the URL
+     */
+    @Override
+    public void setUrl(URL url) {
+
+       this.url = url;
 
     }
 

@@ -45,10 +45,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 1
+     * Test 1
      */
     @Test
-    public void testValid1() {
+    public void test1() {
 
         String versionString = Version.VERSION_1_0.getVersionName();
 
@@ -60,10 +60,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 2
+     * Test 2
      */
     @Test
-    public void testValid2() {
+    public void test2() {
 
         String versionString = Version.VERSION_1_0.getVersionName().toUpperCase();
 
@@ -75,10 +75,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 3
+     * Test 3
      */
     @Test
-    public void testValid3() {
+    public void test3() {
 
         String versionString = Version.VERSION_1_1.getVersionName();
 
@@ -90,10 +90,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 4
+     * Test 4
      */
     @Test
-    public void testValid4() {
+    public void test4() {
 
         String versionString = Version.VERSION_1_1.getVersionName().toUpperCase();
 
@@ -105,10 +105,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 5
+     * Test 5
      */
     @Test
-    public void testValid5() {
+    public void test5() {
 
         String versionString = "https://jsonfeed.org/version/1";
 
@@ -120,10 +120,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 6
+     * Test 6
      */
     @Test
-    public void testValid6() {
+    public void test6() {
 
         String versionString = "HTTPS://JSONFEED.ORG/VERSION/1";
 
@@ -135,10 +135,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 7
+     * Test 7
      */
     @Test
-    public void testValid7() {
+    public void test7() {
 
         assertTrue(Version.VERSION_1_0.getVersionID() < Version.VERSION_1_1.getVersionID());
         assertTrue(Version.VERSION_1_1.getVersionID() > Version.VERSION_1_0.getVersionID());
@@ -147,10 +147,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 8
+     * Test 8
      */
     @Test
-    public void testValid8() {
+    public void test8() {
 
         assertFalse(Version.VERSION_1_0.getVersionID() >= Version.VERSION_1_1.getVersionID());
         assertFalse(Version.VERSION_1_1.getVersionID() <= Version.VERSION_1_0.getVersionID());
@@ -159,10 +159,10 @@ public class VersionTest {
 
 
     /**
-     * Test valid 9
+     * Test 9
      */
     @Test
-    public void testValid9() {
+    public void test9() {
 
         assertNotNull(Version.VERSION_1_0.toJSONString());
         assertNotNull(Version.VERSION_1_1.toJSONString());

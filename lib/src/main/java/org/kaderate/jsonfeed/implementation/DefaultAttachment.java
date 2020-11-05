@@ -135,28 +135,53 @@ public class DefaultAttachment implements Attachment, JSONString {
      * @exception   MalformedURLException
      *              If the URL is invalid
      */
-    protected DefaultAttachment(final JSONObject jsonObject) throws MalformedURLException {
+    public DefaultAttachment(final JSONObject jsonObject) throws MalformedURLException {
 
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {
-            this.url = new URL(jsonObject.getString("url"));
+            this.setUrl(new URL(jsonObject.getString("url")));
         }
 
         /* Get the mime type */
-        this.mimeType = jsonObject.optString("mime_type");
+        this.setMimeType(jsonObject.optString("mime_type"));
 
         /* Get the title */
-        this.title = jsonObject.optString("title");
+        this.setTitle(jsonObject.optString("title"));
 
         /* Get the size in bytes */
         if ( jsonObject.has("size_in_bytes") == true ) {
-            this.sizeInBytes = jsonObject.getInt("size_in_bytes");
+            this.setSizeInBytes(jsonObject.getInt("size_in_bytes"));
         }
 
         /* Get the duration in seconds */
         if ( jsonObject.has("duration_in_seconds") == true ) {
-            this.durationInSeconds = jsonObject.getInt("duration_in_seconds");
+            this.setDurationInSeconds(jsonObject.getInt("duration_in_seconds"));
         }
+
+    }
+
+
+
+    /**
+     * Constructor
+     *
+     * @param   url         the URL
+     * @param   mimeType    the mime type
+     */
+    public DefaultAttachment(final URL url, final String mimeType) {
+
+        /* Set the URL and mime type */
+        this.setUrl(url);
+        this.setMimeType(mimeType);
+
+    }
+
+
+
+    /**
+     * Constructor
+     */
+    public DefaultAttachment() {
 
     }
 
@@ -177,6 +202,20 @@ public class DefaultAttachment implements Attachment, JSONString {
 
 
     /**
+     * Set the URL
+     *
+     * @param   url  the URL
+     */
+    @Override
+    public void setUrl(URL url) {
+
+       this.url = url;
+
+    }
+
+
+
+    /**
      * Get the mime type
      *
      * @return  the mime type, null if not specified
@@ -185,6 +224,20 @@ public class DefaultAttachment implements Attachment, JSONString {
     public String getMimeType() {
 
         return (this.mimeType);
+
+    }
+
+
+
+    /**
+     * Set the mime type
+     *
+     * @param   mimeType  the mime type
+     */
+    @Override
+    public void setMimeType(String mimeType) {
+
+       this.mimeType = mimeType;
 
     }
 
@@ -205,6 +258,20 @@ public class DefaultAttachment implements Attachment, JSONString {
 
 
     /**
+     * Set the title
+     *
+     * @param   title  the title
+     */
+    @Override
+    public void setTitle(String title) {
+
+       this.title = title;
+
+    }
+
+
+
+    /**
      * Get the size in bytes
      *
      * @return  the size in bytes, null if not specified
@@ -219,6 +286,20 @@ public class DefaultAttachment implements Attachment, JSONString {
 
 
     /**
+     * Set the size in bytes
+     *
+     * @param   sizeInBytes  the size in bytes
+     */
+    @Override
+    public void setSizeInBytes(Integer sizeInBytes) {
+
+       this.sizeInBytes = sizeInBytes;
+
+    }
+
+
+
+    /**
      * Get the duration in seconds
      *
      * @return  the duration in seconds, null if not specified
@@ -227,6 +308,20 @@ public class DefaultAttachment implements Attachment, JSONString {
     public Integer getDurationInSeconds() {
 
         return (this.durationInSeconds);
+
+    }
+
+
+
+    /**
+     * Set the duration in seconds
+     *
+     * @param   durationInSeconds  the duration in seconds
+     */
+    @Override
+    public void setDurationInSeconds(Integer durationInSeconds) {
+
+       this.durationInSeconds = durationInSeconds;
 
     }
 

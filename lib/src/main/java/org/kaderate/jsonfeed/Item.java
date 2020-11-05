@@ -47,11 +47,27 @@ public interface Item {
 
 
     /**
+     * Set the ID
+     *
+     * @param   id  the ID
+     */
+    public void setID(String id);
+
+
+    /**
      * Get the URL
      *
      * @return  the URL, null if not specified
      */
     public URL getUrl();
+
+
+    /**
+     * Set the URL
+     *
+     * @param   url  the URL
+     */
+    public void setUrl(URL url);
 
 
     /**
@@ -63,11 +79,27 @@ public interface Item {
 
 
     /**
+     * Set the external RL
+     *
+     * @param   externalUrl the external URL
+     */
+    public void setExternalUrl(URL externalUrl);
+
+
+    /**
      * Get the title
      *
      * @return  the title, null if not specified
      */
     public String getTitle();
+
+
+    /**
+     * Set the title
+     *
+     * @param   title  the title
+     */
+    public void setTitle(String title);
 
 
     /**
@@ -79,11 +111,27 @@ public interface Item {
 
 
     /**
+     * Set the content text
+     *
+     * @param   contentText  the content text
+     */
+    public void setContentText(String contentText);
+
+
+    /**
      * Get the content HTML
      *
      * @return  the content HTML, null if not specified
      */
     public String getContentHtml();
+
+
+    /**
+     * Set the content HTML
+     *
+     * @param   contentHtml  the content HTML
+     */
+    public void setContentHtml(String contentHtml);
 
 
     /**
@@ -95,11 +143,27 @@ public interface Item {
 
 
     /**
+     * Set the summary
+     *
+     * @param   summary  the summary
+     */
+    public void setSummary(String summary);
+
+
+    /**
      * Get the image (URL)
      *
      * @return  the image URL, null if not specified
      */
     public URL getImage();
+
+
+    /**
+     * Set the image (URL)
+     *
+     * @param   image  the image URL
+     */
+    public void setImage(URL image);
 
 
     /**
@@ -111,11 +175,27 @@ public interface Item {
 
 
     /**
+     * Set the banner image (URL)
+     *
+     * @param   bannerImage  the banner image URL
+     */
+    public void setBannerImage(URL bannerImage);
+
+
+    /**
      * Get the date published
      *
      * @return  the date published, null if not specified
      */
     public Instant getDatePublished();
+
+
+    /**
+     * Set the date published
+     *
+     * @param   datePublished  the date published
+     */
+    public void setDatePublished(Instant datePublished);
 
 
     /**
@@ -127,6 +207,14 @@ public interface Item {
 
 
     /**
+     * Set the date modified
+     *
+     * @param   dateModified  the date modified
+     */
+    public void setDateModified(Instant dateModified);
+
+
+    /**
      * Get the author
      *
      * @return  the author, null if not specified
@@ -135,11 +223,27 @@ public interface Item {
 
 
     /**
+     * Set the author
+     *
+     * @param   author  the author
+     */
+    public void setAuthor(Author author);
+
+
+    /**
      * Get the author list (JSON feed 1.1 only)
      *
-     * @return  the author list,empty list if there are no authors
+     * @return  the author list, empty list if there are no authors
      */
     public List<Author> getAuthorList();
+
+
+    /**
+     * Set the author list (JSON feed 1.1 only)
+     *
+     * @param   authorList  the author list
+     */
+    public void setAuthorList(List<Author> authorList);
 
 
     /**
@@ -151,6 +255,14 @@ public interface Item {
 
 
     /**
+     * Set the tag list
+     *
+     * @param   tagList  the tag list
+     */
+    public void setTagList(List<String> tagList);
+
+
+    /**
      * Get the language (JSON feed 1.1 only)
      *
      * @return  the language, null if not specified
@@ -159,11 +271,27 @@ public interface Item {
 
 
     /**
+     * Set the language
+     *
+     * @param   language  the language
+     */
+    public void setLanguage(String language);
+
+
+    /**
      * Get the attachment list
      *
      * @return  the attachment list, empty list if there are no attachments
      */
     public List<Attachment> getAttachmentList();
+
+
+    /**
+     * Set the attachment list
+     *
+     * @param   attachmentList  the attachment list
+     */
+    public void setAttachmentList(List<Attachment> attachmentList);
 
 
 
