@@ -502,7 +502,7 @@ public class DefaultItem implements Item, JSONString {
     /**
      * Set the content HTML
      *
-     * @param   contentText  the content HTML
+     * @param   contentHtml  the content HTML
      */
     @Override
     public void setContentHtml(String contentHtml) {
