@@ -58,10 +58,10 @@ public class AttachmentTest {
 
 
     /**
-     * Test valid 1
+     * Test 1
      */
     @Test
-    public void testValid1() throws MalformedURLException {
+    public void test1() throws MalformedURLException {
 
         Attachment attachment = DefaultAttachment.fromString(AttachmentTest.TEST_STRING_1_X);
 
@@ -80,10 +80,10 @@ public class AttachmentTest {
 
 
     /**
-     * Test valid 2
+     * Test 2
      */
     @Test
-    public void testValid2() throws MalformedURLException {
+    public void test2() throws MalformedURLException {
 
         JSONObject jsonObject1 = new JSONObject()
                 .put("url", "https://ham.org/dalekInvasion.m4v")
@@ -123,6 +123,68 @@ public class AttachmentTest {
         assertNotNull(attachmentList.get(1).toJSONString());
 
         assertNotNull(jsonArray.toString());
+
+    }
+
+
+    /**
+     * Test 3
+     */
+    @Test
+    public void test3() throws MalformedURLException {
+
+        Attachment attachment = new DefaultAttachment(new URL("https://ham.org/dalekInvasion.m4v"), "video/x-m4v");
+
+        assertTrue(attachment.isValid());
+
+        assertEquals(attachment.getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(attachment.getMimeType(), "video/x-m4v");
+
+        assertNotNull(attachment.toJSONString());
+
+    }
+
+
+    /**
+     * Test 4
+     */
+    @Test
+    public void test4() throws MalformedURLException {
+
+        Attachment attachment = new DefaultAttachment();
+        attachment.setUrl(new URL("https://ham.org/dalekInvasion.m4v"));
+        attachment.setMimeType("video/x-m4v");
+        attachment.setSizeInBytes(300);
+        attachment.setDurationInSeconds(400);
+
+        assertTrue(attachment.isValid());
+
+        assertEquals(attachment.getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(attachment.getMimeType(), "video/x-m4v");
+        assertEquals(attachment.getSizeInBytes().intValue(), 300);
+        assertEquals(attachment.getDurationInSeconds().intValue(), 400);
+
+        assertNotNull(attachment.toJSONString());
+
+    }
+
+
+    /**
+     * Test 5
+     */
+    @Test
+    public void test5() throws MalformedURLException {
+
+        Attachment attachment = new DefaultAttachment();
+        assertFalse(attachment.isValid());
+
+        attachment = new DefaultAttachment();
+        attachment.setUrl(new URL("https://ham.org/dalekInvasion.m4v"));
+        assertFalse(attachment.isValid());
+
+        attachment = new DefaultAttachment();
+        attachment.setMimeType("video/x-m4v");
+        assertFalse(attachment.isValid());
 
     }
 

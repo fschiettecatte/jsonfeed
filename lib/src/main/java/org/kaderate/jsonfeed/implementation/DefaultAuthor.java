@@ -132,20 +132,47 @@ public class DefaultAuthor implements Author, JSONString {
      * @exception   MalformedURLException
      *              If the avatar URL is invalid
      */
-    protected DefaultAuthor(final JSONObject jsonObject) throws MalformedURLException {
+    public DefaultAuthor(final JSONObject jsonObject) throws MalformedURLException {
 
         /* Get the name */
-        this.name = jsonObject.optString("name");
+        this.setName(jsonObject.optString("name"));
 
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {
-            this.url = new URL(jsonObject.getString("url"));
+            this.setUrl(new URL(jsonObject.getString("url")));
         }
 
         /* Get the avatar (URL) */
         if ( jsonObject.has("avatar") == true ) {
-            this.avatar = new URL(jsonObject.getString("avatar"));
+            this.setAvatar(new URL(jsonObject.getString("avatar")));
         }
+
+    }
+
+
+
+    /**
+     * Constructor
+     *
+     * @param   name    the name
+     * @param   url     the URL
+     * @param   avatar  the avatar (URL)
+     */
+    public DefaultAuthor(final String name, final URL url, final URL avatar) {
+
+        /* Set the name, url and avatar */
+        this.setName(name);
+        this.setUrl(url);
+        this.setAvatar(avatar);
+
+    }
+
+
+
+    /**
+     * Constructor
+     */
+    public DefaultAuthor() {
 
     }
 
@@ -166,6 +193,20 @@ public class DefaultAuthor implements Author, JSONString {
 
 
     /**
+     * Set the name
+     *
+     * @param   name  the name
+     */
+    @Override
+    public void setName(String name) {
+
+       this.name = name;
+
+    }
+
+
+
+    /**
      * Get the URL
      *
      * @return  the URL, null if not specified
@@ -180,6 +221,20 @@ public class DefaultAuthor implements Author, JSONString {
 
 
     /**
+     * Set the URL
+     *
+     * @param   url  the URL
+     */
+    @Override
+    public void setUrl(URL url) {
+
+       this.url = url;
+
+    }
+
+
+
+    /**
      * Get the avatar (URL)
      *
      * @return  the avatar URL, null if not specified
@@ -188,6 +243,20 @@ public class DefaultAuthor implements Author, JSONString {
     public URL getAvatar() {
 
         return (this.avatar);
+
+    }
+
+
+
+    /**
+     * Set the avatar (URL)
+     *
+     * @param   avatar  the avatar URL
+     */
+    @Override
+    public void setAvatar(URL avatar) {
+
+       this.avatar = avatar;
 
     }
 

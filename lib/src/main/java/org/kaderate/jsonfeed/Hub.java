@@ -40,11 +40,27 @@ public interface Hub {
 
 
     /**
+     * Set the type
+     *
+     * @param   type  the type
+     */
+    public void setType(String type);
+
+
+    /**
      * Get the URL
      *
      * @return  the URL, null if not specified
      */
     public URL getUrl();
+
+
+    /**
+     * Set the URL
+     *
+     * @param   url  the URL
+     */
+    public void setUrl(URL url);
 
 
     /**

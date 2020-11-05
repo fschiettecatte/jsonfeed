@@ -204,66 +204,112 @@ public class DefaultFeed implements Feed, JSONString {
         this.version = Version.fromString(jsonObject.optString("version"));
 
         /* Get the title */
-        this.title = jsonObject.optString("title");
+        this.setTitle(jsonObject.optString("title"));
 
         /* Get the home page URL */
         if ( jsonObject.has("home_page_url") == true ) {
-            this.homePageUrl = new URL(jsonObject.getString("home_page_url"));
+            this.setHomePageUrl(new URL(jsonObject.getString("home_page_url")));
         }
 
         /* Get the feed URL */
         if ( jsonObject.has("feed_url") == true ) {
-            this.feedUrl = new URL(jsonObject.getString("feed_url"));
+            this.setFeedUrl(new URL(jsonObject.getString("feed_url")));
         }
 
         /* Get the description */
-        this.description = jsonObject.optString("description");
+        this.setDescription(jsonObject.optString("description"));
 
         /* Get the user comment */
-        this.userComment = jsonObject.optString("user_comment");
+        this.setUserComment(jsonObject.optString("user_comment"));
 
         /* Get the next URL */
         if ( jsonObject.has("next_url") == true ) {
-            this.nextUrl = new URL(jsonObject.getString("next_url"));
+            this.setNextUrl(new URL(jsonObject.getString("next_url")));
         }
 
         /* Get the icon (URL) */
         if ( jsonObject.has("icon") == true ) {
-            this.icon = new URL(jsonObject.getString("icon"));
+            this.setIcon(new URL(jsonObject.getString("icon")));
         }
 
         /* Get the favicon (URL) */
         if ( jsonObject.has("favicon") == true ) {
-            this.favicon = new URL(jsonObject.getString("favicon"));
+            this.setFavicon(new URL(jsonObject.getString("favicon")));
         }
 
         /* Get the language */
-        this.language = jsonObject.optString("language");
+        this.setLanguage(jsonObject.optString("language"));
 
         /* Get the expired */
         if ( jsonObject.has("expired") == true ) {
-            this.expired = jsonObject.getBoolean("expired");
+            this.setExpired(jsonObject.getBoolean("expired"));
         }
 
         /* Get the author */
         if ( jsonObject.has("author") == true ) {
-            this.author = new DefaultAuthor(jsonObject.getJSONObject("author"));
+            this.setAuthor(new DefaultAuthor(jsonObject.getJSONObject("author")));
         }
 
         /* Get the authors */
         if ( jsonObject.has("authors") == true ) {
-            this.authorList = DefaultAuthor.fromJsonArray(jsonObject.getJSONArray("authors"));
+            this.setAuthorList(DefaultAuthor.fromJsonArray(jsonObject.getJSONArray("authors")));
         }
 
         /* Get the hubs */
         if ( jsonObject.has("hubs") == true ) {
-            this.hubList = DefaultHub.fromJsonArray(jsonObject.getJSONArray("hubs"));
+            this.setHubList(DefaultHub.fromJsonArray(jsonObject.getJSONArray("hubs")));
         }
 
         /* Get the items */
         if ( jsonObject.has("items") == true ) {
-            this.itemList = DefaultItem.fromJsonArray(jsonObject.getJSONArray("items"));
+            this.setItemList(DefaultItem.fromJsonArray(jsonObject.getJSONArray("items")));
         }
+
+    }
+
+
+
+    /**
+     * Constructor
+     *
+     * @param   version     the version
+     * @param   title       the title
+     * @param   itemList    the item list
+     *
+     * @exception   NullPointerException  if the version is null
+     */
+    public DefaultFeed(final Version version, final String title, final List<Item> itemList) {
+
+        /* Check the version */
+        if ( version == null ) {
+            throw new NullPointerException("Null version parameter");
+        }
+
+        /* Set the version, title and item list */
+        this.version = version;
+        this.setTitle(title);
+        this.setItemList(itemList);
+
+    }
+
+
+
+    /**
+     * Constructor
+     *
+     * @param   version     the version
+     *
+     * @exception   NullPointerException  if the version is null
+     */
+    public DefaultFeed(final Version version) {
+
+        /* Check the version */
+        if ( version == null ) {
+            throw new NullPointerException("Null version parameter");
+        }
+
+        /* Set the version */
+        this.version = version;
 
     }
 
@@ -298,6 +344,20 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
+     * Set the title
+     *
+     * @param   title  the title
+     */
+    @Override
+    public void setTitle(String title) {
+
+       this.title = title;
+
+    }
+
+
+
+    /**
      * Get the home page URL
      *
      * @return  the home page URL, null if not specified
@@ -306,6 +366,20 @@ public class DefaultFeed implements Feed, JSONString {
     public URL getHomePageUrl() {
 
         return (this.homePageUrl);
+
+    }
+
+
+
+    /**
+     * Set the home page URL
+     *
+     * @param   homePageUrl     the home page URL
+     */
+    @Override
+    public void setHomePageUrl(URL homePageUrl) {
+
+       this.homePageUrl = homePageUrl;
 
     }
 
@@ -326,6 +400,20 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
+     * Set the feed URL
+     *
+     * @param   feedUrl     the feed URL
+     */
+    @Override
+    public void setFeedUrl(URL feedUrl) {
+
+       this.feedUrl = feedUrl;
+
+    }
+
+
+
+    /**
      * Get the description
      *
      * @return  the description, null if not specified
@@ -334,6 +422,20 @@ public class DefaultFeed implements Feed, JSONString {
     public String getDescription() {
 
         return (this.description);
+
+    }
+
+
+
+    /**
+     * Set the description
+     *
+     * @param   description  the description
+     */
+    @Override
+    public void setDescription(String description) {
+
+       this.description = description;
 
     }
 
@@ -354,6 +456,20 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
+     * Set the user comment
+     *
+     * @param   userComment  the user comment
+     */
+    @Override
+    public void setUserComment(String userComment) {
+
+       this.userComment = userComment;
+
+    }
+
+
+
+    /**
      * Get the next URL
      *
      * @return  the next URL, null if not specified
@@ -362,6 +478,20 @@ public class DefaultFeed implements Feed, JSONString {
     public URL getNextUrl() {
 
         return (this.nextUrl);
+
+    }
+
+
+
+    /**
+     * Set the next URL
+     *
+     * @param   nextUrl     the next URL
+     */
+    @Override
+    public void setNextUrl(URL nextUrl) {
+
+       this.nextUrl = nextUrl;
 
     }
 
@@ -382,6 +512,20 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
+     * Set the icon (URL)
+     *
+     * @param   icon     the icon URL
+     */
+    @Override
+    public void setIcon(URL icon) {
+
+       this.icon = icon;
+
+    }
+
+
+
+    /**
      * Get the favicon (URL)
      *
      * @return  the favicon URL, null if not specified
@@ -390,6 +534,20 @@ public class DefaultFeed implements Feed, JSONString {
     public URL getFavicon() {
 
         return (this.favicon);
+
+    }
+
+
+
+    /**
+     * Set the favicon (URL)
+     *
+     * @param   favicon     the favicon URL
+     */
+    @Override
+    public void setFavicon(URL favicon) {
+
+       this.favicon = favicon;
 
     }
 
@@ -410,6 +568,20 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
+     * Set the author
+     *
+     * @param   author     the author
+     */
+    @Override
+    public void setAuthor(Author author) {
+
+       this.author = author;
+
+    }
+
+
+
+    /**
      * Get the author list (JSON feed 1.1 only)
      *
      * @return  the author list, empty list if there are no authors
@@ -418,6 +590,20 @@ public class DefaultFeed implements Feed, JSONString {
     public List<Author> getAuthorList() {
 
         return (this.authorList);
+
+    }
+
+
+
+    /**
+     * Set the author list (JSON feed 1.1 only)
+     *
+     * @param   authorList  the author list
+     */
+    @Override
+    public void setAuthorList(List<Author> authorList) {
+
+       this.authorList = authorList;
 
     }
 
@@ -438,6 +624,20 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
+     * Set the language (JSON feed 1.1 only)
+     *
+     * @param   language  the language
+     */
+    @Override
+    public void setLanguage(String language) {
+
+       this.language = language;
+
+    }
+
+
+
+    /**
      * Get the expired
      *
      * @return  the expired, null if not specified
@@ -446,6 +646,20 @@ public class DefaultFeed implements Feed, JSONString {
     public Boolean getExpired() {
 
         return (this.expired);
+
+    }
+
+
+
+    /**
+     * Set the expired
+     *
+     * @param   expired     the expired
+     */
+    @Override
+    public void setExpired(Boolean expired) {
+
+       this.expired = expired;
 
     }
 
@@ -466,6 +680,20 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
+     * Set the hub list
+     *
+     * @param   hubList  the hub list
+     */
+    @Override
+    public void setHubList(List<Hub> hubList) {
+
+       this.hubList = hubList;
+
+    }
+
+
+
+    /**
      * Get the item list
      *
      * @return  the item list, empty list if there are no items
@@ -474,6 +702,20 @@ public class DefaultFeed implements Feed, JSONString {
     public List<Item> getItemList() {
 
         return (this.itemList);
+
+    }
+
+
+
+    /**
+     * Set the item list
+     *
+     * @param   itemList  the item list
+     */
+    @Override
+    public void setItemList(List<Item> itemList) {
+
+       this.itemList = itemList;
 
     }
 
@@ -568,7 +810,7 @@ public class DefaultFeed implements Feed, JSONString {
         }
 
         /* Add the authors */
-        if ( this.getAuthorList().size() > 0 ) {
+        if ( (this.getAuthorList() != null) && (this.getAuthorList().size() > 0) ) {
             jsonObject.put("authors", this.getAuthorList());
         }
 
@@ -583,12 +825,12 @@ public class DefaultFeed implements Feed, JSONString {
         }
 
         /* Add the hubs */
-        if ( this.getHubList().size() > 0 ) {
+        if ( (this.getHubList() != null) && (this.getHubList().size() > 0) ) {
             jsonObject.put("hubs", this.getHubList());
         }
 
         /* Add the items */
-        if ( this.getItemList().size() > 0 ) {
+        if ( (this.getItemList() != null) && (this.getItemList().size() > 0) ) {
             jsonObject.put("items", this.getItemList());
         }
 
@@ -603,7 +845,7 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
-     * Upgrade this feed to the stated version
+     * Upgrade this feed to the passed version
      *
      * @param   toVersion       to version
      *

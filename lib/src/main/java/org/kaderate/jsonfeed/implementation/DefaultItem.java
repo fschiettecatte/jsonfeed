@@ -247,74 +247,99 @@ public class DefaultItem implements Item, JSONString {
     protected DefaultItem(final JSONObject jsonObject) throws MalformedURLException {
 
         /* Get the ID */
-        this.id = jsonObject.optString("id");
+        this.setID(jsonObject.optString("id"));
 
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {
-            this.url = new URL(jsonObject.getString("url"));
+            this.setUrl(new URL(jsonObject.getString("url")));
         }
 
         /* Get the external URL */
         if ( jsonObject.has("external_url") == true ) {
-            this.externalUrl = new URL(jsonObject.getString("external_url"));
+            this.setExternalUrl(new URL(jsonObject.getString("external_url")));
         }
 
         /* Get the title */
-        this.title = jsonObject.optString("title");
+        this.setTitle(jsonObject.optString("title"));
 
         /* Get the content text */
-        this.contentText = jsonObject.optString("content_text");
+        this.setContentText(jsonObject.optString("content_text"));
 
         /* Get the content HTML */
-        this.contentHtml = jsonObject.optString("content_html");
+        this.setContentHtml(jsonObject.optString("content_html"));
 
         /* Get the summary */
-        this.summary = jsonObject.optString("summary");
+        this.setSummary(jsonObject.optString("summary"));
 
         /* Get the image (URL) */
         if ( jsonObject.has("image") == true ) {
-            this.image = new URL(jsonObject.getString("image"));
+            this.setImage(new URL(jsonObject.getString("image")));
         }
 
         /* Get the banner image (URL) */
         if ( jsonObject.has("banner_image") == true ) {
-            this.bannerImage = new URL(jsonObject.getString("banner_image"));
+            this.setBannerImage(new URL(jsonObject.getString("banner_image")));
         }
 
         /* Get the date published */
         if ( jsonObject.has("date_published") == true ) {
-            this.datePublished = OffsetDateTime.parse(jsonObject.getString("date_published")).toInstant();
+            this.setDatePublished(OffsetDateTime.parse(jsonObject.getString("date_published")).toInstant());
         }
 
         /* Get the date modified */
         if ( jsonObject.has("date_modified") == true ) {
-            this.dateModified = OffsetDateTime.parse(jsonObject.getString("date_modified")).toInstant();
+            this.setDateModified(OffsetDateTime.parse(jsonObject.getString("date_modified")).toInstant());
         }
 
         /* Get the language */
-        this.language = jsonObject.optString("language");
+        this.setLanguage(jsonObject.optString("language"));
 
         /* Get the author */
         if ( jsonObject.has("author") == true ) {
-            this.author = new DefaultAuthor(jsonObject.getJSONObject("author"));
+            this.setAuthor(new DefaultAuthor(jsonObject.getJSONObject("author")));
         }
 
         /* Get the authors */
         if ( jsonObject.has("authors") == true ) {
-            this.authorList = DefaultAuthor.fromJsonArray(jsonObject.getJSONArray("authors"));
+            this.setAuthorList(DefaultAuthor.fromJsonArray(jsonObject.getJSONArray("authors")));
         }
 
         /* Get the tags */
         if ( jsonObject.has("tags") == true ) {
+            final List<String> tagList = new ArrayList<String>();
             for ( Object object : jsonObject.getJSONArray("tags") ) {
-                this.tagList.add((String)object);
+                tagList.add((String)object);
             }
+            this.setTagList(tagList);
         }
 
         /* Get the attachments */
         if ( jsonObject.has("attachments") == true ) {
-            this.attachmentList = DefaultAttachment.fromJsonArray(jsonObject.getJSONArray("attachments"));
+            this.setAttachmentList(DefaultAttachment.fromJsonArray(jsonObject.getJSONArray("attachments")));
         }
+
+    }
+
+
+
+    /**
+     * Constructor
+     *
+     * @param   id  the ID
+     */
+    public DefaultItem(final String id) {
+
+        /* Set the ID */
+        this.setID(id);
+
+    }
+
+
+
+    /**
+     * Constructor
+     */
+    public DefaultItem() {
 
     }
 
@@ -335,6 +360,20 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
+     * Set the ID
+     *
+     * @param   id  the ID
+     */
+    @Override
+    public void setID(String id) {
+
+       this.id = id;
+
+    }
+
+
+
+    /**
      * Get the URL
      *
      * @return  the URL, null if not specified
@@ -343,6 +382,20 @@ public class DefaultItem implements Item, JSONString {
     public URL getUrl() {
 
         return (this.url);
+
+    }
+
+
+
+    /**
+     * Set the URL
+     *
+     * @param   url  the URL
+     */
+    @Override
+    public void setUrl(URL url) {
+
+       this.url = url;
 
     }
 
@@ -363,6 +416,20 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
+     * Set the external URL
+     *
+     * @param   externalUrl     the external URL
+     */
+    @Override
+    public void setExternalUrl(URL externalUrl) {
+
+       this.externalUrl = externalUrl;
+
+    }
+
+
+
+    /**
      * Get the title
      *
      * @return  the title, null if not specified
@@ -371,6 +438,20 @@ public class DefaultItem implements Item, JSONString {
     public String getTitle() {
 
         return (this.title);
+
+    }
+
+
+
+    /**
+     * Set the title
+     *
+     * @param   title  the title
+     */
+    @Override
+    public void setTitle(String title) {
+
+       this.title = title;
 
     }
 
@@ -391,6 +472,20 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
+     * Set the content text
+     *
+     * @param   contentText  the content text
+     */
+    @Override
+    public void setContentText(String contentText) {
+
+       this.contentText = contentText;
+
+    }
+
+
+
+    /**
      * Get the content HTML
      *
      * @return  the content HTML, null if not specified
@@ -399,6 +494,20 @@ public class DefaultItem implements Item, JSONString {
     public String getContentHtml() {
 
         return (this.contentHtml);
+
+    }
+
+
+
+    /**
+     * Set the content HTML
+     *
+     * @param   contentText  the content HTML
+     */
+    @Override
+    public void setContentHtml(String contentHtml) {
+
+       this.contentHtml = contentHtml;
 
     }
 
@@ -419,6 +528,20 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
+     * Set the summary
+     *
+     * @param   summary  the summary
+     */
+    @Override
+    public void setSummary(String summary) {
+
+       this.summary = summary;
+
+    }
+
+
+
+    /**
      * Get the image (URL)
      *
      * @return  the image URL, null if not specified
@@ -427,6 +550,20 @@ public class DefaultItem implements Item, JSONString {
     public URL getImage() {
 
         return (this.image);
+
+    }
+
+
+
+    /**
+     * Set the image (URL)
+     *
+     * @param   image     the image URL
+     */
+    @Override
+    public void setImage(URL image) {
+
+       this.image = image;
 
     }
 
@@ -447,6 +584,20 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
+     * Set the banner image (URL)
+     *
+     * @param   bannerImage     the banner image URL
+     */
+    @Override
+    public void setBannerImage(URL bannerImage) {
+
+       this.bannerImage = bannerImage;
+
+    }
+
+
+
+    /**
      * Get the date published
      *
      * @return  the date published, null if not specified
@@ -455,6 +606,20 @@ public class DefaultItem implements Item, JSONString {
     public Instant getDatePublished() {
 
         return (this.datePublished);
+
+    }
+
+
+
+    /**
+     * Set the date published
+     *
+     * @param   datePublished     the date published
+     */
+    @Override
+    public void setDatePublished(Instant datePublished) {
+
+       this.datePublished = datePublished;
 
     }
 
@@ -475,6 +640,20 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
+     * Set the date modified
+     *
+     * @param   dateModified     the date modified
+     */
+    @Override
+    public void setDateModified(Instant dateModified) {
+
+       this.dateModified = dateModified;
+
+    }
+
+
+
+    /**
      * Get the author
      *
      * @return  the author, null if not specified
@@ -483,6 +662,20 @@ public class DefaultItem implements Item, JSONString {
     public Author getAuthor() {
 
         return (this.author);
+
+    }
+
+
+
+    /**
+     * Set the author
+     *
+     * @param   author     the author
+     */
+    @Override
+    public void setAuthor(Author author) {
+
+       this.author = author;
 
     }
 
@@ -503,6 +696,20 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
+     * Set the author list (JSON feed 1.1 only)
+     *
+     * @param   authorList  the author list
+     */
+    @Override
+    public void setAuthorList(List<Author> authorList) {
+
+       this.authorList = authorList;
+
+    }
+
+
+
+    /**
      * Get the tag list
      *
      * @return  the tag list, empty list if there are no tags
@@ -511,6 +718,20 @@ public class DefaultItem implements Item, JSONString {
     public List<String> getTagList() {
 
         return (this.tagList);
+
+    }
+
+
+
+    /**
+     * Set the tag list
+     *
+     * @param   tagList     the tag list
+     */
+    @Override
+    public void setTagList(List<String> tagList) {
+
+       this.tagList = tagList;
 
     }
 
@@ -531,6 +752,20 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
+     * Set the language (JSON feed 1.1 only)
+     *
+     * @param   language  the language
+     */
+    @Override
+    public void setLanguage(String language) {
+
+       this.language = language;
+
+    }
+
+
+
+    /**
      * Get the attachment list
      *
      * @return  the attachment list, empty list if there are no attachments
@@ -539,6 +774,20 @@ public class DefaultItem implements Item, JSONString {
     public List<Attachment> getAttachmentList() {
 
         return (this.attachmentList);
+
+    }
+
+
+
+    /**
+     * Set the attachment list
+     *
+     * @param   attachmentList  the attachment list
+     */
+    @Override
+    public void setAttachmentList(List<Attachment> attachmentList) {
+
+       this.attachmentList = attachmentList;
 
     }
 
@@ -633,12 +882,12 @@ public class DefaultItem implements Item, JSONString {
         }
 
         /* Add the authors */
-        if ( this.getAuthorList().size() > 0 ) {
+        if ( (this.getAuthorList() != null) && (this.getAuthorList().size() > 0) ) {
             jsonObject.put("authors", this.getAuthorList());
         }
 
         /* Add the tags */
-        if ( this.getTagList().size() > 0 ) {
+        if ( (this.getTagList() != null) && (this.getTagList().size() > 0) ) {
             jsonObject.put("tags", this.getTagList());
         }
 
@@ -648,7 +897,7 @@ public class DefaultItem implements Item, JSONString {
         }
 
         /* Add the attachments */
-        if ( this.getAttachmentList().size() > 0 ) {
+        if ( (this.getAttachmentList() != null) && (this.getAttachmentList().size() > 0) ) {
             jsonObject.put("attachments", this.getAttachmentList());
         }
 
@@ -663,7 +912,7 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
-     * Upgrade this item to the stated version
+     * Upgrade this item to the passed version
      *
      * @param   fromVersion     from version
      * @param   toVersion       to version

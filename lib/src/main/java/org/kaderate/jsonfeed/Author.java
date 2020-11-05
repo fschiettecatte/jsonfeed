@@ -40,6 +40,14 @@ public interface Author {
 
 
     /**
+     * Set the name
+     *
+     * @param   name  the name
+     */
+    public void setName(String name);
+
+
+    /**
      * Get the URL
      *
      * @return  the URL, null if not specified
@@ -48,11 +56,27 @@ public interface Author {
 
 
     /**
+     * Set the URL
+     *
+     * @param   url  the URL
+     */
+    public void setUrl(URL url);
+
+
+    /**
      * Get the avatar (URL)
      *
      * @return  the avatar URL, null if not specified
      */
     public URL getAvatar();
+
+
+    /**
+     * Set the avatar (URL)
+     *
+     * @param   avatar  the avatar URL
+     */
+    public void setAvatar(URL avatar);
 
 
     /**
