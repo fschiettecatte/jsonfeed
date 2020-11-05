@@ -25,6 +25,7 @@ import java.io.Reader;
 import java.lang.StringBuilder;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,10 @@ import static org.junit.Assert.*;
 
 /* Import JSONFeed stuff */
 import org.kaderate.jsonfeed.Version;
+import org.kaderate.jsonfeed.implementation.DefaultAuthor;
 import org.kaderate.jsonfeed.implementation.DefaultFeed;
+import org.kaderate.jsonfeed.implementation.DefaultHub;
+import org.kaderate.jsonfeed.implementation.DefaultItem;
 
 
 
@@ -200,10 +204,10 @@ public class FeedTest {
 
 
     /**
-     * Test valid 1
+     * Test 1
      */
     @Test
-    public void testValid1() throws MalformedURLException {
+    public void test1() throws MalformedURLException {
 
         Feed feed = DefaultFeed.fromString(FeedTest.TEST_STRING_1_0);
 
@@ -277,10 +281,10 @@ public class FeedTest {
 
 
     /**
-     * Test valid 2
+     * Test 2
      */
     @Test
-    public void testValid2() throws MalformedURLException {
+    public void test2() throws MalformedURLException {
 
         Feed feed = DefaultFeed.fromString(FeedTest.TEST_STRING_1_1);
 
@@ -364,10 +368,10 @@ public class FeedTest {
 
 
     /**
-     * Test valid 3
+     * Test 3
      */
     @Test
-    public void testValid3() throws MalformedURLException {
+    public void test3() throws MalformedURLException {
 
         assertEquals(Version.VERSION_LATEST, Version.VERSION_1_1);
 
@@ -440,10 +444,10 @@ public class FeedTest {
 
 
     /**
-     * Test valid 4
+     * Test 4
      */
 //     @Test
-//     public void testValid4() throws MalformedURLException, IOException {
+//     public void test4() throws MalformedURLException, IOException {
 //
 //         /* Create a list of known JSON feeds, */
 //         /* lifted from https://jsonfeed.org/version/1.1 */
@@ -480,6 +484,136 @@ public class FeedTest {
 //         }
 //
 //     }
+
+
+    /**
+     * Test 5
+     */
+    @Test
+    public void test5() throws MalformedURLException {
+
+        List<Item> itemList = new ArrayList<Item>();
+        Item item = new DefaultItem("1");
+        itemList.add(item);
+
+        Feed feed = new DefaultFeed(Version.VERSION_1_1, "Feed Feed", itemList);
+
+        assertTrue(item.isValid());
+
+        assertEquals(feed.getTitle(), "Feed Feed");
+
+        assertNotNull(feed.getItemList());
+        assertTrue(feed.getItemList().size() == 1);
+        assertTrue(feed.getItemList().get(0).isValid());
+        assertEquals(feed.getItemList().get(0).getID(), "1");
+
+        assertNotNull(item.toJSONString());
+
+    }
+
+
+    /**
+     * Test 6
+     */
+    @Test
+    public void test6() throws MalformedURLException {
+
+        List<Item> itemList = new ArrayList<Item>();
+        Item item = new DefaultItem("1");
+        itemList.add(item);
+
+        Feed feed = new DefaultFeed(Version.VERSION_1_1, "Feed Feed", itemList);
+        feed.setHomePageUrl(new URL("https://ham.org/"));
+        feed.setFeedUrl(new URL("https://ham.org/feed.json"));
+        feed.setDescription("Ham Feed Description");
+        feed.setUserComment("Ham Feed User Comment");
+        feed.setNextUrl(new URL("https://ham.org/feed.json?page=2"));
+        feed.setIcon(new URL("https://ham.org/icon.jpg"));
+        feed.setFavicon(new URL("https://ham.org/favicon.jpg"));
+        feed.setLanguage("en-US");
+        feed.setExpired(false);
+        feed.setAuthor(new DefaultAuthor("Dalek Caan", new URL("https://ham.org/authorCaan.html"), new URL("https://ham.org/avatarCaan.html")));
+
+        List<Author> authorList = new ArrayList<Author>();
+        authorList.add(new DefaultAuthor("Dalek Jast", new URL("https://ham.org/authorJast.html"), new URL("https://ham.org/avatarJast.html")));
+        authorList.add(new DefaultAuthor("Dalek Sec", new URL("https://ham.org/authorSec.html"), new URL("https://ham.org/avatarSec.html")));
+        feed.setAuthorList(authorList);
+
+        List<Hub> hubList = new ArrayList<Hub>();
+        hubList.add(new DefaultHub("Tardis", new URL("https://ham.org/tardis.html")));
+        feed.setHubList(hubList);
+
+        assertTrue(feed.isValid());
+
+        assertEquals(feed.getVersion(), Version.VERSION_1_1);
+        assertEquals(feed.getTitle(), "Feed Feed");
+        assertEquals(feed.getHomePageUrl().toString(), "https://ham.org/");
+        assertEquals(feed.getFeedUrl().toString(), "https://ham.org/feed.json");
+        assertEquals(feed.getDescription(), "Ham Feed Description");
+        assertEquals(feed.getUserComment(), "Ham Feed User Comment");
+        assertEquals(feed.getNextUrl().toString(), "https://ham.org/feed.json?page=2");
+        assertEquals(feed.getIcon().toString(), "https://ham.org/icon.jpg");
+        assertEquals(feed.getFavicon().toString(), "https://ham.org/favicon.jpg");
+        assertEquals(feed.getLanguage(), "en-US");
+        assertEquals(feed.getExpired(), false);
+
+        assertNotNull(feed.getAuthor());
+        assertTrue(feed.getAuthor().isValid());
+        assertEquals(feed.getAuthor().getName(), "Dalek Caan");
+        assertEquals(feed.getAuthor().getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(feed.getAuthor().getAvatar().toString(), "https://ham.org/avatarCaan.html");
+
+        assertNotNull(feed.getAuthorList());
+        assertTrue(feed.getAuthorList().size() == 2);
+        assertTrue(feed.getAuthorList().get(0).isValid());
+        assertEquals(feed.getAuthorList().get(0).getName(), "Dalek Jast");
+        assertEquals(feed.getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(feed.getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarJast.html");
+        assertTrue(feed.getAuthorList().get(1).isValid());
+        assertEquals(feed.getAuthorList().get(1).getName(), "Dalek Sec");
+        assertEquals(feed.getAuthorList().get(1).getUrl().toString(), "https://ham.org/authorSec.html");
+        assertEquals(feed.getAuthorList().get(1).getAvatar().toString(), "https://ham.org/avatarSec.html");
+
+        assertNotNull(feed.getItemList());
+        assertTrue(feed.getItemList().size() == 1);
+        assertTrue(feed.getItemList().get(0).isValid());
+        assertEquals(feed.getItemList().get(0).getID(), "1");
+
+        assertNotNull(feed.getHubList());
+        assertTrue(feed.getHubList().size() == 1);
+        assertTrue(feed.getHubList().get(0).isValid());
+        assertEquals(feed.getHubList().get(0).getType(), "Tardis");
+        assertEquals(feed.getHubList().get(0).getUrl().toString(), "https://ham.org/tardis.html");
+
+        assertNotNull(item.toJSONString());
+
+    }
+
+
+
+
+    /**
+     * Test 7
+     */
+    @Test
+    public void test7() {
+
+        Feed feed = new DefaultFeed(Version.VERSION_1_1);
+        assertFalse(feed.isValid());
+
+        feed = new DefaultFeed(Version.VERSION_1_1);
+        feed.setTitle("Feed Feed");
+        assertFalse(feed.isValid());
+
+        feed = new DefaultFeed(Version.VERSION_1_1);
+        assertFalse(feed.isValid());
+
+        feed = new DefaultFeed(Version.VERSION_1_1);
+        feed.setTitle("Feed Feed");
+        feed.setItemList(new ArrayList<Item>());
+        assertFalse(feed.isValid());
+
+    }
 
 
 }

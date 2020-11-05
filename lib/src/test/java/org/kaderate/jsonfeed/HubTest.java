@@ -55,10 +55,10 @@ public class HubTest {
 
 
     /**
-     * Test valid 1
+     * Test 1
      */
     @Test
-    public void testValid1() throws MalformedURLException {
+    public void test1() throws MalformedURLException {
 
         Hub hub = DefaultHub.fromString(HubTest.TEST_STRING_1_X);
 
@@ -74,10 +74,10 @@ public class HubTest {
 
 
     /**
-     * Test valid 2
+     * Test 2
      */
     @Test
-    public void testValid2() throws MalformedURLException {
+    public void test2() throws MalformedURLException {
 
         JSONObject jsonObject1 = new JSONObject()
                 .put("type", "Tardis")
@@ -105,6 +105,64 @@ public class HubTest {
         assertNotNull(hubList.get(1).toJSONString());
 
         assertNotNull(jsonArray.toString());
+
+    }
+
+
+    /**
+     * Test 3
+     */
+    @Test
+    public void test3() throws MalformedURLException {
+
+        Hub hub = new DefaultHub("Tardis", new URL("https://ham.org/tardis.html"));
+
+        assertTrue(hub.isValid());
+
+        assertEquals(hub.getType(), "Tardis");
+        assertEquals(hub.getUrl().toString(), "https://ham.org/tardis.html");
+
+        assertNotNull(hub.toJSONString());
+
+    }
+
+
+    /**
+     * Test 4
+     */
+    @Test
+    public void test4() throws MalformedURLException {
+
+        Hub hub = new DefaultHub();
+        hub.setType("Tardis");
+        hub.setUrl(new URL("https://ham.org/tardis.html"));
+
+        assertTrue(hub.isValid());
+
+        assertEquals(hub.getType(), "Tardis");
+        assertEquals(hub.getUrl().toString(), "https://ham.org/tardis.html");
+
+        assertNotNull(hub.toJSONString());
+
+    }
+
+
+    /**
+     * Test 5
+     */
+    @Test
+    public void test5() throws MalformedURLException {
+
+        Hub hub = new DefaultHub();
+        assertFalse(hub.isValid());
+
+        hub = new DefaultHub();
+        hub.setType("Tardis");
+        assertFalse(hub.isValid());
+
+        hub = new DefaultHub();
+        hub.setUrl(new URL("https://ham.org/tardis.html"));
+        assertFalse(hub.isValid());
 
     }
 

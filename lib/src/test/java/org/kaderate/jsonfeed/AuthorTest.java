@@ -56,10 +56,10 @@ public class AuthorTest {
 
 
     /**
-     * Test valid 1
+     * Test 1
      */
     @Test
-    public void testValid1() throws MalformedURLException {
+    public void test1() throws MalformedURLException {
 
         Author author = DefaultAuthor.fromString(AuthorTest.TEST_STRING_1_X);
 
@@ -76,10 +76,10 @@ public class AuthorTest {
 
 
     /**
-     * Test valid 2
+     * Test 2
      */
     @Test
-    public void testValid2() throws MalformedURLException {
+    public void test2() throws MalformedURLException {
 
         JSONObject jsonObject1 = new JSONObject()
                 .put("name", "Dalek Caan")
@@ -111,6 +111,59 @@ public class AuthorTest {
         assertNotNull(authorList.get(1).toJSONString());
 
         assertNotNull(jsonArray.toString());
+
+    }
+
+
+    /**
+     * Test 3
+     */
+    @Test
+    public void test3() throws MalformedURLException {
+
+        Author author = new DefaultAuthor("Dalek Caan", new URL("https://ham.org/authorCaan.html"), new URL("https://ham.org/avatarCaan.html"));
+
+        assertTrue(author.isValid());
+
+        assertEquals(author.getName(), "Dalek Caan");
+        assertEquals(author.getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(author.getAvatar().toString(), "https://ham.org/avatarCaan.html");
+
+        assertNotNull(author.toJSONString());
+
+    }
+
+
+    /**
+     * Test 4
+     */
+    @Test
+    public void test4() throws MalformedURLException {
+
+        Author author = new DefaultAuthor();
+        author.setName("Dalek Caan");
+        author.setUrl(new URL("https://ham.org/authorCaan.html"));
+        author.setAvatar(new URL("https://ham.org/avatarCaan.html"));
+
+        assertTrue(author.isValid());
+
+        assertEquals(author.getName(), "Dalek Caan");
+        assertEquals(author.getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(author.getAvatar().toString(), "https://ham.org/avatarCaan.html");
+
+        assertNotNull(author.toJSONString());
+
+    }
+
+
+    /**
+     * Test 5
+     */
+    @Test
+    public void test5() {
+
+        Author author = new DefaultAuthor();
+        assertFalse(author.isValid());
 
     }
 

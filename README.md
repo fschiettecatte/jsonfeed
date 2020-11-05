@@ -9,7 +9,7 @@ To use it, you just need to pass the JSON string as follows:
 
 ```java
 String jsonString = "{ ... }";
-Feed feed = DefaultFeed.fromUrl(jsonString);
+Feed feed = DefaultFeed.fromString(jsonString);
 ```
 
 ## Credits
