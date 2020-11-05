@@ -454,7 +454,6 @@ public class ItemTest {
     public void test7() throws MalformedURLException {
 
         Item item = new DefaultItem("1");
-        item.setID("1");
         item.setUrl(new URL("https://ham.org/item1.html"));
         item.setExternalUrl(new URL("https://external.org/item1.html"));
         item.setTitle("First Item");
