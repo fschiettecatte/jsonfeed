@@ -1,55 +1,52 @@
-//
-// VersionTest.java
-//
-// @author Francois Schiettecatte
-// @version 1.0
-//
-// Change History:
-//    - Nov 3, 2020 - File was created
-//
-// TBD:
-//    -
-//
-//
-//
+/**
+ * VersionTest.java
+ *
+ * @author Francois Schiettecatte
+ * @version 1.0
+ *
+ * Change History:
+ *    - Nov 3, 2020 - File was created
+ *
+ * TBD:
+ *    -
+ *
+ *
+ */
 
 
-// Package location
+/* Package location */
 package org.kaderate.jsonfeed;
 
 
-// Import Java stuff
+/* Import Java stuff */
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
 
-// Import JSON stuff
+/* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-// Import JUnit stuff
+/* Import JUnit stuff */
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-// Import JSONFeed stuff
-import org.kaderate.jsonfeed.implementation.DefaultAuthor;
 
 
-
-//
-// Version tests
-//
-// @author François Schiettecatte (fschiettecatte@gmail.com)
-// @version 0.1.0
-//
+/**
+ * Version tests
+ *
+ * @author François Schiettecatte (fschiettecatte@gmail.com)
+ * @version 0.1.0
+ */
 public class VersionTest {
 
 
-    //
-    // Test valid 1
-    //
+    /**
+     * Test valid 1
+     */
     @Test
     public void testValid1() {
 
@@ -62,9 +59,9 @@ public class VersionTest {
     }
 
 
-    //
-    // Test valid 2
-    //
+    /**
+     * Test valid 2
+     */
     @Test
     public void testValid2() {
 
@@ -77,9 +74,9 @@ public class VersionTest {
     }
 
 
-    //
-    // Test valid 3
-    //
+    /**
+     * Test valid 3
+     */
     @Test
     public void testValid3() {
 
@@ -92,9 +89,9 @@ public class VersionTest {
     }
 
 
-    //
-    // Test valid 4
-    //
+    /**
+     * Test valid 4
+     */
     @Test
     public void testValid4() {
 
@@ -107,9 +104,9 @@ public class VersionTest {
     }
 
 
-    //
-    // Test valid 5
-    //
+    /**
+     * Test valid 5
+     */
     @Test
     public void testValid5() {
 
@@ -122,9 +119,9 @@ public class VersionTest {
     }
 
 
-    //
-    // Test valid 6
-    //
+    /**
+     * Test valid 6
+     */
     @Test
     public void testValid6() {
 
@@ -137,9 +134,9 @@ public class VersionTest {
     }
 
 
-    //
-    // Test valid 7
-    //
+    /**
+     * Test valid 7
+     */
     @Test
     public void testValid7() {
 
@@ -149,9 +146,9 @@ public class VersionTest {
     }
 
 
-    //
-    // Test valid 8
-    //
+    /**
+     * Test valid 8
+     */
     @Test
     public void testValid8() {
 
@@ -161,9 +158,9 @@ public class VersionTest {
     }
 
 
-    //
-    // Test valid 9
-    //
+    /**
+     * Test valid 9
+     */
     @Test
     public void testValid9() {
 

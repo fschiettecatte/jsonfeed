@@ -1,24 +1,24 @@
-//
-// FeedTest.java
-//
-// @author Francois Schiettecatte
-// @version 1.0
-//
-// Change History:
-//    - Nov 3, 2020 - File was created
-//
-// TBD:
-//    -
-//
-//
-//
+/**
+ * FeedTest.java
+ *
+ * @author Francois Schiettecatte
+ * @version 1.0
+ *
+ * Change History:
+ *    - Nov 3, 2020 - File was created
+ *
+ * TBD:
+ *    -
+ *
+ *
+ */
 
 
-// Package location
+/* Package location */
 package org.kaderate.jsonfeed;
 
 
-// Import Java stuff
+/* Import Java stuff */
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -29,27 +29,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// Import JSON stuff
+/* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-// Import JUnit stuff
+/* Import JUnit stuff */
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-// Import JSONFeed stuff
+/* Import JSONFeed stuff */
 import org.kaderate.jsonfeed.Version;
 import org.kaderate.jsonfeed.implementation.DefaultFeed;
 
 
 
-//
-// Feed tests
-//
-// @author François Schiettecatte (fschiettecatte@gmail.com)
-// @version 0.1.0
-//
+/**
+ * Feed tests
+ *
+ * @author François Schiettecatte (fschiettecatte@gmail.com)
+ * @version 0.1.0
+ */
 public class FeedTest {
 
 
@@ -199,9 +199,9 @@ public class FeedTest {
 
 
 
-    //
-    // Test valid 1
-    //
+    /**
+     * Test valid 1
+     */
     @Test
     public void testValid1() throws MalformedURLException {
 
@@ -276,9 +276,9 @@ public class FeedTest {
     }
 
 
-    //
-    // Test valid 2
-    //
+    /**
+     * Test valid 2
+     */
     @Test
     public void testValid2() throws MalformedURLException {
 
@@ -363,9 +363,9 @@ public class FeedTest {
     }
 
 
-    //
-    // Test valid 3
-    //
+    /**
+     * Test valid 3
+     */
     @Test
     public void testValid3() throws MalformedURLException {
 
@@ -439,14 +439,14 @@ public class FeedTest {
     }
 
 
-    //
-    // Test valid 4
-    //
+    /**
+     * Test valid 4
+     */
 //     @Test
 //     public void testValid4() throws MalformedURLException, IOException {
 //
-//         // Create a list of known JSON feeds,
-//         // lifted from https://jsonfeed.org/version/1.1
+//         /* Create a list of known JSON feeds, */
+//         /* lifted from https://jsonfeed.org/version/1.1 */
 //         List<URL> urlList = new ArrayList<URL>();
 //         urlList.add(new URL("https://shapeof.com/feed.json"));
 //         urlList.add(new URL("https://flyingmeat.com/blog/feed.json"));
@@ -456,7 +456,7 @@ public class FeedTest {
 //         urlList.add(new URL("https://jsonfeed.org/feed.json"));
 //
 //
-//         // Crawl the urls
+//         /* Crawl the urls */
 //         for ( URL url : urlList ) {
 //
 //             Reader reader = new InputStreamReader(url.openStream());

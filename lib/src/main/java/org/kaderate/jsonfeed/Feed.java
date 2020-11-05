@@ -1,178 +1,178 @@
-//
-// Feed.java
-//
-// @author Francois Schiettecatte
-// @version 1.0
-//
-// Change History:
-//    - Nov 3, 2020 - File was created
-//
-// TBD:
-//    -
-//
-//
-//
+/**
+ * Feed.java
+ *
+ * @author Francois Schiettecatte
+ * @version 1.0
+ *
+ * Change History:
+ *    - Nov 3, 2020 - File was created
+ *
+ * TBD:
+ *    -
+ *
+ *
+ */
 
 
-// Package location
+/* Package location */
 package org.kaderate.jsonfeed;
 
 
-// Import Java stuff
+/* Import Java stuff */
 import java.net.URL;
 import java.util.List;
 
 
-// Import JSONFeed stuff
+/* Import JSONFeed stuff */
 import org.kaderate.jsonfeed.Author;
 import org.kaderate.jsonfeed.Hub;
 import org.kaderate.jsonfeed.Item;
 import org.kaderate.jsonfeed.Version;
 
 
-//
-// Feed interface
-//
-// @author François Schiettecatte (fschiettecatte@gmail.com)
-// @version 0.1.0
-//
+/**
+ * Feed interface
+ *
+ * @author François Schiettecatte (fschiettecatte@gmail.com)
+ * @version 0.1.0
+ */
 public interface Feed {
 
 
-    //
-    // Get the version
-    //
-    // @return  the version
-    //
+    /**
+     * Get the version
+     *
+     * @return  the version, null if not specified
+     */
     public Version getVersion();
 
 
-    //
-    // Get the title
-    //
-    // @return  the title
-    //
+    /**
+     * Get the title
+     *
+     * @return  the title, null if not specified
+     */
     public String getTitle();
 
 
-    //
-    // Get the home page URL
-    //
-    // @return  the home page URL
-    //
+    /**
+     * Get the home page URL
+     *
+     * @return  the home page URL, null if not specified
+     */
     public URL getHomePageUrl();
 
 
-    //
-    // Get the feed URL
-    //
-    // @return  the feed URL
-    //
+    /**
+     * Get the feed URL
+     *
+     * @return  the feed URL, null if not specified
+     */
     public URL getFeedUrl();
 
 
-    //
-    // Get the description
-    //
-    // @return  the description
-    //
+    /**
+     * Get the description
+     *
+     * @return  the description, null if not specified
+     */
     public String getDescription();
 
 
-    //
-    // Get the user comment
-    //
-    // @return  the user comment
-    //
+    /**
+     * Get the user comment
+     *
+     * @return  the user comment, null if not specified
+     */
     public String getUserComment();
 
 
-    //
-    // Get the next URL
-    //
-    // @return  the next URL
-    //
+    /**
+     * Get the next URL
+     *
+     * @return  the next URL, null if not specified
+     */
     public URL getNextUrl();
 
 
-    //
-    // Get the icon (URL)
-    //
-    // @return  the icon (URL)
-    //
+    /**
+     * Get the icon (URL)
+     *
+     * @return  the icon URL, null if not specified
+     */
     public URL getIcon();
 
 
-    //
-    // Get the favicon (URL)
-    //
-    // @return  the favicon (URL)
-    //
+    /**
+     * Get the favicon (URL)
+     *
+     * @return  the favicon URL, null if not specified
+     */
     public URL getFavicon();
 
 
-    //
-    // Get the author
-    //
-    // @return  the author
-    //
+    /**
+     * Get the author
+     *
+     * @return  the author, null if not specified
+     */
     public Author getAuthor();
 
 
-    //
-    // Get the author list (JSON feed 1.1 only)
-    //
-    // @return  the author list
-    //
+    /**
+     * Get the author list (JSON feed 1.1 only)
+     *
+     * @return  the author list, empty list if there are no authors
+     */
     public List<Author> getAuthorList();
 
 
-    //
-    // Get the language (JSON feed 1.1 only)
-    //
-    // @return  the language
-    //
+    /**
+     * Get the language (JSON feed 1.1 only)
+     *
+     * @return  the language, null if not specified
+     */
     public String getLanguage();
 
 
-    //
-    // Get the expired
-    //
-    // @return  the expired
-    //
+    /**
+     * Get the expired
+     *
+     * @return  the expired, null if not specified
+     */
     public Boolean getExpired();
 
 
-    //
-    // Get the hub list
-    //
-    // @return  the hub list
-    //
+    /**
+     * Get the hub list
+     *
+     * @return  the hub list, empty list if there are no hubs
+     */
     public List<Hub> getHubList();
 
 
-    //
-    // Get the item list
-    //
-    // @return  the item list
-    //
+    /**
+     * Get the item list
+     *
+     * @return  the item list, empty list if there are no hubs
+     */
     public List<Item> getItemList();
 
 
 
-    //
-    // Check the validity of the feed object
-    //
-    // @return  true if the feed object is valid
-    //
+    /**
+     * Check the validity of the feed object
+     *
+     * @return  true if the feed object is valid
+     */
     public boolean isValid();
 
 
-    //
-    // Return the JSON string representation for this object
-    //
-    // @return      the JSON string representation for this object
-    //
+    /**
+     * Return the JSON string representation for this object
+     *
+     * @return      the JSON string representation for this object
+     */
     public String toJSONString();
 
 

@@ -1,49 +1,49 @@
-//
-// AuthorTest.java
-//
-// @author Francois Schiettecatte
-// @version 1.0
-//
-// Change History:
-//    - Nov 3, 2020 - File was created
-//
-// TBD:
-//    -
-//
-//
-//
+/**
+ * AuthorTest.java
+ *
+ * @author Francois Schiettecatte
+ * @version 1.0
+ *
+ * Change History:
+ *    - Nov 3, 2020 - File was created
+ *
+ * TBD:
+ *    -
+ *
+ *
+ */
 
 
-// Package location
+/* Package location */
 package org.kaderate.jsonfeed;
 
 
-// Import Java stuff
+/* Import Java stuff */
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
 
-// Import JSON stuff
+/* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-// Import JUnit stuff
+/* Import JUnit stuff */
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-// Import JSONFeed stuff
+/* Import JSONFeed stuff */
 import org.kaderate.jsonfeed.implementation.DefaultAuthor;
 
 
 
-//
-// Author tests
-//
-// @author François Schiettecatte (fschiettecatte@gmail.com)
-// @version 0.1.0
-//
+/**
+ * Author tests
+ *
+ * @author François Schiettecatte (fschiettecatte@gmail.com)
+ * @version 0.1.0
+ */
 public class AuthorTest {
 
 
@@ -55,9 +55,9 @@ public class AuthorTest {
 
 
 
-    //
-    // Test valid 1
-    //
+    /**
+     * Test valid 1
+     */
     @Test
     public void testValid1() throws MalformedURLException {
 
@@ -75,9 +75,9 @@ public class AuthorTest {
     }
 
 
-    //
-    // Test valid 2
-    //
+    /**
+     * Test valid 2
+     */
     @Test
     public void testValid2() throws MalformedURLException {
 

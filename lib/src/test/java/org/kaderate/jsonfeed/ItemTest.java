@@ -1,50 +1,50 @@
-//
-// ItemTest.java
-//
-// @author Francois Schiettecatte
-// @version 1.0
-//
-// Change History:
-//    - Nov 3, 2020 - File was created
-//
-// TBD:
-//    -
-//
-//
-//
+/**
+ * ItemTest.java
+ *
+ * @author Francois Schiettecatte
+ * @version 1.0
+ *
+ * Change History:
+ *    - Nov 3, 2020 - File was created
+ *
+ * TBD:
+ *    -
+ *
+ *
+ */
 
 
-// Package location
+/* Package location */
 package org.kaderate.jsonfeed;
 
 
-// Import Java stuff
+/* Import Java stuff */
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
 
-// Import JSON stuff
+/* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-// Import JUnit stuff
+/* Import JUnit stuff */
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-// Import JSONFeed stuff
+/* Import JSONFeed stuff */
 import org.kaderate.jsonfeed.Version;
 import org.kaderate.jsonfeed.implementation.DefaultItem;
 
 
 
-//
-// Item tests
-//
-// @author François Schiettecatte (fschiettecatte@gmail.com)
-// @version 0.1.0
-//
+/**
+ * Item tests
+ *
+ * @author François Schiettecatte (fschiettecatte@gmail.com)
+ * @version 0.1.0
+ */
 public class ItemTest {
 
 
@@ -132,9 +132,9 @@ public class ItemTest {
 
 
 
-    //
-    // Test valid 1
-    //
+    /**
+     * Test valid 1
+     */
     @Test
     public void testValid1() throws MalformedURLException {
 
@@ -187,9 +187,9 @@ public class ItemTest {
     }
 
 
-    //
-    // Test valid 2
-    //
+    /**
+     * Test valid 2
+     */
     @Test
     public void testValid2() throws MalformedURLException {
 
@@ -259,9 +259,9 @@ public class ItemTest {
     }
 
 
-    //
-    // Test valid 3
-    //
+    /**
+     * Test valid 3
+     */
     @Test
     public void testValid3() throws MalformedURLException {
 
@@ -318,9 +318,9 @@ public class ItemTest {
     }
 
 
-    //
-    // Test valid 4
-    //
+    /**
+     * Test valid 4
+     */
     @Test
     public void testValid4() throws MalformedURLException {
 
@@ -394,9 +394,9 @@ public class ItemTest {
     }
 
 
-    //
-    // Test valid 5
-    //
+    /**
+     * Test valid 5
+     */
     @Test
     public void testValid5() throws MalformedURLException {
 

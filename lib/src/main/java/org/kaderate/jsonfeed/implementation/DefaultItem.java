@@ -1,38 +1,39 @@
-//
-// DefaultItem.java
-//
-// @author Francois Schiettecatte
-// @version 1.0
-//
-// Change History:
-//    - Nov 3, 2020 - File was created
-//
-// TBD:
-//    -
-//
-//
-//
+/**
+ * DefaultItem.java
+ *
+ * @author Francois Schiettecatte
+ * @version 1.0
+ *
+ * Change History:
+ *    - Nov 3, 2020 - File was created
+ *
+ * TBD:
+ *    -
+ *
+ *
+ */
 
 
-// Package location
+/* Package location */
 package org.kaderate.jsonfeed.implementation;
 
 
-// Import Java stuff
+/* Import Java stuff */
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 
 
-// Import JSON stuff
+/* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONString;
 
 
-// Import JSONFeed stuff
+/* Import JSONFeed stuff */
 import org.kaderate.jsonfeed.Attachment;
 import org.kaderate.jsonfeed.Author;
 import org.kaderate.jsonfeed.Feed;
@@ -45,268 +46,272 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
 import org.kaderate.jsonfeed.Version;
 
 
-//
-// Default implementation for Item
-//
-// @author François Schiettecatte (fschiettecatte@gmail.com)
-// @version 0.1.0
-//
+/**
+ * Default implementation for Item
+ *
+ * @author François Schiettecatte (fschiettecatte@gmail.com)
+ * @version 0.1.0
+ */
 public class DefaultItem implements Item, JSONString {
 
 
-    //
-    // ID
-    //
+    /**
+     * ID
+     */
     private String id = null;
 
 
-    //
-    // URL
-    //
+    /**
+     * URL
+     */
     private URL url = null;
 
 
-    //
-    // External URL
-    //
+    /**
+     * External URL
+     */
     private URL externalUrl = null;
 
 
-    //
-    // Title
-    //
+    /**
+     * Title
+     */
     private String title = null;
 
 
-    //
-    // Content text
-    //
+    /**
+     * Content text
+     */
     private String contentText = null;
 
 
-    //
-    // Content HTML
-    //
+    /**
+     * Content HTML
+     */
     private String contentHtml = null;
 
 
-    //
-    // Summary
-    //
+    /**
+     * Summary
+     */
     private String summary = null;
 
 
-    //
-    // Next URL
-    //
+    /**
+     * Next URL
+     */
     private URL nextUrl = null;
 
 
-    //
-    // Image (URL)
-    //
+    /**
+     * Image (URL)
+     */
     private URL image = null;
 
 
-    //
-    // Banner image (URL)
-    //
+    /**
+     * Banner image (URL)
+     */
     private URL bannerImage = null;
 
 
-    //
-    // Date published
-    //
+    /**
+     * Date published
+     */
     private Instant datePublished = null;
 
 
-    //
-    // Date modified
-    //
+    /**
+     * Date modified
+     */
     private Instant dateModified = null;
 
 
-    //
-    // Author
-    //
+    /**
+     * Author
+     */
     private Author author = null;
 
 
-    //
-    // Author list (JSON feed 1.1 only)
-    //
+    /**
+     * Author list (JSON feed 1.1 only)
+     */
     private List<Author> authorList = new ArrayList<Author>();
 
 
-    //
-    // Tag list
-    //
+    /**
+     * ag list
+     */
     private List<String> tagList = new ArrayList<String>();
 
 
-    //
-    // Language (JSON feed 1.1 only)
-    //
+    /**
+     * Language (JSON feed 1.1 only)
+     */
     private String language = null;
 
 
-    //
-    // Attachment list
-    //
+    /**
+     * Attachment list
+     */
     private List<Attachment> attachmentList = new ArrayList<Attachment>();
 
 
 
-    //
-    // Parse a JSON string and return the item
-    //
-    // @param   jsonString  the feed as a JSON string
-    //
-    // @return  the item object
-    //
-    // @exception   MalformedURLException
-    //              If the URL is invalid
-    //
-    // @exception   MalformedURLException
-    //              If the external URL is invalid
-    //
-    // @exception   MalformedURLException
-    //              If the image (URL) is invalid
-    //
-    // @exception   MalformedURLException
-    //              If the banner image (URL) is invalid
-    //
+    /**
+     * Parse a JSON string and return the item
+     *
+     * @param   jsonString  the feed as a JSON string
+     *
+     * @return  the item object
+     *
+     * @exception   MalformedURLException
+     *              If the URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the external URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the image (URL) is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the banner image (URL) is invalid
+     */
     public static Item fromString(final String jsonString) throws MalformedURLException {
 
-        // Parse the JSON string to a JSON object
+        /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
 
-        // Parse the JSON string
+        /* Parse the JSON string */
         final Item item = new DefaultItem(jsonObject);
 
-        // Return the item
+        /* Return the item */
         return (item);
 
     }
 
 
 
-    //
-    // Process the JSON array and return the item object list
-    //
-    // @param   jsonArray  the JSON array
-    //
-    // @return  the item object list
-    //
-    // @exception   MalformedURLException
-    //              If the URL is invalid
-    //
-    // @exception   MalformedURLException
-    //              If the avatar URL is invalid
-    //
+    /**
+     * Process the JSON array and return the item object list
+     *
+     * @param   jsonArray  the JSON array
+     *
+     * @return  the item object list
+     *
+     * @exception   MalformedURLException
+     *              If the URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the external URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the image (URL) is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the banner image (URL) is invalid
+     */
     public static List<Item> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
 
-        // Create the item list
+        /* Create the item list */
         final List<Item> itemList = new ArrayList<Item>();
 
-        // Process the JSON array
+        /* Process the JSON array */
         for ( final Object object : jsonArray ) {
             itemList.add(new DefaultItem((JSONObject)object));
         }
 
-        // Return the item list
+        /* Return the item list */
         return (itemList);
 
     }
 
 
-    //
-    // Constructor
-    //
-    // @param   jsonObject  the item as a JSON object
-    //
-    // @return  the item object
-    //
-    // @exception   MalformedURLException
-    //              If the URL is invalid
-    //
-    // @exception   MalformedURLException
-    //              If the external URL is invalid
-    //
-    // @exception   MalformedURLException
-    //              If the image (URL) is invalid
-    //
-    // @exception   MalformedURLException
-    //              If the banner image (URL) is invalid
-    //
+    /**
+     * Constructor
+     *
+     * @param   jsonObject  the item as a JSON object
+     *
+     * @exception   MalformedURLException
+     *              If the URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the external URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the image (URL) is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the banner image (URL) is invalid
+     */
     protected DefaultItem(final JSONObject jsonObject) throws MalformedURLException {
 
-        // Get the ID
+        /* Get the ID */
         this.id = jsonObject.optString("id");
 
-        // Get the URL
+        /* Get the URL */
         if ( jsonObject.has("url") == true ) {
             this.url = new URL(jsonObject.getString("url"));
         }
 
-        // Get the external URL
+        /* Get the external URL */
         if ( jsonObject.has("external_url") == true ) {
             this.externalUrl = new URL(jsonObject.getString("external_url"));
         }
 
-        // Get the title
+        /* Get the title */
         this.title = jsonObject.optString("title");
 
-        // Get the content text
+        /* Get the content text */
         this.contentText = jsonObject.optString("content_text");
 
-        // Get the content HTML
+        /* Get the content HTML */
         this.contentHtml = jsonObject.optString("content_html");
 
-        // Get the summary
+        /* Get the summary */
         this.summary = jsonObject.optString("summary");
 
-        // Get the image (URL)
+        /* Get the image (URL) */
         if ( jsonObject.has("image") == true ) {
             this.image = new URL(jsonObject.getString("image"));
         }
 
-        // Get the banner image (URL)
+        /* Get the banner image (URL) */
         if ( jsonObject.has("banner_image") == true ) {
             this.bannerImage = new URL(jsonObject.getString("banner_image"));
         }
 
-        // Get the date published
+        /* Get the date published */
         if ( jsonObject.has("date_published") == true ) {
-            this.datePublished = Instant.parse(jsonObject.getString("date_published"));
+            this.datePublished = OffsetDateTime.parse(jsonObject.getString("date_published")).toInstant();
         }
 
-        // Get the date modified
+        /* Get the date modified */
         if ( jsonObject.has("date_modified") == true ) {
-            this.dateModified = Instant.parse(jsonObject.getString("date_modified"));
+            this.dateModified = OffsetDateTime.parse(jsonObject.getString("date_modified")).toInstant();
         }
 
-        // Get the language
+        /* Get the language */
         this.language = jsonObject.optString("language");
 
-        // Get the author
+        /* Get the author */
         if ( jsonObject.has("author") == true ) {
             this.author = new DefaultAuthor(jsonObject.getJSONObject("author"));
         }
 
-        // Get the authors
+        /* Get the authors */
         if ( jsonObject.has("authors") == true ) {
             this.authorList = DefaultAuthor.fromJsonArray(jsonObject.getJSONArray("authors"));
         }
 
-        // Get the tags
+        /* Get the tags */
         if ( jsonObject.has("tags") == true ) {
             for ( Object object : jsonObject.getJSONArray("tags") ) {
                 this.tagList.add((String)object);
             }
         }
 
-        // Get the attachments
+        /* Get the attachments */
         if ( jsonObject.has("attachments") == true ) {
             this.attachmentList = DefaultAttachment.fromJsonArray(jsonObject.getJSONArray("attachments"));
         }
@@ -315,11 +320,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the ID
-    //
-    // @return  the ID
-    //
+    /**
+     * Get the ID
+     *
+     * @return  the ID, null if not specified
+     */
     @Override
     public String getID() {
 
@@ -329,11 +334,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the URL
-    //
-    // @return  the URL
-    //
+    /**
+     * Get the URL
+     *
+     * @return  the URL, null if not specified
+     */
     @Override
     public URL getUrl() {
 
@@ -343,11 +348,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the external URL
-    //
-    // @return  the external URL
-    //
+    /**
+     * Get the external URL
+     *
+     * @return  the external URL, null if not specified
+     */
     @Override
     public URL getExternalUrl() {
 
@@ -357,11 +362,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the title
-    //
-    // @return  the title
-    //
+    /**
+     * Get the title
+     *
+     * @return  the title, null if not specified
+     */
     @Override
     public String getTitle() {
 
@@ -371,11 +376,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the content text
-    //
-    // @return  the content text
-    //
+    /**
+     * Get the content text
+     *
+     * @return  the content text, null if not specified
+     */
     @Override
     public String getContentText() {
 
@@ -385,11 +390,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the content HTML
-    //
-    // @return  the content HTML
-    //
+    /**
+     * Get the content HTML
+     *
+     * @return  the content HTML, null if not specified
+     */
     @Override
     public String getContentHtml() {
 
@@ -399,11 +404,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the summary
-    //
-    // @return  the summary
-    //
+    /**
+     * Get the summary
+     *
+     * @return  the summary, null if not specified
+     */
     @Override
     public String getSummary() {
 
@@ -413,11 +418,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the image (URL)
-    //
-    // @return  the image (URL)
-    //
+    /**
+     * Get the image (URL)
+     *
+     * @return  the image URL, null if not specified
+     */
     @Override
     public URL getImage() {
 
@@ -427,11 +432,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the banner image (URL)
-    //
-    // @return  the banner image (URL)
-    //
+    /**
+     * Get the banner image (URL)
+     *
+     * @return  the banner image URL, null if not specified
+     */
     @Override
     public URL getBannerImage() {
 
@@ -441,11 +446,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the date published
-    //
-    // @return  the date published
-    //
+    /**
+     * Get the date published
+     *
+     * @return  the date published, null if not specified
+     */
     @Override
     public Instant getDatePublished() {
 
@@ -455,11 +460,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the date modified
-    //
-    // @return  the date modified
-    //
+    /**
+     * Get the date modified
+     *
+     * @return  the date modified, null if not specified
+     */
     @Override
     public Instant getDateModified() {
 
@@ -469,11 +474,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the author
-    //
-    // @return  the author
-    //
+    /**
+     * Get the author
+     *
+     * @return  the author, null if not specified
+     */
     @Override
     public Author getAuthor() {
 
@@ -483,11 +488,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the author list (JSON feed 1.1 only)
-    //
-    // @return  the author list
-    //
+    /**
+     * Get the author list (JSON feed 1.1 only)
+     *
+     * @return  the author list, empty list if there are no authors
+     */
     @Override
     public List<Author> getAuthorList() {
 
@@ -497,11 +502,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the tag list
-    //
-    // @return  the tag list
-    //
+    /**
+     * Get the tag list
+     *
+     * @return  the tag list, empty list if there are no tags
+     */
     @Override
     public List<String> getTagList() {
 
@@ -511,11 +516,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the language (JSON feed 1.1 only)
-    //
-    // @return  the language
-    //
+    /**
+     * Get the language (JSON feed 1.1 only)
+     *
+     * @return  the language, null if not specified
+     */
     @Override
     public String getLanguage() {
 
@@ -525,11 +530,11 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Get the attachment list
-    //
-    // @return  the attachment list
-    //
+    /**
+     * Get the attachment list
+     *
+     * @return  the attachment list, empty list if there are no attachments
+     */
     @Override
     public List<Attachment> getAttachmentList() {
 
@@ -539,15 +544,15 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Check the validity of the item object
-    //
-    // @return  true if the item object is valid
-    //
+    /**
+     * Check the validity of the item object
+     *
+     * @return  true if the item object is valid
+     */
     @Override
     public boolean isValid() {
 
-        // Check the item fields
+        /* Check the item fields */
         if ( this.getID() != null ) {
             return (true);
         }
@@ -558,125 +563,125 @@ public class DefaultItem implements Item, JSONString {
 
 
 
-    //
-    // Return the JSON string representation for this object
-    //
-    // @return      the JSON string representation for this object
-    //
+    /**
+     * Return the JSON string representation for this object
+     *
+     * @return      the JSON string representation for this object
+     */
     @Override
     public String toJSONString() {
 
-        // Create the JSON object
+        /* Create the JSON object */
         final JSONObject jsonObject = new JSONObject();
 
-        // Add the ID
+        /* Add the ID */
         jsonObject.put("id", this.getID());
 
-        // Add the url
+        /* Add the url */
         if ( this.getUrl() != null ) {
             jsonObject.put("url", this.getUrl().toString());
         }
 
-        // Add the external url
+        /* Add the external url */
         if ( this.getExternalUrl() != null ) {
             jsonObject.put("external", this.getExternalUrl().toString());
         }
 
-        // Add the title
+        /* Add the title */
         if ( this.getTitle() != null ) {
             jsonObject.put("type", this.getTitle());
         }
 
-        // Add the content text
+        /* Add the content text */
         if ( this.getContentText() != null ) {
             jsonObject.put("content_text", this.getContentText());
         }
 
-        // Add the content HTML
+        /* Add the content HTML */
         if ( this.getContentHtml() != null ) {
             jsonObject.put("content_html", this.getContentHtml());
         }
 
-        // Add the summary
+        /* Add the summary */
         if ( this.getSummary() != null ) {
             jsonObject.put("summary", this.getSummary());
         }
 
-        // Add the image (URL)
+        /* Add the image (URL) */
         if ( this.getImage() != null ) {
             jsonObject.put("image", this.getImage().toString());
         }
 
-        // Add the banner image (URL)
+        /* Add the banner image (URL) */
         if ( this.getBannerImage() != null ) {
             jsonObject.put("banner_image", this.getBannerImage().toString());
         }
 
-        // Add the date published
+        /* Add the date published */
         if ( this.getDatePublished() != null ) {
             jsonObject.put("date_published", this.getDatePublished().toString());
         }
 
-        // Add the date modified
+        /* Add the date modified */
         if ( this.getDateModified() != null ) {
             jsonObject.put("date_modified", this.getDateModified().toString());
         }
 
-        // Add the author
+        /* Add the author */
         if ( this.getAuthor() != null ) {
             jsonObject.put("author", this.getAuthor());
         }
 
-        // Add the authors
+        /* Add the authors */
         if ( this.getAuthorList().size() > 0 ) {
             jsonObject.put("authors", this.getAuthorList());
         }
 
-        // Add the tags
+        /* Add the tags */
         if ( this.getTagList().size() > 0 ) {
             jsonObject.put("tags", this.getTagList());
         }
 
-        // Add the language
+        /* Add the language */
         if ( this.getLanguage() != null ) {
             jsonObject.put("language", this.getLanguage());
         }
 
-        // Add the attachments
+        /* Add the attachments */
         if ( this.getAttachmentList().size() > 0 ) {
             jsonObject.put("attachments", this.getAttachmentList());
         }
 
-        // Get the JSON string
+        /* Get the JSON string */
         final String jsonString = jsonObject.toString();
 
-        // Return the JSON string
+        /* Return the JSON string */
         return (jsonString);
 
     }
 
 
 
-    //
-    // Upgrade this item to the stated version
-    //
-    // @param   fromVersion     from version
-    // @param   toVersion       to version
-    //
-    // @return  true if the item was upgraded, false if not
-    //
+    /**
+     * Upgrade this item to the stated version
+     *
+     * @param   fromVersion     from version
+     * @param   toVersion       to version
+     *
+     * @return  true if the item was upgraded, false if not
+     */
     public boolean upgrade(final Version fromVersion, final Version toVersion) {
 
-        // We can only upgrade the item
+        /* We can only upgrade the item */
         if ( toVersion.getVersionID() <= fromVersion.getVersionID() ) {
             return (false);
         }
 
 
-        // Upgrade from version 1.0 to version 1.1
+        /* Upgrade from version 1.0 to version 1.1 */
         if ( (fromVersion == Version.VERSION_1_0) && (toVersion == Version.VERSION_1_1) ) {
 
-            // Upgrade the item author
+            /* Upgrade the item author */
             if ( this.getAuthor() != null ) {
                 this.authorList.add(this.getAuthor());
                 this.author = null;
@@ -684,7 +689,7 @@ public class DefaultItem implements Item, JSONString {
         }
 
 
-        // Item was upgraded
+        /* Item was upgraded */
         return (true);
 
     }

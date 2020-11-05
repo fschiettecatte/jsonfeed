@@ -1,114 +1,114 @@
-//
-// Version.java
-//
-// @author Francois Schiettecatte
-// @version 1.0
-//
-// Change History:
-//    - Nov 3, 2020 - File was created
-//
-// TBD:
-//    -
-//
-//
-//
+/**
+ * Version.java
+ *
+ * @author Francois Schiettecatte
+ * @version 1.0
+ *
+ * Change History:
+ *    - Nov 3, 2020 - File was created
+ *
+ * TBD:
+ *    -
+ *
+ *
+ */
 
 
-// Package location
+/* Package location */
 package org.kaderate.jsonfeed;
 
 
-// Import Java stuff
+/* Import Java stuff */
 import java.util.HashMap;
 import java.util.Map;
 
 
-// Import JSON stuff
+/* Import JSON stuff */
 import org.json.JSONObject;
 import org.json.JSONString;
 
 
-//
-// Version enum
-//
-// @author François Schiettecatte (fschiettecatte@gmail.com)
-// @version 0.1.0
-//
+/**
+ * Version enum
+ *
+ * @author François Schiettecatte (fschiettecatte@gmail.com)
+ * @version 0.1.0
+ */
 public enum Version implements JSONString {
 
 
-    //
-    // Version constants
-    //
+    /**
+     * Version constants
+     */
     VERSION_1_0(10, "https://jsonfeed.org/version/1.0"),
     VERSION_1_1(11, "https://jsonfeed.org/version/1.1");
 
 
-    //
-    // Hash map for the version name to version enum
-    //
+    /**
+     * Hash map for the version name to version enum
+     */
     private static final Map<String, Version> nameToEnum = new HashMap<String, Version>();
 
-    // Set up the hash map
+    /* Set up the hash map */
     static {
 
-        // Add the version enums
+        /* Add the version enums */
         for ( final Version version : Version.values() ) {
             Version.nameToEnum.put(version.getVersionName().toLowerCase(), version);
         }
 
-        // Add a truncated version 1 string
+        /* Add a truncated version 1 string */
         Version.nameToEnum.put("https://jsonfeed.org/version/1", Version.VERSION_1_0);
     }
 
 
 
-    //
-    // Latest version
-    //
+    /**
+     * Latest version
+     */
     public static final Version VERSION_LATEST = Version.VERSION_1_1;
 
 
 
-    //
-    // Version ID
-    //
+    /**
+     * Version ID
+     */
     private final int versionID;
 
 
-    //
-    // Version name
-    //
+    /**
+     * Version name
+     */
     private final String versionName;
 
 
 
 
-    //
-    // Method to get the version from a string
-    //
-    // @param       versionString      the version string
-    //
-    // @return      the version, null otherwise
-    //
+    /**
+     * Method to get the version from a string
+     *
+     * @param       versionString      the version string
+     *
+     * @return      the version, null otherwise
+     */
     public static Version fromString (final String versionString) {
 
-        // Return the version
+        /* Return the version */
         return (Version.nameToEnum.get(versionString.toLowerCase()));
 
     }
 
 
 
-    //
-    // Constructor
-    //
-    // @param       versionID       the version ID
-    // @param       versionName     the version name
-    //
+    /**
+     * Constructor
+     *
+     * @param       versionID       the version ID
+     * @param       versionName     the version name
+     */
     private Version (final int versionID, final String versionName) {
 
-        // Set the enum fields
+        /* Set the enum fields */
         this.versionID = versionID;
         this.versionName = versionName;
 
@@ -116,60 +116,60 @@ public enum Version implements JSONString {
 
 
 
-    //
-    // Method to get the version ID
-    //
-    // @return      the version ID
-    //
+    /**
+     * Method to get the version ID
+     *
+     * @return      the version ID
+     */
     public int getVersionID () {
 
-        // Return the version ID
+        /* Return the version ID */
         return (this.versionID);
 
     }
 
 
 
-    //
-    // Method to get the version name
-    //
-    // @return      the version name
-    //
+    /**
+     * Method to get the version name
+     *
+     * @return      the version name
+     */
     public String getVersionName () {
 
-        // Return the version name
+        /* Return the version name */
         return (this.versionName);
 
     }
 
 
 
-    //
-    // Override toString() for this object
-    //
-    // @return      the string representation for this object
-    //
+    /**
+     * Override toString() for this object
+     *
+     * @return      the string representation for this object
+     */
     @Override
     public String toString () {
 
-        // Return the string representation
+        /* Return the string representation */
         return (this.getVersionName());
 
     }
 
 
-    //
-    // Implements toJSONString() for this object
-    //
-    // @return      the JSON string representation for this object
-    //
+    /**
+     * Implements toJSONString() for this object
+     *
+     * @return      the JSON string representation for this object
+     */
     @Override
     public String toJSONString() {
 
-        // Get the version as an escaped JSON string
+        /* Get the version as an escaped JSON string */
         final String jsonString = JSONObject.quote​(this.toString());
 
-        // Return the JSON string
+        /* Return the JSON string */
         return (jsonString);
 
     }
