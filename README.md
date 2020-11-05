@@ -14,4 +14,4 @@ Feed feed = DefaultFeed.fromUrl(jsonString);
 
 ## Credits
 
-Credit go to Martin McCallion [(@devilgate)](https://github.com/devilgate) and his project [devilgate/pertwee](https://github.com/devilgate/pertwee) for inspiring this.
+Credit goes to Martin McCallion [(@devilgate)](https://github.com/devilgate) and his project [devilgate/pertwee](https://github.com/devilgate/pertwee) for inspiring this.
