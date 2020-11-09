@@ -22,13 +22,17 @@ package org.kaderate.jsonfeed;
 import java.net.URL;
 
 
+/* Import JSON stuff */
+import org.json.JSONString;
+
+
 /**
  * Attachment interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public interface Attachment {
+public interface Attachment extends JSONString {
 
     /**
      * Get the URL

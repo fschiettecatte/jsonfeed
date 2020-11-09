@@ -28,7 +28,6 @@ import java.util.List;
 /* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 
 /* Import JSONFeed stuff */
@@ -39,9 +38,9 @@ import org.kaderate.jsonfeed.Author;
  * Default implementation for Author
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class DefaultAuthor implements Author, JSONString {
+public class DefaultAuthor implements Author {
 
 
     /**
@@ -76,7 +75,7 @@ public class DefaultAuthor implements Author, JSONString {
      * @exception   MalformedURLException
      *              If the avatar URL is invalid
      */
-    public static Author fromString(final String jsonString) throws MalformedURLException {
+    protected static Author fromString(final String jsonString) throws MalformedURLException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
@@ -104,7 +103,7 @@ public class DefaultAuthor implements Author, JSONString {
      * @exception   MalformedURLException
      *              If the avatar URL is invalid
      */
-    public static List<Author> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
+    protected static List<Author> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
 
         /* Create the author list */
         final List<Author> authorList = new ArrayList<Author>();
@@ -132,10 +131,10 @@ public class DefaultAuthor implements Author, JSONString {
      * @exception   MalformedURLException
      *              If the avatar URL is invalid
      */
-    public DefaultAuthor(final JSONObject jsonObject) throws MalformedURLException {
+    protected DefaultAuthor(final JSONObject jsonObject) throws MalformedURLException {
 
         /* Get the name */
-        this.setName(jsonObject.optString("name"));
+        this.setName(jsonObject.optString("name", null));
 
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {

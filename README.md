@@ -29,8 +29,10 @@ List<Item> itemList = feed.getItemList()
 // Create a new item
 Item item = new DefaultItem("1");
 item.setTitle("First Item");
+item.setSummary("First item summary.");
+item.setUrl(new URL("https://somehost.com/article/1"));
 
-// Add the item to an item list
+// Create an item list and add the item
 List<Item> itemList = new ArrayList<Item>();
 itemList.add(item)
 
@@ -40,6 +42,8 @@ Feed feed = new DefaultFeed(Version.VERSION_1_1);
 // Add some fields to the feed
 feed.setTitle("Feed Title");
 feed.setDescription("Feed Description");
+feed.setHomePageUrl(new URL("https://somehost.com/"));
+feed.setFeedUrl(new URL("https://somehost.com/feed.json"));
 
 // Add the item list to the feed
 feed.setItemList(itemList);
@@ -51,7 +55,9 @@ String jsonFeedString = feed.toJSONString()
 
 ### Support:
 
-This library supports both [JSONFeed](https://jsonfeed.org/) 1.0 and 1.1, and there is support for 'upgrading' a feed from version 1.0 to 1.1.
+This library supports both [JSONFeed](https://jsonfeed.org/) 1.0 and 1.1, and there is
+support for 'upgrading' a feed from version 1.0 to 1.1. Additionally the parser will
+inspect the feed and upgrade it if needed.
 
 
 

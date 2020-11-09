@@ -1,5 +1,5 @@
 /**
- * AttachmentTest.java
+ * DefaultAttachmentTest.java
  *
  * @author Francois Schiettecatte
  * @version 1.0
@@ -15,7 +15,7 @@
 
 
 /* Package location */
-package org.kaderate.jsonfeed;
+package org.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
@@ -34,17 +34,27 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /* Import JSONFeed stuff */
+import org.kaderate.jsonfeed.Attachment;
+import org.kaderate.jsonfeed.Author;
+import org.kaderate.jsonfeed.Feed;
+import org.kaderate.jsonfeed.Hub;
+import org.kaderate.jsonfeed.Item;
+import org.kaderate.jsonfeed.Version;
 import org.kaderate.jsonfeed.implementation.DefaultAttachment;
+import org.kaderate.jsonfeed.implementation.DefaultAuthor;
+import org.kaderate.jsonfeed.implementation.DefaultFeed;
+import org.kaderate.jsonfeed.implementation.DefaultHub;
+import org.kaderate.jsonfeed.implementation.DefaultItem;
 
 
 
 /**
- * Attachment tests
+ * Default Attachment tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class AttachmentTest {
+public class DefaultAttachmentTest {
 
 
     private static final String TEST_STRING_1_X = "{" +
@@ -63,7 +73,7 @@ public class AttachmentTest {
     @Test
     public void test1() throws MalformedURLException {
 
-        Attachment attachment = DefaultAttachment.fromString(AttachmentTest.TEST_STRING_1_X);
+        Attachment attachment = DefaultAttachment.fromString(DefaultAttachmentTest.TEST_STRING_1_X);
 
         assertNotNull(attachment);
         assertTrue(attachment.isValid());
@@ -113,16 +123,12 @@ public class AttachmentTest {
         assertEquals(attachmentList.get(0).getTitle(), "Dalek Invasion");
         assertEquals(attachmentList.get(0).getSizeInBytes().intValue(), 100);
         assertEquals(attachmentList.get(0).getDurationInSeconds().intValue(), 200);
-        assertNotNull(attachmentList.get(0).toJSONString());
 
         assertEquals(attachmentList.get(1).getUrl().toString(), "https://ham.org/doctorRevenge.m4v");
         assertEquals(attachmentList.get(1).getMimeType(), "video/x-m4v");
         assertEquals(attachmentList.get(1).getTitle(), "Doctor's Revenge");
         assertEquals(attachmentList.get(1).getSizeInBytes().intValue(), 300);
         assertEquals(attachmentList.get(1).getDurationInSeconds().intValue(), 400);
-        assertNotNull(attachmentList.get(1).toJSONString());
-
-        assertNotNull(jsonArray.toString());
 
     }
 

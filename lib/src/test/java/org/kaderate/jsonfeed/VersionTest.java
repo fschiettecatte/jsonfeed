@@ -39,7 +39,7 @@ import static org.junit.Assert.*;
  * Version tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
 public class VersionTest {
 

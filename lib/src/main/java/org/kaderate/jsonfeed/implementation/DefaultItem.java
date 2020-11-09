@@ -30,7 +30,6 @@ import java.time.OffsetDateTime;
 /* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 
 /* Import JSONFeed stuff */
@@ -50,9 +49,9 @@ import org.kaderate.jsonfeed.Version;
  * Default implementation for Item
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class DefaultItem implements Item, JSONString {
+public class DefaultItem implements Item {
 
 
     /**
@@ -134,19 +133,19 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
-     * Author list (JSON feed 1.1 only)
+     * Author list (JSON Feed 1.1 only)
      */
     private List<Author> authorList = new ArrayList<Author>();
 
 
     /**
-     * ag list
+     * Tag list
      */
     private List<String> tagList = new ArrayList<String>();
 
 
     /**
-     * Language (JSON feed 1.1 only)
+     * Language (JSON Feed 1.1 only)
      */
     private String language = null;
 
@@ -161,7 +160,7 @@ public class DefaultItem implements Item, JSONString {
     /**
      * Parse a JSON string and return the item
      *
-     * @param   jsonString  the feed as a JSON string
+     * @param   jsonString  the item as a JSON string
      *
      * @return  the item object
      *
@@ -177,7 +176,7 @@ public class DefaultItem implements Item, JSONString {
      * @exception   MalformedURLException
      *              If the banner image (URL) is invalid
      */
-    public static Item fromString(final String jsonString) throws MalformedURLException {
+    protected static Item fromString(final String jsonString) throws MalformedURLException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
@@ -195,7 +194,7 @@ public class DefaultItem implements Item, JSONString {
     /**
      * Process the JSON array and return the item object list
      *
-     * @param   jsonArray  the JSON array
+     * @param   jsonArray   the JSON array
      *
      * @return  the item object list
      *
@@ -211,7 +210,7 @@ public class DefaultItem implements Item, JSONString {
      * @exception   MalformedURLException
      *              If the banner image (URL) is invalid
      */
-    public static List<Item> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
+    protected static List<Item> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
 
         /* Create the item list */
         final List<Item> itemList = new ArrayList<Item>();
@@ -247,7 +246,7 @@ public class DefaultItem implements Item, JSONString {
     protected DefaultItem(final JSONObject jsonObject) throws MalformedURLException {
 
         /* Get the ID */
-        this.setID(jsonObject.optString("id"));
+        this.setID(jsonObject.optString("id", null));
 
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {
@@ -260,16 +259,16 @@ public class DefaultItem implements Item, JSONString {
         }
 
         /* Get the title */
-        this.setTitle(jsonObject.optString("title"));
+        this.setTitle(jsonObject.optString("title", null));
 
         /* Get the content text */
-        this.setContentText(jsonObject.optString("content_text"));
+        this.setContentText(jsonObject.optString("content_text", null));
 
         /* Get the content HTML */
-        this.setContentHtml(jsonObject.optString("content_html"));
+        this.setContentHtml(jsonObject.optString("content_html", null));
 
         /* Get the summary */
-        this.setSummary(jsonObject.optString("summary"));
+        this.setSummary(jsonObject.optString("summary", null));
 
         /* Get the image (URL) */
         if ( jsonObject.has("image") == true ) {
@@ -292,7 +291,9 @@ public class DefaultItem implements Item, JSONString {
         }
 
         /* Get the language */
-        this.setLanguage(jsonObject.optString("language"));
+        if ( jsonObject.has("language") == true ) {
+            this.setLanguage(jsonObject.getString("language"));
+        }
 
         /* Get the author */
         if ( jsonObject.has("author") == true ) {
@@ -325,7 +326,7 @@ public class DefaultItem implements Item, JSONString {
     /**
      * Constructor
      *
-     * @param   id  the ID
+     * @param   id          the ID
      */
     public DefaultItem(final String id) {
 
@@ -682,7 +683,7 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
-     * Get the author list (JSON feed 1.1 only)
+     * Get the author list (JSON Feed 1.1 only)
      *
      * @return  the author list, empty list if there are no authors
      */
@@ -696,14 +697,16 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
-     * Set the author list (JSON feed 1.1 only)
+     * Set the author list (JSON Feed 1.1 only)
      *
      * @param   authorList  the author list
      */
     @Override
     public void setAuthorList(List<Author> authorList) {
 
-       this.authorList = authorList;
+        this.upgrade(Version.VERSION_1_1);
+
+        this.authorList = authorList;
 
     }
 
@@ -738,7 +741,7 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
-     * Get the language (JSON feed 1.1 only)
+     * Get the language (JSON Feed 1.1 only)
      *
      * @return  the language, null if not specified
      */
@@ -752,14 +755,16 @@ public class DefaultItem implements Item, JSONString {
 
 
     /**
-     * Set the language (JSON feed 1.1 only)
+     * Set the language (JSON Feed 1.1 only)
      *
      * @param   language  the language
      */
     @Override
     public void setLanguage(String language) {
 
-       this.language = language;
+        this.upgrade(Version.VERSION_1_1);
+
+        this.language = language;
 
     }
 
@@ -807,6 +812,35 @@ public class DefaultItem implements Item, JSONString {
         }
 
         return (false);
+
+    }
+
+
+
+    /**
+     * Upgrade this item to the passed version
+     *
+     * @param   toVersion       to version
+     *
+     * @return  true if the item was upgraded
+     */
+    public boolean upgrade(final Version toVersion) {
+
+        /* Upgrade flag */
+        boolean itemUpgraded = false;
+
+        /* Upgrade to version 1.1 */
+        if ( toVersion == Version.VERSION_1_1 ) {
+
+            /* Upgrade the item author */
+            if ( this.getAuthor() != null ) {
+                this.authorList.add(this.getAuthor());
+                this.setAuthor(null);
+                itemUpgraded = true;
+            }
+        }
+
+        return (itemUpgraded);
 
     }
 
@@ -876,14 +910,13 @@ public class DefaultItem implements Item, JSONString {
             jsonObject.put("date_modified", this.getDateModified().toString());
         }
 
-        /* Add the author */
-        if ( this.getAuthor() != null ) {
-            jsonObject.put("author", this.getAuthor());
-        }
-
         /* Add the authors */
         if ( (this.getAuthorList() != null) && (this.getAuthorList().size() > 0) ) {
             jsonObject.put("authors", this.getAuthorList());
+        }
+        /* Add the author */
+        else if ( this.getAuthor() != null ) {
+            jsonObject.put("author", this.getAuthor());
         }
 
         /* Add the tags */
@@ -906,40 +939,6 @@ public class DefaultItem implements Item, JSONString {
 
         /* Return the JSON string */
         return (jsonString);
-
-    }
-
-
-
-    /**
-     * Upgrade this item to the passed version
-     *
-     * @param   fromVersion     from version
-     * @param   toVersion       to version
-     *
-     * @return  true if the item was upgraded, false if not
-     */
-    public boolean upgrade(final Version fromVersion, final Version toVersion) {
-
-        /* We can only upgrade the item */
-        if ( toVersion.getVersionID() <= fromVersion.getVersionID() ) {
-            return (false);
-        }
-
-
-        /* Upgrade from version 1.0 to version 1.1 */
-        if ( (fromVersion == Version.VERSION_1_0) && (toVersion == Version.VERSION_1_1) ) {
-
-            /* Upgrade the item author */
-            if ( this.getAuthor() != null ) {
-                this.authorList.add(this.getAuthor());
-                this.author = null;
-            }
-        }
-
-
-        /* Item was upgraded */
-        return (true);
 
     }
 

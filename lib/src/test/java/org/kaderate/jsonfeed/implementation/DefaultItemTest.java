@@ -1,5 +1,5 @@
 /**
- * ItemTest.java
+ * DefaultItemTest.java
  *
  * @item Francois Schiettecatte
  * @version 1.0
@@ -15,7 +15,7 @@
 
 
 /* Package location */
-package org.kaderate.jsonfeed;
+package org.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
@@ -36,20 +36,27 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /* Import JSONFeed stuff */
+import org.kaderate.jsonfeed.Attachment;
+import org.kaderate.jsonfeed.Author;
+import org.kaderate.jsonfeed.Feed;
+import org.kaderate.jsonfeed.Hub;
+import org.kaderate.jsonfeed.Item;
 import org.kaderate.jsonfeed.Version;
 import org.kaderate.jsonfeed.implementation.DefaultAttachment;
 import org.kaderate.jsonfeed.implementation.DefaultAuthor;
+import org.kaderate.jsonfeed.implementation.DefaultFeed;
+import org.kaderate.jsonfeed.implementation.DefaultHub;
 import org.kaderate.jsonfeed.implementation.DefaultItem;
 
 
 
 /**
- * Item tests
+ * Default Item tests
  *
  * @item François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class ItemTest {
+public class DefaultItemTest {
 
 
     private static final String TEST_STRING_1_0 = "{" +
@@ -142,7 +149,7 @@ public class ItemTest {
     @Test
     public void test1() throws MalformedURLException {
 
-        Item item = DefaultItem.fromString(ItemTest.TEST_STRING_1_0);
+        Item item = DefaultItem.fromString(DefaultItemTest.TEST_STRING_1_0);
 
         assertNotNull(item);
         assertTrue(item.isValid());
@@ -243,7 +250,6 @@ public class ItemTest {
         assertEquals(itemList.get(0).getBannerImage().toString(), "https://ham.org/banner1.png");
         assertEquals(itemList.get(0).getDatePublished().toString(), "2010-02-07T19:04:00Z");
         assertEquals(itemList.get(0).getDateModified().toString(), "2010-02-09T19:04:00Z");
-        assertNotNull(itemList.get(0).toJSONString());
 
         assertTrue(itemList.get(1).isValid());
         assertEquals(itemList.get(1).getID(), "2");
@@ -257,9 +263,6 @@ public class ItemTest {
         assertEquals(itemList.get(1).getBannerImage().toString(), "https://ham.org/banner2.png");
         assertEquals(itemList.get(1).getDatePublished().toString(), "2010-02-11T19:04:00Z");
         assertEquals(itemList.get(1).getDateModified().toString(), "2010-02-13T19:04:00Z");
-        assertNotNull(itemList.get(1).toJSONString());
-
-        assertNotNull(jsonArray.toString());
 
     }
 
@@ -270,7 +273,7 @@ public class ItemTest {
     @Test
     public void test3() throws MalformedURLException {
 
-        Item item = DefaultItem.fromString(ItemTest.TEST_STRING_1_1);
+        Item item = DefaultItem.fromString(DefaultItemTest.TEST_STRING_1_1);
 
         assertNotNull(item);
         assertTrue(item.isValid());
@@ -379,7 +382,6 @@ public class ItemTest {
         assertEquals(itemList.get(0).getDatePublished().toString(), "2010-02-07T19:04:00Z");
         assertEquals(itemList.get(0).getDateModified().toString(), "2010-02-09T19:04:00Z");
         assertEquals(itemList.get(0).getLanguage(), "en-US");
-        assertNotNull(itemList.get(0).toJSONString());
 
         assertTrue(itemList.get(1).isValid());
         assertEquals(itemList.get(1).getID(), "2");
@@ -394,9 +396,6 @@ public class ItemTest {
         assertEquals(itemList.get(1).getDatePublished().toString(), "2010-02-11T19:04:00Z");
         assertEquals(itemList.get(1).getDateModified().toString(), "2010-02-13T19:04:00Z");
         assertEquals(itemList.get(1).getLanguage(), "en-US");
-        assertNotNull(itemList.get(1).toJSONString());
-
-        assertNotNull(jsonArray.toString());
 
     }
 
@@ -407,7 +406,7 @@ public class ItemTest {
     @Test
     public void test5() throws MalformedURLException {
 
-        Item item = DefaultItem.fromString(ItemTest.TEST_STRING_1_0);
+        Item item = DefaultItem.fromString(DefaultItemTest.TEST_STRING_1_0);
 
         assertNotNull(item);
         assertTrue(item.isValid());
@@ -417,7 +416,7 @@ public class ItemTest {
         assertEquals(item.getAuthor().getUrl().toString(), "https://ham.org/authorJast.html");
         assertEquals(item.getAuthor().getAvatar().toString(), "https://ham.org/avatarJast.html");
 
-        assertTrue(((DefaultItem)item).upgrade(Version.VERSION_1_0, Version.VERSION_LATEST));
+        assertTrue(((DefaultItem)item).upgrade(Version.VERSION_1_1));
         assertTrue(item.isValid());
 
         assertNotNull(item.getAuthorList());
@@ -465,7 +464,6 @@ public class ItemTest {
         item.setDatePublished(OffsetDateTime.parse("2010-02-07T14:04:00-05:00").toInstant());
         item.setDateModified(OffsetDateTime.parse("2010-02-13T14:04:00-05:00").toInstant());
         item.setLanguage("en-US");
-        item.setAuthor(new DefaultAuthor("Dalek Caan", new URL("https://ham.org/authorCaan.html"), new URL("https://ham.org/avatarCaan.html")));
 
         List<Author> authorList = new ArrayList<Author>();
         authorList.add(new DefaultAuthor("Dalek Jast", new URL("https://ham.org/authorJast.html"), new URL("https://ham.org/avatarJast.html")));
@@ -496,12 +494,6 @@ public class ItemTest {
         assertEquals(item.getDatePublished().toString(), "2010-02-07T19:04:00Z");
         assertEquals(item.getDateModified().toString(), "2010-02-13T19:04:00Z");
         assertEquals(item.getLanguage(), "en-US");
-
-        assertNotNull(item.getAuthor());
-        assertTrue(item.getAuthor().isValid());
-        assertEquals(item.getAuthor().getName(), "Dalek Caan");
-        assertEquals(item.getAuthor().getUrl().toString(), "https://ham.org/authorCaan.html");
-        assertEquals(item.getAuthor().getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertNotNull(item.getAuthorList());
         assertTrue(item.getAuthorList().size() == 2);

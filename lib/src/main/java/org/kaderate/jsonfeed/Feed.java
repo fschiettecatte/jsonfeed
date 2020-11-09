@@ -23,6 +23,10 @@ import java.net.URL;
 import java.util.List;
 
 
+/* Import JSON stuff */
+import org.json.JSONString;
+
+
 /* Import JSONFeed stuff */
 import org.kaderate.jsonfeed.Author;
 import org.kaderate.jsonfeed.Hub;
@@ -34,9 +38,9 @@ import org.kaderate.jsonfeed.Version;
  * Feed interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public interface Feed {
+public interface Feed extends JSONString {
 
 
     /**
@@ -192,7 +196,7 @@ public interface Feed {
 
 
     /**
-     * Get the author list (JSON feed 1.1 only)
+     * Get the author list (JSON Feed 1.1 only)
      *
      * @return  the author list, empty list if there are no authors
      */
@@ -200,7 +204,7 @@ public interface Feed {
 
 
     /**
-     * Set the author list (JSON feed 1.1 only)
+     * Set the author list (JSON Feed 1.1 only)
      *
      * @param   authorList  the author list
      */
@@ -208,7 +212,7 @@ public interface Feed {
 
 
     /**
-     * Get the language (JSON feed 1.1 only)
+     * Get the language (JSON Feed 1.1 only)
      *
      * @return  the language, null if not specified
      */
