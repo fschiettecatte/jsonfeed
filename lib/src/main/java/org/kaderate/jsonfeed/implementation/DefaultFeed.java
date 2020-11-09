@@ -28,7 +28,6 @@ import java.util.List;
 /* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 
 /* Import JSONFeed stuff */
@@ -46,15 +45,15 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default implementation for Feed
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class DefaultFeed implements Feed, JSONString {
+public class DefaultFeed implements Feed {
 
 
     /**
-     * Version
+     * Version, defaults to 1.0
      */
-    private Version version = null;
+    private Version version = Version.VERSION_1_0;
 
 
     /**
@@ -112,13 +111,13 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
-     * Author list (JSON feed 1.1 only)
+     * Author list (JSON Feed 1.1 only)
      */
     private List<Author> authorList = new ArrayList<Author>();
 
 
     /**
-     * Language (JSON feed 1.1 only)
+     * Language (JSON Feed 1.1 only)
      */
     private String language = null;
 
@@ -163,6 +162,9 @@ public class DefaultFeed implements Feed, JSONString {
      *
      * @exception   MalformedURLException
      *              If the favicon (URL) is invalid
+     *
+     * @exception   IllegalArgumentException
+     *              If the version is missing or invalid
      */
     public static Feed fromString(final String jsonString) throws MalformedURLException {
 
@@ -197,14 +199,25 @@ public class DefaultFeed implements Feed, JSONString {
      *
      * @exception   MalformedURLException
      *              If the favicon (URL) is invalid
+     *
+     * @exception   IllegalArgumentException
+     *              If the version is missing or invalid
      */
     protected DefaultFeed(final JSONObject jsonObject) throws MalformedURLException {
 
-        /* Get the version */
-        this.version = Version.fromString(jsonObject.optString("version"));
+        /* Get the version, required */
+        if ( jsonObject.has("version") == true ) {
+            this.version = Version.fromString(jsonObject.getString("version"));
+            if ( this.version == null ) {
+                throw new IllegalArgumentException("Invalid version value");
+            }
+        }
+        else {
+            throw new IllegalArgumentException("Missing version");
+        }
 
         /* Get the title */
-        this.setTitle(jsonObject.optString("title"));
+        this.setTitle(jsonObject.optString("title", null));
 
         /* Get the home page URL */
         if ( jsonObject.has("home_page_url") == true ) {
@@ -217,10 +230,10 @@ public class DefaultFeed implements Feed, JSONString {
         }
 
         /* Get the description */
-        this.setDescription(jsonObject.optString("description"));
+        this.setDescription(jsonObject.optString("description", null));
 
         /* Get the user comment */
-        this.setUserComment(jsonObject.optString("user_comment"));
+        this.setUserComment(jsonObject.optString("user_comment", null));
 
         /* Get the next URL */
         if ( jsonObject.has("next_url") == true ) {
@@ -238,7 +251,9 @@ public class DefaultFeed implements Feed, JSONString {
         }
 
         /* Get the language */
-        this.setLanguage(jsonObject.optString("language"));
+        if ( jsonObject.has("language") == true ) {
+            this.setLanguage(jsonObject.getString("language"));
+        }
 
         /* Get the expired */
         if ( jsonObject.has("expired") == true ) {
@@ -265,6 +280,10 @@ public class DefaultFeed implements Feed, JSONString {
             this.setItemList(DefaultItem.fromJsonArray(jsonObject.getJSONArray("items")));
         }
 
+
+        /* Normalize the feed */
+        this.normalize();
+
     }
 
 
@@ -272,21 +291,12 @@ public class DefaultFeed implements Feed, JSONString {
     /**
      * Constructor
      *
-     * @param   version     the version
      * @param   title       the title
      * @param   itemList    the item list
-     *
-     * @exception   NullPointerException  if the version is null
      */
-    public DefaultFeed(final Version version, final String title, final List<Item> itemList) {
+    public DefaultFeed(final String title, final List<Item> itemList) {
 
-        /* Check the version */
-        if ( version == null ) {
-            throw new NullPointerException("Null version parameter");
-        }
-
-        /* Set the version, title and item list */
-        this.version = version;
+        /* Set the title and item list */
         this.setTitle(title);
         this.setItemList(itemList);
 
@@ -296,20 +306,8 @@ public class DefaultFeed implements Feed, JSONString {
 
     /**
      * Constructor
-     *
-     * @param   version     the version
-     *
-     * @exception   NullPointerException  if the version is null
      */
-    public DefaultFeed(final Version version) {
-
-        /* Check the version */
-        if ( version == null ) {
-            throw new NullPointerException("Null version parameter");
-        }
-
-        /* Set the version */
-        this.version = version;
+    public DefaultFeed() {
 
     }
 
@@ -575,14 +573,14 @@ public class DefaultFeed implements Feed, JSONString {
     @Override
     public void setAuthor(Author author) {
 
-       this.author = author;
+        this.author = author;
 
     }
 
 
 
     /**
-     * Get the author list (JSON feed 1.1 only)
+     * Get the author list (JSON Feed 1.1 only)
      *
      * @return  the author list, empty list if there are no authors
      */
@@ -596,21 +594,21 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
-     * Set the author list (JSON feed 1.1 only)
+     * Set the author list (JSON Feed 1.1 only)
      *
      * @param   authorList  the author list
      */
     @Override
     public void setAuthorList(List<Author> authorList) {
 
-       this.authorList = authorList;
+        this.authorList = authorList;
 
     }
 
 
 
     /**
-     * Get the language (JSON feed 1.1 only)
+     * Get the language (JSON Feed 1.1 only)
      *
      * @return  the language, null if not specified
      */
@@ -624,14 +622,14 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
-     * Set the language (JSON feed 1.1 only)
+     * Set the language (JSON Feed 1.1 only)
      *
      * @param   language  the language
      */
     @Override
     public void setLanguage(String language) {
 
-       this.language = language;
+        this.language = language;
 
     }
 
@@ -659,7 +657,7 @@ public class DefaultFeed implements Feed, JSONString {
     @Override
     public void setExpired(Boolean expired) {
 
-       this.expired = expired;
+        this.expired = expired;
 
     }
 
@@ -687,7 +685,7 @@ public class DefaultFeed implements Feed, JSONString {
     @Override
     public void setHubList(List<Hub> hubList) {
 
-       this.hubList = hubList;
+        this.hubList = hubList;
 
     }
 
@@ -715,7 +713,14 @@ public class DefaultFeed implements Feed, JSONString {
     @Override
     public void setItemList(List<Item> itemList) {
 
-       this.itemList = itemList;
+        /* Check the item version */
+        if ( itemList != null ) {
+            for ( final Item item : itemList ) {
+                ((DefaultItem)item).upgrade(this.getVersion());
+            }
+        }
+
+        this.itemList = itemList;
 
     }
 
@@ -753,12 +758,122 @@ public class DefaultFeed implements Feed, JSONString {
 
 
     /**
+     * Upgrade this feed to the passed version
+     *
+     * @param   toVersion       to version
+     *
+     * @return  true if the feed was upgraded
+     */
+    public boolean upgrade(final Version toVersion) {
+
+        /* Upgrade flag */
+        boolean feedUpgraded = false;
+
+        /* Upgrade to version 1.1 */
+        if ( toVersion == Version.VERSION_1_1 ) {
+
+            /* Upgrade the feed author */
+            if ( this.getAuthor() != null ) {
+                this.authorList.add(this.getAuthor());
+                this.setAuthor(null);
+                feedUpgraded = true;
+            }
+
+            /* Upgrade every item */
+            for ( final Item item : this.getItemList() ) {
+                feedUpgraded |= ((DefaultItem)item).upgrade(toVersion);
+            }
+
+            /* Update the version number */
+            if ( this.getVersion() != toVersion ) {
+                this.version = toVersion;
+                feedUpgraded = true;
+            }
+        }
+
+        /* Feed was not upgraded */
+        return (feedUpgraded);
+
+    }
+
+
+
+    /**
+     * Normalize this feed if needed
+     *
+     * @return  true if the feed was normalized
+     */
+    private boolean normalize() {
+
+        /* Detected versions */
+        boolean detectedVersion_1_0 = false;
+        boolean detectedVersion_1_1 = false;
+
+        /* Check language */
+        if ( this.getLanguage() != null ) {
+            detectedVersion_1_1 = true;
+        }
+
+        /* Check author list */
+        if ( (this.getAuthorList() != null) && (this.getAuthorList().size() > 0) ) {
+            detectedVersion_1_1 = true;
+        }
+
+        /* Check author */
+        if ( this.getAuthor() != null ) {
+            detectedVersion_1_0 = true;
+        }
+
+        /* Check item language / author list / author */
+        for ( final Item item : this.getItemList() ) {
+            if ( item.getLanguage() != null ) {
+                detectedVersion_1_1 = true;
+            }
+            if ( (item.getAuthorList() != null) && (item.getAuthorList().size() > 0) ) {
+                detectedVersion_1_1 = true;
+            }
+            if ( this.getAuthor() != null ) {
+                detectedVersion_1_0 = true;
+            }
+        }
+
+
+        /* Both version 1.0 and 1.1 elements were detected, upgrade to 1.1 */
+        if ( (detectedVersion_1_0 == true) && (detectedVersion_1_1 == true) ) {
+            return (this.upgrade(Version.VERSION_1_1));
+        }
+
+        /* Version 1.1 elements were detected and the feed version is 1.0, upgrade to 1.1 */
+        else if ( (detectedVersion_1_1 == true) && (this.getVersion() == Version.VERSION_1_0) ) {
+            return (this.upgrade(Version.VERSION_1_1));
+        }
+
+        /* Version 1.0 elements were detected and the feed version is 1.1, upgrade to 1.1 */
+        else if ( (detectedVersion_1_0 == true) && (this.getVersion() == Version.VERSION_1_1) ) {
+            return (this.upgrade(Version.VERSION_1_1));
+        }
+
+
+        /* Feed was not normalized */
+        return (false);
+
+    }
+
+
+
+    /**
      * Return the JSON string representation for this object
+     *
+     * The feed will be upgaded from version 1.0 to 1.1 if needed
      *
      * @return      the JSON string representation for this object
      */
     @Override
     public String toJSONString() {
+
+        /* Normalize the feed */
+        this.normalize();
+
 
         /* Create the JSON object */
         final JSONObject jsonObject = new JSONObject();
@@ -804,14 +919,13 @@ public class DefaultFeed implements Feed, JSONString {
             jsonObject.put("favicon", this.getFavicon().toString());
         }
 
-        /* Add the author */
-        if ( this.getAuthor() != null ) {
-            jsonObject.put("author", this.getAuthor());
-        }
-
         /* Add the authors */
         if ( (this.getAuthorList() != null) && (this.getAuthorList().size() > 0) ) {
             jsonObject.put("authors", this.getAuthorList());
+        }
+        /* Add the author */
+        else if ( this.getAuthor() != null ) {
+            jsonObject.put("author", this.getAuthor());
         }
 
         /* Add the language */
@@ -839,47 +953,6 @@ public class DefaultFeed implements Feed, JSONString {
 
         /* Return the JSON string */
         return (jsonString);
-
-    }
-
-
-
-    /**
-     * Upgrade this feed to the passed version
-     *
-     * @param   toVersion       to version
-     *
-     * @return  true if the feed was upgraded, false if not
-     */
-    public boolean upgrade(final Version toVersion) {
-
-        /* We can only upgrade the feed */
-        if ( toVersion.getVersionID() <= this.getVersion().getVersionID() ) {
-            return (false);
-        }
-
-
-        /* Upgrade from version 1.0 to version 1.1 */
-        if ( (this.getVersion() == Version.VERSION_1_0) && (toVersion == Version.VERSION_1_1) ) {
-
-            /* Upgrade the feed author */
-            if ( this.getAuthor() != null ) {
-                this.authorList.add(this.getAuthor());
-                this.author = null;
-            }
-
-            /* Upgrade every item */
-            for ( final Item item : this.getItemList() ) {
-                ((DefaultItem)item).upgrade(this.getVersion(), toVersion);
-            }
-
-            /* Upgrade the version number */
-            this.version = toVersion;
-        }
-
-
-        /* Feed was upgraded */
-        return (true);
 
     }
 

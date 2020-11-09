@@ -1,5 +1,5 @@
 /**
- * HubTest.java
+ * DefaultHubTest.java
  *
  * @author Francois Schiettecatte
  * @version 1.0
@@ -15,7 +15,7 @@
 
 
 /* Package location */
-package org.kaderate.jsonfeed;
+package org.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
@@ -34,17 +34,27 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /* Import JSONFeed stuff */
+import org.kaderate.jsonfeed.Attachment;
+import org.kaderate.jsonfeed.Author;
+import org.kaderate.jsonfeed.Feed;
+import org.kaderate.jsonfeed.Hub;
+import org.kaderate.jsonfeed.Item;
+import org.kaderate.jsonfeed.Version;
+import org.kaderate.jsonfeed.implementation.DefaultAttachment;
+import org.kaderate.jsonfeed.implementation.DefaultAuthor;
+import org.kaderate.jsonfeed.implementation.DefaultFeed;
 import org.kaderate.jsonfeed.implementation.DefaultHub;
+import org.kaderate.jsonfeed.implementation.DefaultItem;
 
 
 
 /**
- * Hub tests
+ * Default Hub tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class HubTest {
+public class DefaultHubTest {
 
 
     private static final String TEST_STRING_1_X = "{" +
@@ -60,7 +70,7 @@ public class HubTest {
     @Test
     public void test1() throws MalformedURLException {
 
-        Hub hub = DefaultHub.fromString(HubTest.TEST_STRING_1_X);
+        Hub hub = DefaultHub.fromString(DefaultHubTest.TEST_STRING_1_X);
 
         assertNotNull(hub);
         assertTrue(hub.isValid());
@@ -98,13 +108,9 @@ public class HubTest {
 
         assertEquals(hubList.get(0).getType(), "Tardis");
         assertEquals(hubList.get(0).getUrl().toString(), "https://ham.org/tardis.html");
-        assertNotNull(hubList.get(0).toJSONString());
 
         assertEquals(hubList.get(1).getType(), "Timeship");
         assertEquals(hubList.get(1).getUrl().toString(), "https://ham.org/timeship.html");
-        assertNotNull(hubList.get(1).toJSONString());
-
-        assertNotNull(jsonArray.toString());
 
     }
 

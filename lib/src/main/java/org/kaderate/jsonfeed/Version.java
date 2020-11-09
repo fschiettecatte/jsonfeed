@@ -32,7 +32,7 @@ import org.json.JSONString;
  * Version enum
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
 public enum Version implements JSONString {
 
@@ -60,13 +60,6 @@ public enum Version implements JSONString {
         /* Add a truncated version 1 string */
         Version.nameToEnum.put("https://jsonfeed.org/version/1", Version.VERSION_1_0);
     }
-
-
-
-    /**
-     * Latest version
-     */
-    public static final Version VERSION_LATEST = Version.VERSION_1_1;
 
 
 

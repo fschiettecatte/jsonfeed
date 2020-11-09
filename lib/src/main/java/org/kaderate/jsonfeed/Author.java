@@ -22,13 +22,17 @@ package org.kaderate.jsonfeed;
 import java.net.URL;
 
 
+/* Import JSON stuff */
+import org.json.JSONString;
+
+
 /**
  * Author interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public interface Author {
+public interface Author extends JSONString {
 
 
     /**

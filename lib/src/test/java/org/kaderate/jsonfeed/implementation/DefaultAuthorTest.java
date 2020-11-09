@@ -1,5 +1,5 @@
 /**
- * AuthorTest.java
+ * DefaultAuthorTest.java
  *
  * @author Francois Schiettecatte
  * @version 1.0
@@ -15,7 +15,7 @@
 
 
 /* Package location */
-package org.kaderate.jsonfeed;
+package org.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
@@ -34,17 +34,27 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /* Import JSONFeed stuff */
+import org.kaderate.jsonfeed.Attachment;
+import org.kaderate.jsonfeed.Author;
+import org.kaderate.jsonfeed.Feed;
+import org.kaderate.jsonfeed.Hub;
+import org.kaderate.jsonfeed.Item;
+import org.kaderate.jsonfeed.Version;
+import org.kaderate.jsonfeed.implementation.DefaultAttachment;
 import org.kaderate.jsonfeed.implementation.DefaultAuthor;
+import org.kaderate.jsonfeed.implementation.DefaultFeed;
+import org.kaderate.jsonfeed.implementation.DefaultHub;
+import org.kaderate.jsonfeed.implementation.DefaultItem;
 
 
 
 /**
- * Author tests
+ * Default Author tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class AuthorTest {
+public class DefaultAuthorTest {
 
 
     private static final String TEST_STRING_1_X = "{" +
@@ -61,7 +71,7 @@ public class AuthorTest {
     @Test
     public void test1() throws MalformedURLException {
 
-        Author author = DefaultAuthor.fromString(AuthorTest.TEST_STRING_1_X);
+        Author author = DefaultAuthor.fromString(DefaultAuthorTest.TEST_STRING_1_X);
 
         assertNotNull(author);
         assertTrue(author.isValid());
@@ -103,14 +113,10 @@ public class AuthorTest {
         assertEquals(authorList.get(0).getName(), "Dalek Caan");
         assertEquals(authorList.get(0).getUrl().toString(), "https://ham.org/authorCaan.html");
         assertEquals(authorList.get(0).getAvatar().toString(), "https://ham.org/avatarCaan.html");
-        assertNotNull(authorList.get(0).toJSONString());
 
         assertEquals(authorList.get(1).getName(), "Dalek Jast");
         assertEquals(authorList.get(1).getUrl().toString(), "https://ham.org/authorJast.html");
         assertEquals(authorList.get(1).getAvatar().toString(), "https://ham.org/avatarJast.html");
-        assertNotNull(authorList.get(1).toJSONString());
-
-        assertNotNull(jsonArray.toString());
 
     }
 

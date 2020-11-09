@@ -1,5 +1,5 @@
 /**
- * FeedTest.java
+ * DefaultFeedTest.java
  *
  * @author Francois Schiettecatte
  * @version 1.0
@@ -15,7 +15,7 @@
 
 
 /* Package location */
-package org.kaderate.jsonfeed;
+package org.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
@@ -40,7 +40,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /* Import JSONFeed stuff */
+import org.kaderate.jsonfeed.Attachment;
+import org.kaderate.jsonfeed.Author;
+import org.kaderate.jsonfeed.Feed;
+import org.kaderate.jsonfeed.Hub;
+import org.kaderate.jsonfeed.Item;
 import org.kaderate.jsonfeed.Version;
+import org.kaderate.jsonfeed.implementation.DefaultAttachment;
 import org.kaderate.jsonfeed.implementation.DefaultAuthor;
 import org.kaderate.jsonfeed.implementation.DefaultFeed;
 import org.kaderate.jsonfeed.implementation.DefaultHub;
@@ -49,12 +55,12 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
 
 
 /**
- * Feed tests
+ * Default Feed tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class FeedTest {
+public class DefaultFeedTest {
 
 
     private static final String TEST_STRING_1_0 = "{" +
@@ -209,7 +215,7 @@ public class FeedTest {
     @Test
     public void test1() throws MalformedURLException {
 
-        Feed feed = DefaultFeed.fromString(FeedTest.TEST_STRING_1_0);
+        Feed feed = DefaultFeed.fromString(DefaultFeedTest.TEST_STRING_1_0);
 
         assertNotNull(feed);
         assertTrue(feed.isValid());
@@ -286,7 +292,7 @@ public class FeedTest {
     @Test
     public void test2() throws MalformedURLException {
 
-        Feed feed = DefaultFeed.fromString(FeedTest.TEST_STRING_1_1);
+        Feed feed = DefaultFeed.fromString(DefaultFeedTest.TEST_STRING_1_1);
 
         assertNotNull(feed);
         assertTrue(feed.isValid());
@@ -373,10 +379,7 @@ public class FeedTest {
     @Test
     public void test3() throws MalformedURLException {
 
-        assertEquals(Version.VERSION_LATEST, Version.VERSION_1_1);
-
-
-        Feed feed = DefaultFeed.fromString(FeedTest.TEST_STRING_1_0);
+        Feed feed = DefaultFeed.fromString(DefaultFeedTest.TEST_STRING_1_0);
 
         assertNotNull(feed);
         assertTrue(feed.isValid());
@@ -473,7 +476,6 @@ public class FeedTest {
 //                 stringBuilder.append(buffer, 0, numChars);
 //             }
 //
-//
 //             Feed feed = DefaultFeed.fromString(stringBuilder.toString());
 //
 //             assertNotNull(feed);
@@ -496,7 +498,7 @@ public class FeedTest {
         Item item = new DefaultItem("1");
         itemList.add(item);
 
-        Feed feed = new DefaultFeed(Version.VERSION_1_1, "Feed Feed", itemList);
+        Feed feed = new DefaultFeed("Feed Feed", itemList);
 
         assertTrue(item.isValid());
 
@@ -507,7 +509,7 @@ public class FeedTest {
         assertTrue(feed.getItemList().get(0).isValid());
         assertEquals(feed.getItemList().get(0).getID(), "1");
 
-        assertNotNull(item.toJSONString());
+        assertNotNull(feed.toJSONString());
 
     }
 
@@ -522,7 +524,7 @@ public class FeedTest {
         Item item = new DefaultItem("1");
         itemList.add(item);
 
-        Feed feed = new DefaultFeed(Version.VERSION_1_1, "Feed Feed", itemList);
+        Feed feed = new DefaultFeed("Feed Feed", itemList);
         feed.setHomePageUrl(new URL("https://ham.org/"));
         feed.setFeedUrl(new URL("https://ham.org/feed.json"));
         feed.setDescription("Ham Feed Description");
@@ -532,7 +534,6 @@ public class FeedTest {
         feed.setFavicon(new URL("https://ham.org/favicon.jpg"));
         feed.setLanguage("en-US");
         feed.setExpired(false);
-        feed.setAuthor(new DefaultAuthor("Dalek Caan", new URL("https://ham.org/authorCaan.html"), new URL("https://ham.org/avatarCaan.html")));
 
         List<Author> authorList = new ArrayList<Author>();
         authorList.add(new DefaultAuthor("Dalek Jast", new URL("https://ham.org/authorJast.html"), new URL("https://ham.org/avatarJast.html")));
@@ -545,7 +546,6 @@ public class FeedTest {
 
         assertTrue(feed.isValid());
 
-        assertEquals(feed.getVersion(), Version.VERSION_1_1);
         assertEquals(feed.getTitle(), "Feed Feed");
         assertEquals(feed.getHomePageUrl().toString(), "https://ham.org/");
         assertEquals(feed.getFeedUrl().toString(), "https://ham.org/feed.json");
@@ -556,12 +556,6 @@ public class FeedTest {
         assertEquals(feed.getFavicon().toString(), "https://ham.org/favicon.jpg");
         assertEquals(feed.getLanguage(), "en-US");
         assertEquals(feed.getExpired(), false);
-
-        assertNotNull(feed.getAuthor());
-        assertTrue(feed.getAuthor().isValid());
-        assertEquals(feed.getAuthor().getName(), "Dalek Caan");
-        assertEquals(feed.getAuthor().getUrl().toString(), "https://ham.org/authorCaan.html");
-        assertEquals(feed.getAuthor().getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertNotNull(feed.getAuthorList());
         assertTrue(feed.getAuthorList().size() == 2);
@@ -585,33 +579,9 @@ public class FeedTest {
         assertEquals(feed.getHubList().get(0).getType(), "Tardis");
         assertEquals(feed.getHubList().get(0).getUrl().toString(), "https://ham.org/tardis.html");
 
-        assertNotNull(item.toJSONString());
+        assertNotNull(feed.toJSONString());
 
-    }
-
-
-
-
-    /**
-     * Test 7
-     */
-    @Test
-    public void test7() {
-
-        Feed feed = new DefaultFeed(Version.VERSION_1_1);
-        assertFalse(feed.isValid());
-
-        feed = new DefaultFeed(Version.VERSION_1_1);
-        feed.setTitle("Feed Feed");
-        assertFalse(feed.isValid());
-
-        feed = new DefaultFeed(Version.VERSION_1_1);
-        assertFalse(feed.isValid());
-
-        feed = new DefaultFeed(Version.VERSION_1_1);
-        feed.setTitle("Feed Feed");
-        feed.setItemList(new ArrayList<Item>());
-        assertFalse(feed.isValid());
+        assertEquals(feed.getVersion(), Version.VERSION_1_1);
 
     }
 

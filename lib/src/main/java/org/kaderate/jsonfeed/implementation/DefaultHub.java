@@ -28,7 +28,6 @@ import java.util.List;
 /* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 
 /* Import JSONFeed stuff */
@@ -39,9 +38,9 @@ import org.kaderate.jsonfeed.Hub;
  * Default implementation for Hub
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class DefaultHub implements Hub, JSONString {
+public class DefaultHub implements Hub {
 
 
     /**
@@ -67,7 +66,7 @@ public class DefaultHub implements Hub, JSONString {
      * @exception   MalformedURLException
      *              If the URL is invalid
      */
-    public static Hub fromString(final String jsonString) throws MalformedURLException {
+    protected static Hub fromString(final String jsonString) throws MalformedURLException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
@@ -92,7 +91,7 @@ public class DefaultHub implements Hub, JSONString {
      * @exception   MalformedURLException
      *              If the URL is invalid
      */
-    public static List<Hub> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
+    protected static List<Hub> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
 
         /* Create the hub list */
         final List<Hub> hubList = new ArrayList<Hub>();
@@ -117,10 +116,10 @@ public class DefaultHub implements Hub, JSONString {
      * @exception   MalformedURLException
      *              If the URL is invalid
      */
-    public DefaultHub(final JSONObject jsonObject) throws MalformedURLException {
+    protected DefaultHub(final JSONObject jsonObject) throws MalformedURLException {
 
         /* Get the type */
-        this.setType(jsonObject.optString("type"));
+        this.setType(jsonObject.optString("type", null));
 
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {

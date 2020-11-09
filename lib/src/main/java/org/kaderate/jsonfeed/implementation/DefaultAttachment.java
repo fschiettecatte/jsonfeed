@@ -28,7 +28,6 @@ import java.util.List;
 /* Import JSON stuff */
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 
 /* Import JSONFeed stuff */
@@ -39,9 +38,9 @@ import org.kaderate.jsonfeed.Attachment;
  * Default implementation for Attachment
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.1.0
+ * @version 0.3.0
  */
-public class DefaultAttachment implements Attachment, JSONString {
+public class DefaultAttachment implements Attachment {
 
 
     /**
@@ -85,7 +84,7 @@ public class DefaultAttachment implements Attachment, JSONString {
      * @exception   MalformedURLException
      *              If the URL is invalid
      */
-    public static Attachment fromString(final String jsonString) throws MalformedURLException {
+    protected static Attachment fromString(final String jsonString) throws MalformedURLException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
@@ -110,7 +109,7 @@ public class DefaultAttachment implements Attachment, JSONString {
      * @exception   MalformedURLException
      *              If the URL is invalid
      */
-    public static List<Attachment> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
+    protected static List<Attachment> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
 
         /* Create the attachment list */
         final List<Attachment> attachmentList = new ArrayList<Attachment>();
@@ -135,7 +134,7 @@ public class DefaultAttachment implements Attachment, JSONString {
      * @exception   MalformedURLException
      *              If the URL is invalid
      */
-    public DefaultAttachment(final JSONObject jsonObject) throws MalformedURLException {
+    protected DefaultAttachment(final JSONObject jsonObject) throws MalformedURLException {
 
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {
@@ -143,10 +142,10 @@ public class DefaultAttachment implements Attachment, JSONString {
         }
 
         /* Get the mime type */
-        this.setMimeType(jsonObject.optString("mime_type"));
+        this.setMimeType(jsonObject.optString("mime_type", null));
 
         /* Get the title */
-        this.setTitle(jsonObject.optString("title"));
+        this.setTitle(jsonObject.optString("title", null));
 
         /* Get the size in bytes */
         if ( jsonObject.has("size_in_bytes") == true ) {
@@ -155,7 +154,7 @@ public class DefaultAttachment implements Attachment, JSONString {
 
         /* Get the duration in seconds */
         if ( jsonObject.has("duration_in_seconds") == true ) {
-            this.setDurationInSeconds(jsonObject.getInt("duration_in_seconds"));
+            this.setDurationInSeconds(jsonObject.optInt("duration_in_seconds"));
         }
 
     }
