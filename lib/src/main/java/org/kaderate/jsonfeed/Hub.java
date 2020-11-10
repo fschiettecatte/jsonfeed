@@ -23,6 +23,7 @@ import java.net.URL;
 
 
 /* Import JSON stuff */
+import org.json.JSONObject;
 import org.json.JSONString;
 
 
@@ -30,7 +31,7 @@ import org.json.JSONString;
  * Hub interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public interface Hub extends JSONString {
 
@@ -65,6 +66,22 @@ public interface Hub extends JSONString {
      * @param   url  the URL
      */
     public void setUrl(URL url);
+
+
+    /**
+     * Get hub extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    public JSONObject getExtensionsJSONObject();
+
+
+    /**
+     * Set the hub extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

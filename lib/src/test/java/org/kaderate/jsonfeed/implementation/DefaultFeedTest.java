@@ -28,6 +28,7 @@ import java.net.URL;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 
 /* Import JSON stuff */
@@ -58,7 +59,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Feed tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultFeedTest {
 
@@ -124,7 +125,14 @@ public class DefaultFeedTest {
                     "\"type\": \"Tardis\"," +
                     "\"url\": \"https://ham.org/tardis.html\"" +
                 "} " +
-            "] " +
+            "], " +
+            "\"_blue_shed\": { " +
+                "\"about\": \"https://blueshed-podcasts.com/json-feed-extension-docs\"," +
+                "\"explicit\": false," +
+                "\"copyright\": \"1948 by George Orwell\"," +
+                "\"owner\": \"Big Brother and the Holding Company\"," +
+                "\"subtitle\": \"All shouting, all the time. Double. Plus. Good.\"" +
+            "} " +
         "}";
 
 
@@ -204,7 +212,14 @@ public class DefaultFeedTest {
                     "\"type\": \"Tardis\"," +
                     "\"url\": \"https://ham.org/tardis.html\"" +
                 "} " +
-            "] " +
+            "], " +
+            "\"_blue_shed\": { " +
+                "\"about\": \"https://blueshed-podcasts.com/json-feed-extension-docs\"," +
+                "\"explicit\": false," +
+                "\"copyright\": \"1948 by George Orwell\"," +
+                "\"owner\": \"Big Brother and the Holding Company\"," +
+                "\"subtitle\": \"All shouting, all the time. Double. Plus. Good.\"" +
+            "} " +
         "}";
 
 
@@ -280,6 +295,14 @@ public class DefaultFeedTest {
         assertTrue(feed.getHubList().get(0).isValid());
         assertEquals(feed.getHubList().get(0).getType(), "Tardis");
         assertEquals(feed.getHubList().get(0).getUrl().toString(), "https://ham.org/tardis.html");
+
+        assertNotNull(feed.getExtensionsJSONObject());
+        assertNotNull(feed.getExtensionsJSONObject().get("_blue_shed"));
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("explicit"), false);
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("copyright"), "1948 by George Orwell");
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("owner"), "Big Brother and the Holding Company");
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(feed.toJSONString());
 
@@ -367,6 +390,14 @@ public class DefaultFeedTest {
         assertTrue(feed.getHubList().get(0).isValid());
         assertEquals(feed.getHubList().get(0).getType(), "Tardis");
         assertEquals(feed.getHubList().get(0).getUrl().toString(), "https://ham.org/tardis.html");
+
+        assertNotNull(feed.getExtensionsJSONObject());
+        assertNotNull(feed.getExtensionsJSONObject().get("_blue_shed"));
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("explicit"), false);
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("copyright"), "1948 by George Orwell");
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("owner"), "Big Brother and the Holding Company");
+        assertEquals(((HashMap)feed.getExtensionsJSONObject().get("_blue_shed")).get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(feed.toJSONString());
 
@@ -544,6 +575,14 @@ public class DefaultFeedTest {
         hubList.add(new DefaultHub("Tardis", new URL("https://ham.org/tardis.html")));
         feed.setHubList(hubList);
 
+        JSONObject jsonObject = new JSONObject()
+                .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")
+                .put("explicit", false)
+                .put("copyright", "1948 by George Orwell")
+                .put("owner", "Big Brother and the Holding Company")
+                .put("subtitle", "All shouting, all the time. Double. Plus. Good.");
+        feed.setExtensionsJSONObject(new JSONObject().put("_blue_shed", jsonObject));
+
         assertTrue(feed.isValid());
 
         assertEquals(feed.getTitle(), "Feed Feed");
@@ -578,6 +617,14 @@ public class DefaultFeedTest {
         assertTrue(feed.getHubList().get(0).isValid());
         assertEquals(feed.getHubList().get(0).getType(), "Tardis");
         assertEquals(feed.getHubList().get(0).getUrl().toString(), "https://ham.org/tardis.html");
+
+        assertNotNull(feed.getExtensionsJSONObject());
+        assertNotNull(feed.getExtensionsJSONObject().getJSONObject("_blue_shed"));
+        assertEquals(feed.getExtensionsJSONObject().getJSONObject("_blue_shed").get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(feed.getExtensionsJSONObject().getJSONObject("_blue_shed").get("explicit"), false);
+        assertEquals(feed.getExtensionsJSONObject().getJSONObject("_blue_shed").get("copyright"), "1948 by George Orwell");
+        assertEquals(feed.getExtensionsJSONObject().getJSONObject("_blue_shed").get("owner"), "Big Brother and the Holding Company");
+        assertEquals(feed.getExtensionsJSONObject().getJSONObject("_blue_shed").get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(feed.toJSONString());
 

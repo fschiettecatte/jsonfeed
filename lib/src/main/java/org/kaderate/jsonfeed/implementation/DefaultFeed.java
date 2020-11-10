@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /* Import JSON stuff */
@@ -45,7 +46,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default implementation for Feed
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultFeed implements Feed {
 
@@ -138,6 +139,12 @@ public class DefaultFeed implements Feed {
      * Item list
      */
     private List<Item> itemList = new ArrayList<Item>();
+
+
+    /**
+     * Extensions JSON object
+     */
+    private JSONObject extensionsJsonObject = null;
 
 
 
@@ -278,6 +285,18 @@ public class DefaultFeed implements Feed {
         /* Get the items */
         if ( jsonObject.has("items") == true ) {
             this.setItemList(DefaultItem.fromJsonArray(jsonObject.getJSONArray("items")));
+        }
+
+
+        /* Get the extensions */
+        final JSONObject extensionsJsonObject = new JSONObject();
+        for ( final Map.Entry<String, Object> entry : jsonObject.toMap().entrySet() ) {
+            if ( entry.getKey().startsWith("_") == true ) {
+                extensionsJsonObject.put(entry.getKey(), entry.getValue());
+            }
+        }
+        if ( extensionsJsonObject.isEmpty() == false ) {
+            this.extensionsJsonObject = extensionsJsonObject;
         }
 
 
@@ -727,6 +746,35 @@ public class DefaultFeed implements Feed {
 
 
     /**
+     * Get feed extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    @Override
+    public JSONObject getExtensionsJSONObject() {
+
+        /* Return the extensions JSON object */
+        return (this.extensionsJsonObject);
+
+    }
+
+
+
+    /**
+     * Set the feed extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    @Override
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+
+        this.extensionsJsonObject = extensionsJsonObject;
+
+    }
+
+
+
+    /**
      * Check the validity of the feed object
      *
      * @return  true if the feed object is valid
@@ -946,6 +994,15 @@ public class DefaultFeed implements Feed {
         /* Add the items */
         if ( (this.getItemList() != null) && (this.getItemList().size() > 0) ) {
             jsonObject.put("items", this.getItemList());
+        }
+
+        /* Add the extensions */
+        if ( this.extensionsJsonObject != null ) {
+            for ( final Map.Entry<String, Object> entry : this.extensionsJsonObject.toMap().entrySet() ) {
+                if ( entry.getKey().startsWith("_") == true ) {
+                    jsonObject.put(entry.getKey(), entry.getValue());
+                }
+            }
         }
 
         /* Get the JSON string */

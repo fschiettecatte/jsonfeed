@@ -37,7 +37,7 @@ List<Item> itemList = new ArrayList<Item>();
 itemList.add(item)
 
 // Create a new feed
-Feed feed = new DefaultFeed(Version.VERSION_1_1);
+Feed feed = new DefaultFeed();
 
 // Add some fields to the feed
 feed.setTitle("Feed Title");

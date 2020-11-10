@@ -24,6 +24,7 @@ import java.util.List;
 
 
 /* Import JSON stuff */
+import org.json.JSONObject;
 import org.json.JSONString;
 
 
@@ -38,7 +39,7 @@ import org.kaderate.jsonfeed.Version;
  * Feed interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public interface Feed extends JSONString {
 
@@ -274,6 +275,21 @@ public interface Feed extends JSONString {
      */
     public void setItemList(List<Item> itemList);
 
+
+    /**
+     * Get feed extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    public JSONObject getExtensionsJSONObject();
+
+
+    /**
+     * Set the feed extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

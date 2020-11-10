@@ -23,6 +23,7 @@ import java.net.URL;
 
 
 /* Import JSON stuff */
+import org.json.JSONObject;
 import org.json.JSONString;
 
 
@@ -30,7 +31,7 @@ import org.json.JSONString;
  * Attachment interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public interface Attachment extends JSONString {
 
@@ -112,6 +113,22 @@ public interface Attachment extends JSONString {
      * @param   durationInSeconds  the duration in seconds
      */
     public void setDurationInSeconds(Integer durationInSeconds);
+
+
+    /**
+     * Get attachment extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    public JSONObject getExtensionsJSONObject();
+
+
+    /**
+     * Set the attachment extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

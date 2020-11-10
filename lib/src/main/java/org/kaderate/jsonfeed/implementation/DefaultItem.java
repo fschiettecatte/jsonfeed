@@ -21,10 +21,11 @@ package org.kaderate.jsonfeed.implementation;
 /* Import Java stuff */
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.time.Instant;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /* Import JSON stuff */
@@ -49,7 +50,7 @@ import org.kaderate.jsonfeed.Version;
  * Default implementation for Item
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultItem implements Item {
 
@@ -154,6 +155,12 @@ public class DefaultItem implements Item {
      * Attachment list
      */
     private List<Attachment> attachmentList = new ArrayList<Attachment>();
+
+
+    /**
+     * Extensions JSON object
+     */
+    private JSONObject extensionsJsonObject = null;
 
 
 
@@ -317,6 +324,18 @@ public class DefaultItem implements Item {
         /* Get the attachments */
         if ( jsonObject.has("attachments") == true ) {
             this.setAttachmentList(DefaultAttachment.fromJsonArray(jsonObject.getJSONArray("attachments")));
+        }
+
+
+        /* Get the extensions */
+        final JSONObject extensionsJsonObject = new JSONObject();
+        for ( final Map.Entry<String, Object> entry : jsonObject.toMap().entrySet() ) {
+            if ( entry.getKey().startsWith("_") == true ) {
+                extensionsJsonObject.put(entry.getKey(), entry.getValue());
+            }
+        }
+        if ( extensionsJsonObject.isEmpty() == false ) {
+            this.extensionsJsonObject = extensionsJsonObject;
         }
 
     }
@@ -818,6 +837,35 @@ public class DefaultItem implements Item {
 
 
     /**
+     * Get item extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    @Override
+    public JSONObject getExtensionsJSONObject() {
+
+        /* Return the extensions JSON object */
+        return (this.extensionsJsonObject);
+
+    }
+
+
+
+    /**
+     * Set the item extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    @Override
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+
+        this.extensionsJsonObject = extensionsJsonObject;
+
+    }
+
+
+
+    /**
      * Upgrade this item to the passed version
      *
      * @param   toVersion       to version
@@ -932,6 +980,15 @@ public class DefaultItem implements Item {
         /* Add the attachments */
         if ( (this.getAttachmentList() != null) && (this.getAttachmentList().size() > 0) ) {
             jsonObject.put("attachments", this.getAttachmentList());
+        }
+
+        /* Add the extensions */
+        if ( this.extensionsJsonObject != null ) {
+            for ( final Map.Entry<String, Object> entry : this.extensionsJsonObject.toMap().entrySet() ) {
+                if ( entry.getKey().startsWith("_") == true ) {
+                    jsonObject.put(entry.getKey(), entry.getValue());
+                }
+            }
         }
 
         /* Get the JSON string */

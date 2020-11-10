@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /* Import JSON stuff */
@@ -38,7 +39,7 @@ import org.kaderate.jsonfeed.Hub;
  * Default implementation for Hub
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultHub implements Hub {
 
@@ -53,6 +54,12 @@ public class DefaultHub implements Hub {
      * URL
      */
     private URL url = null;
+
+
+    /**
+     * Extensions JSON object
+     */
+    private JSONObject extensionsJsonObject = null;
 
 
 
@@ -124,6 +131,18 @@ public class DefaultHub implements Hub {
         /* Get the URL */
         if ( jsonObject.has("url") == true ) {
             this.setUrl(new URL(jsonObject.getString("url")));
+        }
+
+
+        /* Get the extensions */
+        final JSONObject extensionsJsonObject = new JSONObject();
+        for ( final Map.Entry<String, Object> entry : jsonObject.toMap().entrySet() ) {
+            if ( entry.getKey().startsWith("_") == true ) {
+                extensionsJsonObject.put(entry.getKey(), entry.getValue());
+            }
+        }
+        if ( extensionsJsonObject.isEmpty() == false ) {
+            this.extensionsJsonObject = extensionsJsonObject;
         }
 
     }
@@ -212,6 +231,35 @@ public class DefaultHub implements Hub {
 
 
     /**
+     * Get hub extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    @Override
+    public JSONObject getExtensionsJSONObject() {
+
+        /* Return the extensions JSON object */
+        return (this.extensionsJsonObject);
+
+    }
+
+
+
+    /**
+     * Set the hub extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    @Override
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+
+        this.extensionsJsonObject = extensionsJsonObject;
+
+    }
+
+
+
+    /**
      * Check the validity of the hub object
      *
      * @return  true if the hub object is valid
@@ -250,6 +298,15 @@ public class DefaultHub implements Hub {
 
         /* Add the URL */
         jsonObject.put("url", this.getUrl().toString());
+
+        /* Add the extensions */
+        if ( this.extensionsJsonObject != null ) {
+            for ( final Map.Entry<String, Object> entry : this.extensionsJsonObject.toMap().entrySet() ) {
+                if ( entry.getKey().startsWith("_") == true ) {
+                    jsonObject.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
 
         /* Get the JSON string */
         final String jsonString = jsonObject.toString();

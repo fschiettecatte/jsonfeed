@@ -24,6 +24,7 @@ import java.net.URL;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 
 /* Import JSON stuff */
@@ -54,7 +55,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Item tests
  *
  * @item François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultItemTest {
 
@@ -92,7 +93,14 @@ public class DefaultItemTest {
                     "\"size_in_bytes\": 300," +
                     "\"duration_in_seconds\": 400" +
                 "} " +
-            "]" +
+            "]," +
+            "\"_blue_shed\": { " +
+                "\"about\": \"https://blueshed-podcasts.com/json-feed-extension-docs\"," +
+                "\"explicit\": false," +
+                "\"copyright\": \"1948 by George Orwell\"," +
+                "\"owner\": \"Big Brother and the Holding Company\"," +
+                "\"subtitle\": \"All shouting, all the time. Double. Plus. Good.\"" +
+            "} " +
         "}";
 
 
@@ -138,7 +146,14 @@ public class DefaultItemTest {
                     "\"size_in_bytes\": 300," +
                     "\"duration_in_seconds\": 400" +
                 "} " +
-            "]" +
+            "]," +
+            "\"_blue_shed\": { " +
+                "\"about\": \"https://blueshed-podcasts.com/json-feed-extension-docs\"," +
+                "\"explicit\": false," +
+                "\"copyright\": \"1948 by George Orwell\"," +
+                "\"owner\": \"Big Brother and the Holding Company\"," +
+                "\"subtitle\": \"All shouting, all the time. Double. Plus. Good.\"" +
+            "} " +
         "}";
 
 
@@ -193,6 +208,14 @@ public class DefaultItemTest {
         assertEquals(item.getAttachmentList().get(1).getTitle(), "Doctor's Revenge");
         assertEquals(item.getAttachmentList().get(1).getSizeInBytes().intValue(), 300);
         assertEquals(item.getAttachmentList().get(1).getDurationInSeconds().intValue(), 400);
+
+        assertNotNull(item.getExtensionsJSONObject());
+        assertNotNull(item.getExtensionsJSONObject().get("_blue_shed"));
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("explicit"), false);
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("copyright"), "1948 by George Orwell");
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("owner"), "Big Brother and the Holding Company");
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(item.toJSONString());
 
@@ -322,6 +345,14 @@ public class DefaultItemTest {
         assertEquals(item.getAttachmentList().get(1).getTitle(), "Doctor's Revenge");
         assertEquals(item.getAttachmentList().get(1).getSizeInBytes().intValue(), 300);
         assertEquals(item.getAttachmentList().get(1).getDurationInSeconds().intValue(), 400);
+
+        assertNotNull(item.getExtensionsJSONObject());
+        assertNotNull(item.getExtensionsJSONObject().get("_blue_shed"));
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("explicit"), false);
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("copyright"), "1948 by George Orwell");
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("owner"), "Big Brother and the Holding Company");
+        assertEquals(((HashMap)item.getExtensionsJSONObject().get("_blue_shed")).get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(item.toJSONString());
 
@@ -480,6 +511,14 @@ public class DefaultItemTest {
         attachmentList.add(new DefaultAttachment(new URL("https://ham.org/doctorRevenge.m4v"), "video/x-m4v"));
         item.setAttachmentList(attachmentList);
 
+        JSONObject jsonObject = new JSONObject()
+                .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")
+                .put("explicit", false)
+                .put("copyright", "1948 by George Orwell")
+                .put("owner", "Big Brother and the Holding Company")
+                .put("subtitle", "All shouting, all the time. Double. Plus. Good.");
+        item.setExtensionsJSONObject(new JSONObject().put("_blue_shed", jsonObject));
+
         assertTrue(item.isValid());
 
         assertEquals(item.getID(), "1");
@@ -520,6 +559,13 @@ public class DefaultItemTest {
         assertEquals(item.getAttachmentList().get(1).getUrl().toString(), "https://ham.org/doctorRevenge.m4v");
         assertEquals(item.getAttachmentList().get(1).getMimeType(), "video/x-m4v");
 
+        assertNotNull(item.getExtensionsJSONObject());
+        assertNotNull(item.getExtensionsJSONObject().getJSONObject("_blue_shed"));
+        assertEquals(item.getExtensionsJSONObject().getJSONObject("_blue_shed").get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(item.getExtensionsJSONObject().getJSONObject("_blue_shed").get("explicit"), false);
+        assertEquals(item.getExtensionsJSONObject().getJSONObject("_blue_shed").get("copyright"), "1948 by George Orwell");
+        assertEquals(item.getExtensionsJSONObject().getJSONObject("_blue_shed").get("owner"), "Big Brother and the Holding Company");
+        assertEquals(item.getExtensionsJSONObject().getJSONObject("_blue_shed").get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(item.toJSONString());
 

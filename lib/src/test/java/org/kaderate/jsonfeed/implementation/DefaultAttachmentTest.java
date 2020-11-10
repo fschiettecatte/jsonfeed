@@ -22,6 +22,7 @@ package org.kaderate.jsonfeed.implementation;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.HashMap;
 
 
 /* Import JSON stuff */
@@ -52,7 +53,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Attachment tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultAttachmentTest {
 
@@ -62,7 +63,14 @@ public class DefaultAttachmentTest {
             "\"mime_type\": \"video/x-m4v\"," +
             "\"title\": \"Dalek Invasion\"," +
             "\"size_in_bytes\": 100," +
-            "\"duration_in_seconds\": 200" +
+            "\"duration_in_seconds\": 200," +
+            "\"_blue_shed\": { " +
+                "\"about\": \"https://blueshed-podcasts.com/json-feed-extension-docs\"," +
+                "\"explicit\": false," +
+                "\"copyright\": \"1948 by George Orwell\"," +
+                "\"owner\": \"Big Brother and the Holding Company\"," +
+                "\"subtitle\": \"All shouting, all the time. Double. Plus. Good.\"" +
+            "} " +
         "}";
 
 
@@ -83,6 +91,14 @@ public class DefaultAttachmentTest {
         assertEquals(attachment.getTitle(), "Dalek Invasion");
         assertEquals(attachment.getSizeInBytes().intValue(), 100);
         assertEquals(attachment.getDurationInSeconds().intValue(), 200);
+
+        assertNotNull(attachment.getExtensionsJSONObject());
+        assertNotNull(attachment.getExtensionsJSONObject().get("_blue_shed"));
+        assertEquals(((HashMap)attachment.getExtensionsJSONObject().get("_blue_shed")).get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(((HashMap)attachment.getExtensionsJSONObject().get("_blue_shed")).get("explicit"), false);
+        assertEquals(((HashMap)attachment.getExtensionsJSONObject().get("_blue_shed")).get("copyright"), "1948 by George Orwell");
+        assertEquals(((HashMap)attachment.getExtensionsJSONObject().get("_blue_shed")).get("owner"), "Big Brother and the Holding Company");
+        assertEquals(((HashMap)attachment.getExtensionsJSONObject().get("_blue_shed")).get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(attachment.toJSONString());
 
@@ -163,12 +179,28 @@ public class DefaultAttachmentTest {
         attachment.setSizeInBytes(300);
         attachment.setDurationInSeconds(400);
 
+        JSONObject jsonObject = new JSONObject()
+                .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")
+                .put("explicit", false)
+                .put("copyright", "1948 by George Orwell")
+                .put("owner", "Big Brother and the Holding Company")
+                .put("subtitle", "All shouting, all the time. Double. Plus. Good.");
+        attachment.setExtensionsJSONObject(new JSONObject().put("_blue_shed", jsonObject));
+
         assertTrue(attachment.isValid());
 
         assertEquals(attachment.getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(attachment.getMimeType(), "video/x-m4v");
         assertEquals(attachment.getSizeInBytes().intValue(), 300);
         assertEquals(attachment.getDurationInSeconds().intValue(), 400);
+
+        assertNotNull(attachment.getExtensionsJSONObject());
+        assertNotNull(attachment.getExtensionsJSONObject().getJSONObject("_blue_shed"));
+        assertEquals(attachment.getExtensionsJSONObject().getJSONObject("_blue_shed").get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(attachment.getExtensionsJSONObject().getJSONObject("_blue_shed").get("explicit"), false);
+        assertEquals(attachment.getExtensionsJSONObject().getJSONObject("_blue_shed").get("copyright"), "1948 by George Orwell");
+        assertEquals(attachment.getExtensionsJSONObject().getJSONObject("_blue_shed").get("owner"), "Big Brother and the Holding Company");
+        assertEquals(attachment.getExtensionsJSONObject().getJSONObject("_blue_shed").get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(attachment.toJSONString());
 

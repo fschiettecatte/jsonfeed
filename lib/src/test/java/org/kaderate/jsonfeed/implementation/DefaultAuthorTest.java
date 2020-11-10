@@ -22,6 +22,7 @@ package org.kaderate.jsonfeed.implementation;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.HashMap;
 
 
 /* Import JSON stuff */
@@ -52,7 +53,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Author tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultAuthorTest {
 
@@ -60,7 +61,14 @@ public class DefaultAuthorTest {
     private static final String TEST_STRING_1_X = "{" +
             "\"name\": \"Dalek Caan\"," +
             "\"url\": \"https://ham.org/authorCaan.html\"," +
-            "\"avatar\": \"https://ham.org/avatarCaan.html\"" +
+            "\"avatar\": \"https://ham.org/avatarCaan.html\"," +
+            "\"_blue_shed\": { " +
+                "\"about\": \"https://blueshed-podcasts.com/json-feed-extension-docs\"," +
+                "\"explicit\": false," +
+                "\"copyright\": \"1948 by George Orwell\"," +
+                "\"owner\": \"Big Brother and the Holding Company\"," +
+                "\"subtitle\": \"All shouting, all the time. Double. Plus. Good.\"" +
+            "} " +
         "}";
 
 
@@ -79,6 +87,14 @@ public class DefaultAuthorTest {
         assertEquals(author.getName(), "Dalek Caan");
         assertEquals(author.getUrl().toString(), "https://ham.org/authorCaan.html");
         assertEquals(author.getAvatar().toString(), "https://ham.org/avatarCaan.html");
+
+        assertNotNull(author.getExtensionsJSONObject());
+        assertNotNull(author.getExtensionsJSONObject().get("_blue_shed"));
+        assertEquals(((HashMap)author.getExtensionsJSONObject().get("_blue_shed")).get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(((HashMap)author.getExtensionsJSONObject().get("_blue_shed")).get("explicit"), false);
+        assertEquals(((HashMap)author.getExtensionsJSONObject().get("_blue_shed")).get("copyright"), "1948 by George Orwell");
+        assertEquals(((HashMap)author.getExtensionsJSONObject().get("_blue_shed")).get("owner"), "Big Brother and the Holding Company");
+        assertEquals(((HashMap)author.getExtensionsJSONObject().get("_blue_shed")).get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(author.toJSONString());
 
@@ -151,11 +167,27 @@ public class DefaultAuthorTest {
         author.setUrl(new URL("https://ham.org/authorCaan.html"));
         author.setAvatar(new URL("https://ham.org/avatarCaan.html"));
 
+        JSONObject jsonObject = new JSONObject()
+                .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")
+                .put("explicit", false)
+                .put("copyright", "1948 by George Orwell")
+                .put("owner", "Big Brother and the Holding Company")
+                .put("subtitle", "All shouting, all the time. Double. Plus. Good.");
+        author.setExtensionsJSONObject(new JSONObject().put("_blue_shed", jsonObject));
+
         assertTrue(author.isValid());
 
         assertEquals(author.getName(), "Dalek Caan");
         assertEquals(author.getUrl().toString(), "https://ham.org/authorCaan.html");
         assertEquals(author.getAvatar().toString(), "https://ham.org/avatarCaan.html");
+
+        assertNotNull(author.getExtensionsJSONObject());
+        assertNotNull(author.getExtensionsJSONObject().getJSONObject("_blue_shed"));
+        assertEquals(author.getExtensionsJSONObject().getJSONObject("_blue_shed").get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(author.getExtensionsJSONObject().getJSONObject("_blue_shed").get("explicit"), false);
+        assertEquals(author.getExtensionsJSONObject().getJSONObject("_blue_shed").get("copyright"), "1948 by George Orwell");
+        assertEquals(author.getExtensionsJSONObject().getJSONObject("_blue_shed").get("owner"), "Big Brother and the Holding Company");
+        assertEquals(author.getExtensionsJSONObject().getJSONObject("_blue_shed").get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(author.toJSONString());
 
