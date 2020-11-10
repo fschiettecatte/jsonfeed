@@ -144,7 +144,7 @@ public class DefaultFeed implements Feed {
     /**
      * Extensions JSON object
      */
-    private JSONObject extensionsJsonObject = null;
+    private JSONObject extensionsJsonObject = new JSONObject();
 
 
 
@@ -289,14 +289,10 @@ public class DefaultFeed implements Feed {
 
 
         /* Get the extensions */
-        final JSONObject extensionsJsonObject = new JSONObject();
         for ( final Map.Entry<String, Object> entry : jsonObject.toMap().entrySet() ) {
             if ( entry.getKey().startsWith("_") == true ) {
-                extensionsJsonObject.put(entry.getKey(), entry.getValue());
+                this.extensionsJsonObject.put(entry.getKey(), entry.getValue());
             }
-        }
-        if ( extensionsJsonObject.isEmpty() == false ) {
-            this.extensionsJsonObject = extensionsJsonObject;
         }
 
 
@@ -997,8 +993,8 @@ public class DefaultFeed implements Feed {
         }
 
         /* Add the extensions */
-        if ( this.extensionsJsonObject != null ) {
-            for ( final Map.Entry<String, Object> entry : this.extensionsJsonObject.toMap().entrySet() ) {
+        if ( this.getExtensionsJSONObject() != null ) {
+            for ( final Map.Entry<String, Object> entry : this.getExtensionsJSONObject().toMap().entrySet() ) {
                 if ( entry.getKey().startsWith("_") == true ) {
                     jsonObject.put(entry.getKey(), entry.getValue());
                 }
