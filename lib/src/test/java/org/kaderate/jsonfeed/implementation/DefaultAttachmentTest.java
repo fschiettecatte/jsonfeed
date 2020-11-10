@@ -53,7 +53,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Attachment tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultAttachmentTest {
 
@@ -173,11 +173,11 @@ public class DefaultAttachmentTest {
     @Test
     public void test4() throws MalformedURLException {
 
-        Attachment attachment = new DefaultAttachment();
-        attachment.setUrl(new URL("https://ham.org/dalekInvasion.m4v"));
-        attachment.setMimeType("video/x-m4v");
-        attachment.setSizeInBytes(300);
-        attachment.setDurationInSeconds(400);
+        Attachment attachment = new DefaultAttachment()
+                .setUrl(new URL("https://ham.org/dalekInvasion.m4v"))
+                .setMimeType("video/x-m4v")
+                .setSizeInBytes(300)
+                .setDurationInSeconds(400);
 
         JSONObject jsonObject = new JSONObject()
                 .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")

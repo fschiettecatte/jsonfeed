@@ -27,23 +27,21 @@ List<Item> itemList = feed.getItemList()
 
 ```java
 // Create a new item
-Item item = new DefaultItem("1");
-item.setTitle("First Item");
-item.setSummary("First item summary.");
-item.setUrl(new URL("https://somehost.com/article/1"));
+Item item = new DefaultItem("1")
+        .setTitle("First Item")
+        .setSummary("First item summary.")
+        .setUrl(new URL("https://somehost.com/article/1"));
 
 // Create an item list and add the item
 List<Item> itemList = new ArrayList<Item>();
-itemList.add(item)
+itemList.add(item);
 
 // Create a new feed
-Feed feed = new DefaultFeed();
-
-// Add some fields to the feed
-feed.setTitle("Feed Title");
-feed.setDescription("Feed Description");
-feed.setHomePageUrl(new URL("https://somehost.com/"));
-feed.setFeedUrl(new URL("https://somehost.com/feed.json"));
+Feed feed = new DefaultFeed()
+        .setTitle("Feed Title")
+        .setDescription("Feed Description")
+        .setHomePageUrl(new URL("https://somehost.com/"))
+        .setFeedUrl(new URL("https://somehost.com/feed.json"));
 
 // Add the item list to the feed
 feed.setItemList(itemList);

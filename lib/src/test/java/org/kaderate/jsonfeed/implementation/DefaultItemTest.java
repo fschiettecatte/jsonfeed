@@ -55,7 +55,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Item tests
  *
  * @item François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultItemTest {
 
@@ -483,18 +483,18 @@ public class DefaultItemTest {
     @Test
     public void test7() throws MalformedURLException {
 
-        Item item = new DefaultItem("1");
-        item.setUrl(new URL("https://ham.org/item1.html"));
-        item.setExternalUrl(new URL("https://external.org/item1.html"));
-        item.setTitle("First Item");
-        item.setContentText("This is the first item text.");
-        item.setContentHtml("This is the <b>first item</b> HTML.");
-        item.setSummary("First item summary.");
-        item.setImage(new URL("https://ham.org/image1.png"));
-        item.setBannerImage(new URL("https://ham.org/banner1.png"));
-        item.setDatePublished(OffsetDateTime.parse("2010-02-07T14:04:00-05:00").toInstant());
-        item.setDateModified(OffsetDateTime.parse("2010-02-13T14:04:00-05:00").toInstant());
-        item.setLanguage("en-US");
+        Item item = new DefaultItem("1")
+                .setUrl(new URL("https://ham.org/item1.html"))
+                .setExternalUrl(new URL("https://external.org/item1.html"))
+                .setTitle("First Item")
+                .setContentText("This is the first item text.")
+                .setContentHtml("This is the <b>first item</b> HTML.")
+                .setSummary("First item summary.")
+                .setImage(new URL("https://ham.org/image1.png"))
+                .setBannerImage(new URL("https://ham.org/banner1.png"))
+                .setDatePublished(OffsetDateTime.parse("2010-02-07T14:04:00-05:00").toInstant())
+                .setDateModified(OffsetDateTime.parse("2010-02-13T14:04:00-05:00").toInstant())
+                .setLanguage("en-US");
 
         List<Author> authorList = new ArrayList<Author>();
         authorList.add(new DefaultAuthor("Dalek Jast", new URL("https://ham.org/authorJast.html"), new URL("https://ham.org/avatarJast.html")));

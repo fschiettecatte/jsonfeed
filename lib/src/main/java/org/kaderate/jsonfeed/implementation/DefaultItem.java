@@ -50,7 +50,7 @@ import org.kaderate.jsonfeed.Version;
  * Default implementation for Item
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultItem implements Item {
 
@@ -345,7 +345,6 @@ public class DefaultItem implements Item {
      */
     public DefaultItem(final String id) {
 
-        /* Set the ID */
         this.setID(id);
 
     }
@@ -379,11 +378,14 @@ public class DefaultItem implements Item {
      * Set the ID
      *
      * @param   id  the ID
+     *
+     * @return  the item
      */
     @Override
-    public void setID(String id) {
+    public Item setID(String id) {
 
-       this.id = id;
+        this.id = id;
+        return (this);
 
     }
 
@@ -407,11 +409,14 @@ public class DefaultItem implements Item {
      * Set the URL
      *
      * @param   url  the URL
+     *
+     * @return  the item
      */
     @Override
-    public void setUrl(URL url) {
+    public Item setUrl(URL url) {
 
-       this.url = url;
+        this.url = url;
+        return (this);
 
     }
 
@@ -435,11 +440,14 @@ public class DefaultItem implements Item {
      * Set the external URL
      *
      * @param   externalUrl     the external URL
+     *
+     * @return  the item
      */
     @Override
-    public void setExternalUrl(URL externalUrl) {
+    public Item setExternalUrl(URL externalUrl) {
 
-       this.externalUrl = externalUrl;
+        this.externalUrl = externalUrl;
+        return (this);
 
     }
 
@@ -463,11 +471,14 @@ public class DefaultItem implements Item {
      * Set the title
      *
      * @param   title  the title
+     *
+     * @return  the item
      */
     @Override
-    public void setTitle(String title) {
+    public Item setTitle(String title) {
 
-       this.title = title;
+        this.title = title;
+        return (this);
 
     }
 
@@ -491,11 +502,14 @@ public class DefaultItem implements Item {
      * Set the content text
      *
      * @param   contentText  the content text
+     *
+     * @return  the item
      */
     @Override
-    public void setContentText(String contentText) {
+    public Item setContentText(String contentText) {
 
-       this.contentText = contentText;
+        this.contentText = contentText;
+        return (this);
 
     }
 
@@ -519,11 +533,14 @@ public class DefaultItem implements Item {
      * Set the content HTML
      *
      * @param   contentHtml  the content HTML
+     *
+     * @return  the item
      */
     @Override
-    public void setContentHtml(String contentHtml) {
+    public Item setContentHtml(String contentHtml) {
 
-       this.contentHtml = contentHtml;
+        this.contentHtml = contentHtml;
+        return (this);
 
     }
 
@@ -547,11 +564,14 @@ public class DefaultItem implements Item {
      * Set the summary
      *
      * @param   summary  the summary
+     *
+     * @return  the item
      */
     @Override
-    public void setSummary(String summary) {
+    public Item setSummary(String summary) {
 
-       this.summary = summary;
+        this.summary = summary;
+        return (this);
 
     }
 
@@ -575,11 +595,14 @@ public class DefaultItem implements Item {
      * Set the image (URL)
      *
      * @param   image     the image URL
+     *
+     * @return  the item
      */
     @Override
-    public void setImage(URL image) {
+    public Item setImage(URL image) {
 
-       this.image = image;
+        this.image = image;
+        return (this);
 
     }
 
@@ -603,11 +626,14 @@ public class DefaultItem implements Item {
      * Set the banner image (URL)
      *
      * @param   bannerImage     the banner image URL
+     *
+     * @return  the item
      */
     @Override
-    public void setBannerImage(URL bannerImage) {
+    public Item setBannerImage(URL bannerImage) {
 
-       this.bannerImage = bannerImage;
+        this.bannerImage = bannerImage;
+        return (this);
 
     }
 
@@ -631,11 +657,14 @@ public class DefaultItem implements Item {
      * Set the date published
      *
      * @param   datePublished     the date published
+     *
+     * @return  the item
      */
     @Override
-    public void setDatePublished(Instant datePublished) {
+    public Item setDatePublished(Instant datePublished) {
 
-       this.datePublished = datePublished;
+        this.datePublished = datePublished;
+        return (this);
 
     }
 
@@ -659,11 +688,14 @@ public class DefaultItem implements Item {
      * Set the date modified
      *
      * @param   dateModified     the date modified
+     *
+     * @return  the item
      */
     @Override
-    public void setDateModified(Instant dateModified) {
+    public Item setDateModified(Instant dateModified) {
 
-       this.dateModified = dateModified;
+        this.dateModified = dateModified;
+        return (this);
 
     }
 
@@ -687,11 +719,14 @@ public class DefaultItem implements Item {
      * Set the author
      *
      * @param   author     the author
+     *
+     * @return  the item
      */
     @Override
-    public void setAuthor(Author author) {
+    public Item setAuthor(Author author) {
 
-       this.author = author;
+        this.author = author;
+        return (this);
 
     }
 
@@ -715,13 +750,16 @@ public class DefaultItem implements Item {
      * Set the author list (JSON Feed 1.1 only)
      *
      * @param   authorList  the author list
+     *
+     * @return  the item
      */
     @Override
-    public void setAuthorList(List<Author> authorList) {
+    public Item setAuthorList(List<Author> authorList) {
 
         this.upgrade(Version.VERSION_1_1);
 
         this.authorList = authorList;
+        return (this);
 
     }
 
@@ -745,11 +783,14 @@ public class DefaultItem implements Item {
      * Set the tag list
      *
      * @param   tagList     the tag list
+     *
+     * @return  the item
      */
     @Override
-    public void setTagList(List<String> tagList) {
+    public Item setTagList(List<String> tagList) {
 
-       this.tagList = tagList;
+        this.tagList = tagList;
+        return (this);
 
     }
 
@@ -773,13 +814,16 @@ public class DefaultItem implements Item {
      * Set the language (JSON Feed 1.1 only)
      *
      * @param   language  the language
+     *
+     * @return  the item
      */
     @Override
-    public void setLanguage(String language) {
+    public Item setLanguage(String language) {
 
         this.upgrade(Version.VERSION_1_1);
 
         this.language = language;
+        return (this);
 
     }
 
@@ -803,11 +847,45 @@ public class DefaultItem implements Item {
      * Set the attachment list
      *
      * @param   attachmentList  the attachment list
+     *
+     * @return  the item
      */
     @Override
-    public void setAttachmentList(List<Attachment> attachmentList) {
+    public Item setAttachmentList(List<Attachment> attachmentList) {
 
-       this.attachmentList = attachmentList;
+        this.attachmentList = attachmentList;
+        return (this);
+
+    }
+
+
+
+    /**
+     * Get item extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    @Override
+    public JSONObject getExtensionsJSONObject() {
+
+        return (this.extensionsJsonObject);
+
+    }
+
+
+
+    /**
+     * Set the item extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the item
+     */
+    @Override
+    public Item setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+
+        this.extensionsJsonObject = extensionsJsonObject;
+        return (this);
 
     }
 
@@ -827,35 +905,6 @@ public class DefaultItem implements Item {
         }
 
         return (false);
-
-    }
-
-
-
-    /**
-     * Get item extensions as a JSON object
-     *
-     * @return  the extensions JSON object
-     */
-    @Override
-    public JSONObject getExtensionsJSONObject() {
-
-        /* Return the extensions JSON object */
-        return (this.extensionsJsonObject);
-
-    }
-
-
-
-    /**
-     * Set the item extensions JSON object
-     *
-     * @param   extensionsJsonObject  the extensions JSON object
-     */
-    @Override
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
-
-        this.extensionsJsonObject = extensionsJsonObject;
 
     }
 

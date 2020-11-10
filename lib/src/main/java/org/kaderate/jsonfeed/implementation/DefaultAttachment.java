@@ -39,7 +39,7 @@ import org.kaderate.jsonfeed.Attachment;
  * Default implementation for Attachment
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultAttachment implements Attachment {
 
@@ -184,7 +184,6 @@ public class DefaultAttachment implements Attachment {
      */
     public DefaultAttachment(final URL url, final String mimeType) {
 
-        /* Set the URL and mime type */
         this.setUrl(url);
         this.setMimeType(mimeType);
 
@@ -219,11 +218,14 @@ public class DefaultAttachment implements Attachment {
      * Set the URL
      *
      * @param   url  the URL
+     *
+     * @return  the attachment
      */
     @Override
-    public void setUrl(URL url) {
+    public Attachment setUrl(URL url) {
 
-       this.url = url;
+        this.url = url;
+        return (this);
 
     }
 
@@ -247,11 +249,14 @@ public class DefaultAttachment implements Attachment {
      * Set the mime type
      *
      * @param   mimeType  the mime type
+     *
+     * @return  the attachment
      */
     @Override
-    public void setMimeType(String mimeType) {
+    public Attachment setMimeType(String mimeType) {
 
-       this.mimeType = mimeType;
+        this.mimeType = mimeType;
+        return (this);
 
     }
 
@@ -275,11 +280,14 @@ public class DefaultAttachment implements Attachment {
      * Set the title
      *
      * @param   title  the title
+     *
+     * @return  the attachment
      */
     @Override
-    public void setTitle(String title) {
+    public Attachment setTitle(String title) {
 
-       this.title = title;
+        this.title = title;
+        return (this);
 
     }
 
@@ -303,11 +311,14 @@ public class DefaultAttachment implements Attachment {
      * Set the size in bytes
      *
      * @param   sizeInBytes  the size in bytes
+     *
+     * @return  the attachment
      */
     @Override
-    public void setSizeInBytes(Integer sizeInBytes) {
+    public Attachment setSizeInBytes(Integer sizeInBytes) {
 
-       this.sizeInBytes = sizeInBytes;
+        this.sizeInBytes = sizeInBytes;
+        return (this);
 
     }
 
@@ -331,11 +342,14 @@ public class DefaultAttachment implements Attachment {
      * Set the duration in seconds
      *
      * @param   durationInSeconds  the duration in seconds
+     *
+     * @return  the attachment
      */
     @Override
-    public void setDurationInSeconds(Integer durationInSeconds) {
+    public Attachment setDurationInSeconds(Integer durationInSeconds) {
 
-       this.durationInSeconds = durationInSeconds;
+        this.durationInSeconds = durationInSeconds;
+        return (this);
 
     }
 
@@ -349,7 +363,6 @@ public class DefaultAttachment implements Attachment {
     @Override
     public JSONObject getExtensionsJSONObject() {
 
-        /* Return the extensions JSON object */
         return (this.extensionsJsonObject);
 
     }
@@ -360,11 +373,14 @@ public class DefaultAttachment implements Attachment {
      * Set the attachment extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the attachment
      */
     @Override
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+    public Attachment setExtensionsJSONObject(JSONObject extensionsJsonObject) {
 
         this.extensionsJsonObject = extensionsJsonObject;
+        return (this);
 
     }
 

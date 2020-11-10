@@ -31,7 +31,7 @@ import org.json.JSONString;
  * Attachment interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public interface Attachment extends JSONString {
 
@@ -47,8 +47,10 @@ public interface Attachment extends JSONString {
      * Set the URL
      *
      * @param   url  the URL
+     *
+     * @return  the attachment
      */
-    public void setUrl(URL url);
+    public Attachment setUrl(URL url);
 
 
     /**
@@ -63,8 +65,10 @@ public interface Attachment extends JSONString {
      * Set the mime type
      *
      * @param   mimeType  the mime type
+     *
+     * @return  the attachment
      */
-    public void setMimeType(String mimeType);
+    public Attachment setMimeType(String mimeType);
 
 
     /**
@@ -79,8 +83,10 @@ public interface Attachment extends JSONString {
      * Set the title
      *
      * @param   title  the title
+     *
+     * @return  the attachment
      */
-    public void setTitle(String title);
+    public Attachment setTitle(String title);
 
 
     /**
@@ -95,8 +101,10 @@ public interface Attachment extends JSONString {
      * Set the size in bytes
      *
      * @param   sizeInBytes  the size in bytes
+     *
+     * @return  the attachment
      */
-    public void setSizeInBytes(Integer sizeInBytes);
+    public Attachment setSizeInBytes(Integer sizeInBytes);
 
 
     /**
@@ -111,8 +119,10 @@ public interface Attachment extends JSONString {
      * Set the duration in seconds
      *
      * @param   durationInSeconds  the duration in seconds
+     *
+     * @return  the attachment
      */
-    public void setDurationInSeconds(Integer durationInSeconds);
+    public Attachment setDurationInSeconds(Integer durationInSeconds);
 
 
     /**
@@ -127,8 +137,10 @@ public interface Attachment extends JSONString {
      * Set the attachment extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the attachment
      */
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
+    public Attachment setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

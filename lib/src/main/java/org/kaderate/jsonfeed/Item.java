@@ -38,7 +38,7 @@ import org.kaderate.jsonfeed.Author;
  * Item interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public interface Item extends JSONString {
 
@@ -55,8 +55,10 @@ public interface Item extends JSONString {
      * Set the ID
      *
      * @param   id  the ID
+     *
+     * @return  the item
      */
-    public void setID(String id);
+    public Item setID(String id);
 
 
     /**
@@ -71,8 +73,10 @@ public interface Item extends JSONString {
      * Set the URL
      *
      * @param   url  the URL
+     *
+     * @return  the item
      */
-    public void setUrl(URL url);
+    public Item setUrl(URL url);
 
 
     /**
@@ -87,8 +91,10 @@ public interface Item extends JSONString {
      * Set the external RL
      *
      * @param   externalUrl the external URL
+     *
+     * @return  the item
      */
-    public void setExternalUrl(URL externalUrl);
+    public Item setExternalUrl(URL externalUrl);
 
 
     /**
@@ -103,8 +109,10 @@ public interface Item extends JSONString {
      * Set the title
      *
      * @param   title  the title
+     *
+     * @return  the item
      */
-    public void setTitle(String title);
+    public Item setTitle(String title);
 
 
     /**
@@ -119,8 +127,10 @@ public interface Item extends JSONString {
      * Set the content text
      *
      * @param   contentText  the content text
+     *
+     * @return  the item
      */
-    public void setContentText(String contentText);
+    public Item setContentText(String contentText);
 
 
     /**
@@ -135,8 +145,10 @@ public interface Item extends JSONString {
      * Set the content HTML
      *
      * @param   contentHtml  the content HTML
+     *
+     * @return  the item
      */
-    public void setContentHtml(String contentHtml);
+    public Item setContentHtml(String contentHtml);
 
 
     /**
@@ -151,8 +163,10 @@ public interface Item extends JSONString {
      * Set the summary
      *
      * @param   summary  the summary
+     *
+     * @return  the item
      */
-    public void setSummary(String summary);
+    public Item setSummary(String summary);
 
 
     /**
@@ -167,8 +181,10 @@ public interface Item extends JSONString {
      * Set the image (URL)
      *
      * @param   image  the image URL
+     *
+     * @return  the item
      */
-    public void setImage(URL image);
+    public Item setImage(URL image);
 
 
     /**
@@ -183,8 +199,10 @@ public interface Item extends JSONString {
      * Set the banner image (URL)
      *
      * @param   bannerImage  the banner image URL
+     *
+     * @return  the item
      */
-    public void setBannerImage(URL bannerImage);
+    public Item setBannerImage(URL bannerImage);
 
 
     /**
@@ -199,8 +217,10 @@ public interface Item extends JSONString {
      * Set the date published
      *
      * @param   datePublished  the date published
+     *
+     * @return  the item
      */
-    public void setDatePublished(Instant datePublished);
+    public Item setDatePublished(Instant datePublished);
 
 
     /**
@@ -215,8 +235,10 @@ public interface Item extends JSONString {
      * Set the date modified
      *
      * @param   dateModified  the date modified
+     *
+     * @return  the item
      */
-    public void setDateModified(Instant dateModified);
+    public Item setDateModified(Instant dateModified);
 
 
     /**
@@ -231,8 +253,10 @@ public interface Item extends JSONString {
      * Set the author
      *
      * @param   author  the author
+     *
+     * @return  the item
      */
-    public void setAuthor(Author author);
+    public Item setAuthor(Author author);
 
 
     /**
@@ -247,8 +271,10 @@ public interface Item extends JSONString {
      * Set the author list (JSON Feed 1.1 only)
      *
      * @param   authorList  the author list
+     *
+     * @return  the item
      */
-    public void setAuthorList(List<Author> authorList);
+    public Item setAuthorList(List<Author> authorList);
 
 
     /**
@@ -263,8 +289,10 @@ public interface Item extends JSONString {
      * Set the tag list
      *
      * @param   tagList  the tag list
+     *
+     * @return  the item
      */
-    public void setTagList(List<String> tagList);
+    public Item setTagList(List<String> tagList);
 
 
     /**
@@ -279,8 +307,10 @@ public interface Item extends JSONString {
      * Set the language
      *
      * @param   language  the language
+     *
+     * @return  the item
      */
-    public void setLanguage(String language);
+    public Item setLanguage(String language);
 
 
     /**
@@ -295,8 +325,10 @@ public interface Item extends JSONString {
      * Set the attachment list
      *
      * @param   attachmentList  the attachment list
+     *
+     * @return  the item
      */
-    public void setAttachmentList(List<Attachment> attachmentList);
+    public Item setAttachmentList(List<Attachment> attachmentList);
 
 
     /**
@@ -311,8 +343,10 @@ public interface Item extends JSONString {
      * Set the item extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the item
      */
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
+    public Item setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

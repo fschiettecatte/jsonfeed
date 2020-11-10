@@ -46,7 +46,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default implementation for Feed
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultFeed implements Feed {
 
@@ -311,7 +311,6 @@ public class DefaultFeed implements Feed {
      */
     public DefaultFeed(final String title, final List<Item> itemList) {
 
-        /* Set the title and item list */
         this.setTitle(title);
         this.setItemList(itemList);
 
@@ -360,11 +359,14 @@ public class DefaultFeed implements Feed {
      * Set the title
      *
      * @param   title  the title
+     *
+     * @return  the feed
      */
     @Override
-    public void setTitle(String title) {
+    public Feed setTitle(String title) {
 
-       this.title = title;
+        this.title = title;
+        return (this);
 
     }
 
@@ -388,11 +390,14 @@ public class DefaultFeed implements Feed {
      * Set the home page URL
      *
      * @param   homePageUrl     the home page URL
+     *
+     * @return  the feed
      */
     @Override
-    public void setHomePageUrl(URL homePageUrl) {
+    public Feed setHomePageUrl(URL homePageUrl) {
 
-       this.homePageUrl = homePageUrl;
+        this.homePageUrl = homePageUrl;
+        return (this);
 
     }
 
@@ -416,11 +421,14 @@ public class DefaultFeed implements Feed {
      * Set the feed URL
      *
      * @param   feedUrl     the feed URL
+     *
+     * @return  the feed
      */
     @Override
-    public void setFeedUrl(URL feedUrl) {
+    public Feed setFeedUrl(URL feedUrl) {
 
-       this.feedUrl = feedUrl;
+        this.feedUrl = feedUrl;
+        return (this);
 
     }
 
@@ -444,11 +452,14 @@ public class DefaultFeed implements Feed {
      * Set the description
      *
      * @param   description  the description
+     *
+     * @return  the feed
      */
     @Override
-    public void setDescription(String description) {
+    public Feed setDescription(String description) {
 
-       this.description = description;
+        this.description = description;
+        return (this);
 
     }
 
@@ -472,11 +483,14 @@ public class DefaultFeed implements Feed {
      * Set the user comment
      *
      * @param   userComment  the user comment
+     *
+     * @return  the feed
      */
     @Override
-    public void setUserComment(String userComment) {
+    public Feed setUserComment(String userComment) {
 
-       this.userComment = userComment;
+        this.userComment = userComment;
+        return (this);
 
     }
 
@@ -500,11 +514,14 @@ public class DefaultFeed implements Feed {
      * Set the next URL
      *
      * @param   nextUrl     the next URL
+     *
+     * @return  the feed
      */
     @Override
-    public void setNextUrl(URL nextUrl) {
+    public Feed setNextUrl(URL nextUrl) {
 
        this.nextUrl = nextUrl;
+       return (this);
 
     }
 
@@ -528,11 +545,14 @@ public class DefaultFeed implements Feed {
      * Set the icon (URL)
      *
      * @param   icon     the icon URL
+     *
+     * @return  the feed
      */
     @Override
-    public void setIcon(URL icon) {
+    public Feed setIcon(URL icon) {
 
-       this.icon = icon;
+        this.icon = icon;
+        return (this);
 
     }
 
@@ -556,11 +576,14 @@ public class DefaultFeed implements Feed {
      * Set the favicon (URL)
      *
      * @param   favicon     the favicon URL
+     *
+     * @return  the feed
      */
     @Override
-    public void setFavicon(URL favicon) {
+    public Feed setFavicon(URL favicon) {
 
-       this.favicon = favicon;
+        this.favicon = favicon;
+        return (this);
 
     }
 
@@ -584,11 +607,14 @@ public class DefaultFeed implements Feed {
      * Set the author
      *
      * @param   author     the author
+     *
+     * @return  the feed
      */
     @Override
-    public void setAuthor(Author author) {
+    public Feed setAuthor(Author author) {
 
         this.author = author;
+        return (this);
 
     }
 
@@ -612,11 +638,14 @@ public class DefaultFeed implements Feed {
      * Set the author list (JSON Feed 1.1 only)
      *
      * @param   authorList  the author list
+     *
+     * @return  the feed
      */
     @Override
-    public void setAuthorList(List<Author> authorList) {
+    public Feed setAuthorList(List<Author> authorList) {
 
         this.authorList = authorList;
+        return (this);
 
     }
 
@@ -640,11 +669,14 @@ public class DefaultFeed implements Feed {
      * Set the language (JSON Feed 1.1 only)
      *
      * @param   language  the language
+     *
+     * @return  the feed
      */
     @Override
-    public void setLanguage(String language) {
+    public Feed setLanguage(String language) {
 
         this.language = language;
+        return (this);
 
     }
 
@@ -668,11 +700,14 @@ public class DefaultFeed implements Feed {
      * Set the expired
      *
      * @param   expired     the expired
+     *
+     * @return  the feed
      */
     @Override
-    public void setExpired(Boolean expired) {
+    public Feed setExpired(Boolean expired) {
 
         this.expired = expired;
+        return (this);
 
     }
 
@@ -696,11 +731,14 @@ public class DefaultFeed implements Feed {
      * Set the hub list
      *
      * @param   hubList  the hub list
+     *
+     * @return  the feed
      */
     @Override
-    public void setHubList(List<Hub> hubList) {
+    public Feed setHubList(List<Hub> hubList) {
 
         this.hubList = hubList;
+        return (this);
 
     }
 
@@ -724,11 +762,13 @@ public class DefaultFeed implements Feed {
      * Set the item list
      *
      * @param   itemList  the item list
+     *
+     * @return  the feed
      */
     @Override
-    public void setItemList(List<Item> itemList) {
+    public Feed setItemList(List<Item> itemList) {
 
-        /* Check the item version */
+        /* Upgrade the item if needed */
         if ( itemList != null ) {
             for ( final Item item : itemList ) {
                 ((DefaultItem)item).upgrade(this.getVersion());
@@ -736,6 +776,7 @@ public class DefaultFeed implements Feed {
         }
 
         this.itemList = itemList;
+        return (this);
 
     }
 
@@ -749,7 +790,6 @@ public class DefaultFeed implements Feed {
     @Override
     public JSONObject getExtensionsJSONObject() {
 
-        /* Return the extensions JSON object */
         return (this.extensionsJsonObject);
 
     }
@@ -760,11 +800,14 @@ public class DefaultFeed implements Feed {
      * Set the feed extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the feed
      */
     @Override
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+    public Feed setExtensionsJSONObject(JSONObject extensionsJsonObject) {
 
         this.extensionsJsonObject = extensionsJsonObject;
+        return (this);
 
     }
 

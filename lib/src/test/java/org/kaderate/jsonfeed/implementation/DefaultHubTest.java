@@ -53,7 +53,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Hub tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultHubTest {
 
@@ -155,9 +155,9 @@ public class DefaultHubTest {
     @Test
     public void test4() throws MalformedURLException {
 
-        Hub hub = new DefaultHub();
-        hub.setType("Tardis");
-        hub.setUrl(new URL("https://ham.org/tardis.html"));
+        Hub hub = new DefaultHub()
+                .setType("Tardis")
+                .setUrl(new URL("https://ham.org/tardis.html"));
 
         JSONObject jsonObject = new JSONObject()
                 .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")

@@ -39,7 +39,7 @@ import org.kaderate.jsonfeed.Version;
  * Feed interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public interface Feed extends JSONString {
 
@@ -64,8 +64,10 @@ public interface Feed extends JSONString {
      * Set the title
      *
      * @param   title  the title
+     *
+     * @return  the feed
      */
-    public void setTitle(String title);
+    public Feed setTitle(String title);
 
 
     /**
@@ -80,8 +82,10 @@ public interface Feed extends JSONString {
      * Set the home page URL
      *
      * @param   homePageUrl the home page URL
+     *
+     * @return  the feed
      */
-    public void setHomePageUrl(URL homePageUrl);
+    public Feed setHomePageUrl(URL homePageUrl);
 
 
     /**
@@ -96,8 +100,10 @@ public interface Feed extends JSONString {
      * Set the feed URL
      *
      * @param   feedUrl the feed URL
+     *
+     * @return  the feed
      */
-    public void setFeedUrl(URL feedUrl);
+    public Feed setFeedUrl(URL feedUrl);
 
 
     /**
@@ -112,8 +118,10 @@ public interface Feed extends JSONString {
      * Set the description
      *
      * @param   description  the description
+     *
+     * @return  the feed
      */
-    public void setDescription(String description);
+    public Feed setDescription(String description);
 
 
     /**
@@ -128,8 +136,10 @@ public interface Feed extends JSONString {
      * Set the user comment
      *
      * @param   userComment  the user comment
+     *
+     * @return  the feed
      */
-    public void setUserComment(String userComment);
+    public Feed setUserComment(String userComment);
 
 
     /**
@@ -144,8 +154,10 @@ public interface Feed extends JSONString {
      * Set the next URL
      *
      * @param   nextUrl the next URL
+     *
+     * @return  the feed
      */
-    public void setNextUrl(URL nextUrl);
+    public Feed setNextUrl(URL nextUrl);
 
 
     /**
@@ -160,8 +172,10 @@ public interface Feed extends JSONString {
      * Set the icon (URL)
      *
      * @param   icon the icon URL
+     *
+     * @return  the feed
      */
-    public void setIcon(URL icon);
+    public Feed setIcon(URL icon);
 
 
     /**
@@ -176,8 +190,10 @@ public interface Feed extends JSONString {
      * Set the favicon (URL)
      *
      * @param   favicon the favicon URL
+     *
+     * @return  the feed
      */
-    public void setFavicon(URL favicon);
+    public Feed setFavicon(URL favicon);
 
 
     /**
@@ -192,8 +208,10 @@ public interface Feed extends JSONString {
      * Set the author
      *
      * @param   author  the author
+     *
+     * @return  the feed
      */
-    public void setAuthor(Author author);
+    public Feed setAuthor(Author author);
 
 
     /**
@@ -208,8 +226,10 @@ public interface Feed extends JSONString {
      * Set the author list (JSON Feed 1.1 only)
      *
      * @param   authorList  the author list
+     *
+     * @return  the feed
      */
-    public void setAuthorList(List<Author> authorList);
+    public Feed setAuthorList(List<Author> authorList);
 
 
     /**
@@ -224,8 +244,10 @@ public interface Feed extends JSONString {
      * Set the language
      *
      * @param   language  the language
+     *
+     * @return  the feed
      */
-    public void setLanguage(String language);
+    public Feed setLanguage(String language);
 
 
     /**
@@ -240,8 +262,10 @@ public interface Feed extends JSONString {
      * Set the expired
      *
      * @param   expired  the expired
+     *
+     * @return  the feed
      */
-    public void setExpired(Boolean expired);
+    public Feed setExpired(Boolean expired);
 
 
     /**
@@ -256,8 +280,10 @@ public interface Feed extends JSONString {
      * Set the hub list
      *
      * @param   hubList  the hub list
+     *
+     * @return  the feed
      */
-    public void setHubList(List<Hub> hubList);
+    public Feed setHubList(List<Hub> hubList);
 
 
     /**
@@ -272,8 +298,10 @@ public interface Feed extends JSONString {
      * Set the item list
      *
      * @param   itemList  the item list
+     *
+     * @return  the feed
      */
-    public void setItemList(List<Item> itemList);
+    public Feed setItemList(List<Item> itemList);
 
 
     /**
@@ -288,8 +316,10 @@ public interface Feed extends JSONString {
      * Set the feed extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the feed
      */
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
+    public Feed setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**
