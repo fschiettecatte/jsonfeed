@@ -768,7 +768,7 @@ public class DefaultFeed implements Feed {
     @Override
     public Feed setItemList(List<Item> itemList) {
 
-        /* Upgrade the item if needed */
+        /* Upgrade every item */
         if ( itemList != null ) {
             for ( final Item item : itemList ) {
                 ((DefaultItem)item).upgrade(this.getVersion());

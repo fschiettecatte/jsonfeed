@@ -756,8 +756,6 @@ public class DefaultItem implements Item {
     @Override
     public Item setAuthorList(List<Author> authorList) {
 
-        this.upgrade(Version.VERSION_1_1);
-
         this.authorList = authorList;
         return (this);
 
@@ -819,8 +817,6 @@ public class DefaultItem implements Item {
      */
     @Override
     public Item setLanguage(String language) {
-
-        this.upgrade(Version.VERSION_1_1);
 
         this.language = language;
         return (this);
