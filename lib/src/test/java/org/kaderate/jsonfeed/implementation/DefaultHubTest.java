@@ -22,6 +22,7 @@ package org.kaderate.jsonfeed.implementation;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.HashMap;
 
 
 /* Import JSON stuff */
@@ -52,14 +53,21 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Hub tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultHubTest {
 
 
     private static final String TEST_STRING_1_X = "{" +
             "\"type\": \"Tardis\"," +
-            "\"url\": \"https://ham.org/tardis.html\"" +
+            "\"url\": \"https://ham.org/tardis.html\"," +
+            "\"_blue_shed\": { " +
+                "\"about\": \"https://blueshed-podcasts.com/json-feed-extension-docs\"," +
+                "\"explicit\": false," +
+                "\"copyright\": \"1948 by George Orwell\"," +
+                "\"owner\": \"Big Brother and the Holding Company\"," +
+                "\"subtitle\": \"All shouting, all the time. Double. Plus. Good.\"" +
+            "} " +
         "}";
 
 
@@ -77,6 +85,14 @@ public class DefaultHubTest {
 
         assertEquals(hub.getType(), "Tardis");
         assertEquals(hub.getUrl().toString(), "https://ham.org/tardis.html");
+
+        assertNotNull(hub.getExtensionsJSONObject());
+        assertNotNull(hub.getExtensionsJSONObject().get("_blue_shed"));
+        assertEquals(((HashMap)hub.getExtensionsJSONObject().get("_blue_shed")).get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(((HashMap)hub.getExtensionsJSONObject().get("_blue_shed")).get("explicit"), false);
+        assertEquals(((HashMap)hub.getExtensionsJSONObject().get("_blue_shed")).get("copyright"), "1948 by George Orwell");
+        assertEquals(((HashMap)hub.getExtensionsJSONObject().get("_blue_shed")).get("owner"), "Big Brother and the Holding Company");
+        assertEquals(((HashMap)hub.getExtensionsJSONObject().get("_blue_shed")).get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(hub.toJSONString());
 
@@ -143,10 +159,26 @@ public class DefaultHubTest {
         hub.setType("Tardis");
         hub.setUrl(new URL("https://ham.org/tardis.html"));
 
+        JSONObject jsonObject = new JSONObject()
+                .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")
+                .put("explicit", false)
+                .put("copyright", "1948 by George Orwell")
+                .put("owner", "Big Brother and the Holding Company")
+                .put("subtitle", "All shouting, all the time. Double. Plus. Good.");
+        hub.setExtensionsJSONObject(new JSONObject().put("_blue_shed", jsonObject));
+
         assertTrue(hub.isValid());
 
         assertEquals(hub.getType(), "Tardis");
         assertEquals(hub.getUrl().toString(), "https://ham.org/tardis.html");
+
+        assertNotNull(hub.getExtensionsJSONObject());
+        assertNotNull(hub.getExtensionsJSONObject().getJSONObject("_blue_shed"));
+        assertEquals(hub.getExtensionsJSONObject().getJSONObject("_blue_shed").get("about"), "https://blueshed-podcasts.com/json-feed-extension-docs");
+        assertEquals(hub.getExtensionsJSONObject().getJSONObject("_blue_shed").get("explicit"), false);
+        assertEquals(hub.getExtensionsJSONObject().getJSONObject("_blue_shed").get("copyright"), "1948 by George Orwell");
+        assertEquals(hub.getExtensionsJSONObject().getJSONObject("_blue_shed").get("owner"), "Big Brother and the Holding Company");
+        assertEquals(hub.getExtensionsJSONObject().getJSONObject("_blue_shed").get("subtitle"), "All shouting, all the time. Double. Plus. Good.");
 
         assertNotNull(hub.toJSONString());
 

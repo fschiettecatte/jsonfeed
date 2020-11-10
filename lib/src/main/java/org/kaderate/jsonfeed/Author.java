@@ -23,6 +23,7 @@ import java.net.URL;
 
 
 /* Import JSON stuff */
+import org.json.JSONObject;
 import org.json.JSONString;
 
 
@@ -30,7 +31,7 @@ import org.json.JSONString;
  * Author interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public interface Author extends JSONString {
 
@@ -81,6 +82,22 @@ public interface Author extends JSONString {
      * @param   avatar  the avatar URL
      */
     public void setAvatar(URL avatar);
+
+
+    /**
+     * Get author extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    public JSONObject getExtensionsJSONObject();
+
+
+    /**
+     * Set the author extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

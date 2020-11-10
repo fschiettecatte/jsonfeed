@@ -25,6 +25,7 @@ import java.util.List;
 
 
 /* Import JSON stuff */
+import org.json.JSONObject;
 import org.json.JSONString;
 
 
@@ -37,7 +38,7 @@ import org.kaderate.jsonfeed.Author;
  * Item interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public interface Item extends JSONString {
 
@@ -297,6 +298,21 @@ public interface Item extends JSONString {
      */
     public void setAttachmentList(List<Attachment> attachmentList);
 
+
+    /**
+     * Get item extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    public JSONObject getExtensionsJSONObject();
+
+
+    /**
+     * Set the item extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

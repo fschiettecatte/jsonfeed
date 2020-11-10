@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /* Import JSON stuff */
@@ -38,7 +39,7 @@ import org.kaderate.jsonfeed.Attachment;
  * Default implementation for Attachment
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class DefaultAttachment implements Attachment {
 
@@ -71,6 +72,12 @@ public class DefaultAttachment implements Attachment {
      * Duration in seconds
      */
     private Integer durationInSeconds = null;
+
+
+    /**
+     * Extensions JSON object
+     */
+    private JSONObject extensionsJsonObject = new JSONObject();
 
 
 
@@ -155,6 +162,14 @@ public class DefaultAttachment implements Attachment {
         /* Get the duration in seconds */
         if ( jsonObject.has("duration_in_seconds") == true ) {
             this.setDurationInSeconds(jsonObject.optInt("duration_in_seconds"));
+        }
+
+
+        /* Get the extensions */
+        for ( final Map.Entry<String, Object> entry : jsonObject.toMap().entrySet() ) {
+            if ( entry.getKey().startsWith("_") == true ) {
+                this.extensionsJsonObject.put(entry.getKey(), entry.getValue());
+            }
         }
 
     }
@@ -327,6 +342,35 @@ public class DefaultAttachment implements Attachment {
 
 
     /**
+     * Get attachment extensions as a JSON object
+     *
+     * @return  the extensions JSON object
+     */
+    @Override
+    public JSONObject getExtensionsJSONObject() {
+
+        /* Return the extensions JSON object */
+        return (this.extensionsJsonObject);
+
+    }
+
+
+
+    /**
+     * Set the attachment extensions JSON object
+     *
+     * @param   extensionsJsonObject  the extensions JSON object
+     */
+    @Override
+    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+
+        this.extensionsJsonObject = extensionsJsonObject;
+
+    }
+
+
+
+    /**
      * Check the validity of the attachment object
      *
      * @return  true if the attachment object is valid
@@ -379,6 +423,15 @@ public class DefaultAttachment implements Attachment {
         /* Add the duration in seconds */
         if ( this.getDurationInSeconds() != null ) {
             jsonObject.put("duration_in_seconds", this.getDurationInSeconds());
+        }
+
+        /* Add the extensions */
+        if ( this.getExtensionsJSONObject() != null ) {
+            for ( final Map.Entry<String, Object> entry : this.getExtensionsJSONObject().toMap().entrySet() ) {
+                if ( entry.getKey().startsWith("_") == true ) {
+                    jsonObject.put(entry.getKey(), entry.getValue());
+                }
+            }
         }
 
         /* Get the JSON string */
