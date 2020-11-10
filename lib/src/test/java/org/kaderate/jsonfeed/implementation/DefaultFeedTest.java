@@ -59,7 +59,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Feed tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultFeedTest {
 
@@ -555,16 +555,16 @@ public class DefaultFeedTest {
         Item item = new DefaultItem("1");
         itemList.add(item);
 
-        Feed feed = new DefaultFeed("Feed Feed", itemList);
-        feed.setHomePageUrl(new URL("https://ham.org/"));
-        feed.setFeedUrl(new URL("https://ham.org/feed.json"));
-        feed.setDescription("Ham Feed Description");
-        feed.setUserComment("Ham Feed User Comment");
-        feed.setNextUrl(new URL("https://ham.org/feed.json?page=2"));
-        feed.setIcon(new URL("https://ham.org/icon.jpg"));
-        feed.setFavicon(new URL("https://ham.org/favicon.jpg"));
-        feed.setLanguage("en-US");
-        feed.setExpired(false);
+        Feed feed = new DefaultFeed("Feed Feed", itemList)
+                .setHomePageUrl(new URL("https://ham.org/"))
+                .setFeedUrl(new URL("https://ham.org/feed.json"))
+                .setDescription("Ham Feed Description")
+                .setUserComment("Ham Feed User Comment")
+                .setNextUrl(new URL("https://ham.org/feed.json?page=2"))
+                .setIcon(new URL("https://ham.org/icon.jpg"))
+                .setFavicon(new URL("https://ham.org/favicon.jpg"))
+                .setLanguage("en-US")
+                .setExpired(false);
 
         List<Author> authorList = new ArrayList<Author>();
         authorList.add(new DefaultAuthor("Dalek Jast", new URL("https://ham.org/authorJast.html"), new URL("https://ham.org/avatarJast.html")));

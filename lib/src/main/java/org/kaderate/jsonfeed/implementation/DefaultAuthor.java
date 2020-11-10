@@ -39,7 +39,7 @@ import org.kaderate.jsonfeed.Author;
  * Default implementation for Author
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultAuthor implements Author {
 
@@ -174,7 +174,6 @@ public class DefaultAuthor implements Author {
      */
     public DefaultAuthor(final String name, final URL url, final URL avatar) {
 
-        /* Set the name, url and avatar */
         this.setName(name);
         this.setUrl(url);
         this.setAvatar(avatar);
@@ -210,11 +209,14 @@ public class DefaultAuthor implements Author {
      * Set the name
      *
      * @param   name  the name
+     *
+     * @return  the author
      */
     @Override
-    public void setName(String name) {
+    public Author setName(String name) {
 
-       this.name = name;
+        this.name = name;
+        return (this);
 
     }
 
@@ -238,11 +240,14 @@ public class DefaultAuthor implements Author {
      * Set the URL
      *
      * @param   url  the URL
+     *
+     * @return  the author
      */
     @Override
-    public void setUrl(URL url) {
+    public Author setUrl(URL url) {
 
-       this.url = url;
+        this.url = url;
+        return (this);
 
     }
 
@@ -266,11 +271,14 @@ public class DefaultAuthor implements Author {
      * Set the avatar (URL)
      *
      * @param   avatar  the avatar URL
+     *
+     * @return  the author
      */
     @Override
-    public void setAvatar(URL avatar) {
+    public Author setAvatar(URL avatar) {
 
-       this.avatar = avatar;
+        this.avatar = avatar;
+        return (this);
 
     }
 
@@ -284,7 +292,6 @@ public class DefaultAuthor implements Author {
     @Override
     public JSONObject getExtensionsJSONObject() {
 
-        /* Return the extensions JSON object */
         return (this.extensionsJsonObject);
 
     }
@@ -295,11 +302,14 @@ public class DefaultAuthor implements Author {
      * Set the author extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the author
      */
     @Override
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+    public Author setExtensionsJSONObject(JSONObject extensionsJsonObject) {
 
         this.extensionsJsonObject = extensionsJsonObject;
+        return (this);
 
     }
 

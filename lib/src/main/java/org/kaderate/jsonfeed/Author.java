@@ -31,7 +31,7 @@ import org.json.JSONString;
  * Author interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public interface Author extends JSONString {
 
@@ -48,8 +48,10 @@ public interface Author extends JSONString {
      * Set the name
      *
      * @param   name  the name
+     *
+     * @return  the author
      */
-    public void setName(String name);
+    public Author setName(String name);
 
 
     /**
@@ -64,8 +66,10 @@ public interface Author extends JSONString {
      * Set the URL
      *
      * @param   url  the URL
+     *
+     * @return  the author
      */
-    public void setUrl(URL url);
+    public Author setUrl(URL url);
 
 
     /**
@@ -80,8 +84,10 @@ public interface Author extends JSONString {
      * Set the avatar (URL)
      *
      * @param   avatar  the avatar URL
+     *
+     * @return  the author
      */
-    public void setAvatar(URL avatar);
+    public Author setAvatar(URL avatar);
 
 
     /**
@@ -96,8 +102,10 @@ public interface Author extends JSONString {
      * Set the author extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the author
      */
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
+    public Author setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

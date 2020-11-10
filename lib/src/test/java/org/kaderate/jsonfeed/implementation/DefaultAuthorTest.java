@@ -53,7 +53,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Author tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultAuthorTest {
 
@@ -162,10 +162,10 @@ public class DefaultAuthorTest {
     @Test
     public void test4() throws MalformedURLException {
 
-        Author author = new DefaultAuthor();
-        author.setName("Dalek Caan");
-        author.setUrl(new URL("https://ham.org/authorCaan.html"));
-        author.setAvatar(new URL("https://ham.org/avatarCaan.html"));
+        Author author = new DefaultAuthor()
+                .setName("Dalek Caan")
+                .setUrl(new URL("https://ham.org/authorCaan.html"))
+                .setAvatar(new URL("https://ham.org/avatarCaan.html"));
 
         JSONObject jsonObject = new JSONObject()
                 .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")

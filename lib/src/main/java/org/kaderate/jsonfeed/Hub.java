@@ -31,7 +31,7 @@ import org.json.JSONString;
  * Hub interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public interface Hub extends JSONString {
 
@@ -48,8 +48,10 @@ public interface Hub extends JSONString {
      * Set the type
      *
      * @param   type  the type
+     *
+     * @return  the hub
      */
-    public void setType(String type);
+    public Hub setType(String type);
 
 
     /**
@@ -64,8 +66,10 @@ public interface Hub extends JSONString {
      * Set the URL
      *
      * @param   url  the URL
+     *
+     * @return  the hub
      */
-    public void setUrl(URL url);
+    public Hub setUrl(URL url);
 
 
     /**
@@ -80,8 +84,10 @@ public interface Hub extends JSONString {
      * Set the hub extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the hub
      */
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject);
+    public Hub setExtensionsJSONObject(JSONObject extensionsJsonObject);
 
 
     /**

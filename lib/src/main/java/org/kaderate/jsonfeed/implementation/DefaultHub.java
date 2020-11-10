@@ -39,7 +39,7 @@ import org.kaderate.jsonfeed.Hub;
  * Default implementation for Hub
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.4.0
+ * @version 0.5.0
  */
 public class DefaultHub implements Hub {
 
@@ -153,7 +153,6 @@ public class DefaultHub implements Hub {
      */
     public DefaultHub(final String type, final URL url) {
 
-        /* Set the type and URL */
         this.setType(type);
         this.setUrl(url);
 
@@ -188,11 +187,14 @@ public class DefaultHub implements Hub {
      * Set the type
      *
      * @param   type  the type
+     *
+     * @return  the hub
      */
     @Override
-    public void setType(String type) {
+    public Hub setType(String type) {
 
-       this.type = type;
+        this.type = type;
+        return (this);
 
     }
 
@@ -216,11 +218,14 @@ public class DefaultHub implements Hub {
      * Set the URL
      *
      * @param   url  the URL
+     *
+     * @return  the hub
      */
     @Override
-    public void setUrl(URL url) {
+    public Hub setUrl(URL url) {
 
-       this.url = url;
+        this.url = url;
+        return (this);
 
     }
 
@@ -234,7 +239,6 @@ public class DefaultHub implements Hub {
     @Override
     public JSONObject getExtensionsJSONObject() {
 
-        /* Return the extensions JSON object */
         return (this.extensionsJsonObject);
 
     }
@@ -245,11 +249,14 @@ public class DefaultHub implements Hub {
      * Set the hub extensions JSON object
      *
      * @param   extensionsJsonObject  the extensions JSON object
+     *
+     * @return  the hub
      */
     @Override
-    public void setExtensionsJSONObject(JSONObject extensionsJsonObject) {
+    public Hub setExtensionsJSONObject(JSONObject extensionsJsonObject) {
 
         this.extensionsJsonObject = extensionsJsonObject;
+        return (this);
 
     }
 
