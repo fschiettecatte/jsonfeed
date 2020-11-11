@@ -19,6 +19,10 @@ package org.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.lang.StringBuilder;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -149,9 +153,100 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Parse a JSON string and return the feed
+     * Fetch a feed URL and return the feed
      *
-     * @param   jsonString  the feed as a JSON string
+     * @param   feedUrl  the feed url
+     *
+     * @return  the feed object
+     *
+     * @exception   IOException
+     *              If the feed URL could not be read
+     *
+     * @exception   MalformedURLException
+     *              If the home page URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the feed URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the next URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the icon (URL) is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the favicon (URL) is invalid
+     *
+     * @exception   IllegalArgumentException
+     *              If the version is missing or invalid
+     */
+    public static Feed fromUrl(final URL feedUrl) throws MalformedURLException, IOException {
+
+        /* Fetch a URL  */
+        final Reader feedReader = new InputStreamReader(feedUrl.openStream());
+
+        /* Parse the returned JSON string */
+        final Feed feed = DefaultFeed.fromReader(feedReader);
+
+        /* Return the feed */
+        return (feed);
+
+    }
+
+
+    /**
+     * Read the feed reader and return the feed
+     *
+     * @param   feedReader  the JSON string reader
+     *
+     * @return  the feed object
+     *
+     * @exception   IOException
+     *              If the feed reader could not be read
+     *
+     * @exception   MalformedURLException
+     *              If the home page URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the feed URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the next URL is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the icon (URL) is invalid
+     *
+     * @exception   MalformedURLException
+     *              If the favicon (URL) is invalid
+     *
+     * @exception   IllegalArgumentException
+     *              If the version is missing or invalid
+     */
+    public static Feed fromReader(final Reader feedReader) throws MalformedURLException, IOException {
+
+        /* Variables to read the JSON string */
+        final StringBuilder feedStringBuilder = new StringBuilder();
+        final char[] feedReaderBuffer = new char[4096];
+        int charactersRead = 0;
+
+        /* Read the feed into the feed string builder */
+        while ( (charactersRead = feedReader.read(feedReaderBuffer)) >= 0 ) {
+            feedStringBuilder.append(feedReaderBuffer, 0, charactersRead);
+        }
+
+        /* Parse the feed string  */
+        final Feed feed = DefaultFeed.fromString(feedStringBuilder.toString());
+
+        /* Return the feed */
+        return (feed);
+
+    }
+
+
+    /**
+     * Parse a JSON feed string and return the feed
+     *
+     * @param   feedString  the JSON feed string
      *
      * @return  the feed object
      *
@@ -173,12 +268,12 @@ public class DefaultFeed implements Feed {
      * @exception   IllegalArgumentException
      *              If the version is missing or invalid
      */
-    public static Feed fromString(final String jsonString) throws MalformedURLException {
+    public static Feed fromString(final String feedString) throws MalformedURLException {
 
         /* Parse the JSON string to a JSON object */
-        final JSONObject jsonObject = new JSONObject(jsonString);
+        final JSONObject jsonObject = new JSONObject(feedString);
 
-        /* Parse the JSON string */
+        /* Create a new feed from the JSON object */
         final Feed feed = new DefaultFeed(jsonObject);
 
         /* Return the feed */

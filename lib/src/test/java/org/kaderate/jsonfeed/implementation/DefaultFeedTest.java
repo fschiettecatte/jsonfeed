@@ -485,29 +485,19 @@ public class DefaultFeedTest {
 //
 //         /* Create a list of known JSON feeds, */
 //         /* lifted from https://jsonfeed.org/version/1.1 */
-//         List<URL> urlList = new ArrayList<URL>();
-//         urlList.add(new URL("https://shapeof.com/feed.json"));
-//         urlList.add(new URL("https://flyingmeat.com/blog/feed.json"));
-//         urlList.add(new URL("https://daringfireball.net/feeds/json"));
-//         urlList.add(new URL("https://hypercritical.co/feeds/main.json"));
-//         urlList.add(new URL("https://inessential.com/feed.json"));
-//         urlList.add(new URL("https://jsonfeed.org/feed.json"));
+//         List<URL> feedUrlList = new ArrayList<URL>();
+//         feedUrlList.add(new URL("https://shapeof.com/feed.json"));
+//         feedUrlList.add(new URL("https://flyingmeat.com/blog/feed.json"));
+//         feedUrlList.add(new URL("https://daringfireball.net/feeds/json"));
+//         feedUrlList.add(new URL("https://hypercritical.co/feeds/main.json"));
+//         feedUrlList.add(new URL("https://inessential.com/feed.json"));
+//         feedUrlList.add(new URL("https://jsonfeed.org/feed.json"));
 //
 //
-//         /* Crawl the urls */
-//         for ( URL url : urlList ) {
+//         /* Crawl the feed URLs */
+//         for ( URL feedUrl : feedUrlList ) {
 //
-//             Reader reader = new InputStreamReader(url.openStream());
-//
-//             StringBuilder stringBuilder = new StringBuilder();
-//             char[] buffer = new char[4096];
-//             int numChars;
-//
-//             while ( (numChars = reader.read(buffer)) >= 0 ) {
-//                 stringBuilder.append(buffer, 0, numChars);
-//             }
-//
-//             Feed feed = DefaultFeed.fromString(stringBuilder.toString());
+//             Feed feed = DefaultFeed.fromUrl(feedUrl);
 //
 //             assertNotNull(feed);
 //             assertTrue(feed.isValid());
