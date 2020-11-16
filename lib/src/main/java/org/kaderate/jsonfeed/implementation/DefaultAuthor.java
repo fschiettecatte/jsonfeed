@@ -39,7 +39,7 @@ import org.kaderate.jsonfeed.Author;
  * Default implementation for Author
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.5.0
+ * @version 0.6.0
  */
 public class DefaultAuthor implements Author {
 
