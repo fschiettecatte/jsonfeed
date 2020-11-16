@@ -32,7 +32,7 @@ import org.json.JSONString;
  * Version enum
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.5.0
+ * @version 0.6.0
  */
 public enum Version implements JSONString {
 

@@ -59,7 +59,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Feed tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.5.0
+ * @version 0.6.0
  */
 public class DefaultFeedTest {
 

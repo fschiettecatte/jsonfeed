@@ -31,7 +31,7 @@ import org.json.JSONString;
  * Attachment interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.5.0
+ * @version 0.6.0
  */
 public interface Attachment extends JSONString {
 
