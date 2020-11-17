@@ -50,7 +50,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default implementation for Feed
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.6.0
+ * @version 1.0.0
  */
 public class DefaultFeed implements Feed {
 
