@@ -59,7 +59,7 @@ import org.kaderate.jsonfeed.implementation.DefaultItem;
  * Default Feed tests
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.6.0
+ * @version 1.0.0
  */
 public class DefaultFeedTest {
 
@@ -480,33 +480,33 @@ public class DefaultFeedTest {
     /**
      * Test 4
      */
-//     @Test
-//     public void test4() throws MalformedURLException, IOException {
-//
-//         /* Create a list of known JSON feeds, */
-//         /* lifted from https://jsonfeed.org/version/1.1 */
-//         List<URL> feedUrlList = new ArrayList<URL>();
-//         feedUrlList.add(new URL("https://shapeof.com/feed.json"));
-//         feedUrlList.add(new URL("https://flyingmeat.com/blog/feed.json"));
-//         feedUrlList.add(new URL("https://daringfireball.net/feeds/json"));
-//         feedUrlList.add(new URL("https://hypercritical.co/feeds/main.json"));
-//         feedUrlList.add(new URL("https://inessential.com/feed.json"));
-//         feedUrlList.add(new URL("https://jsonfeed.org/feed.json"));
-//
-//
-//         /* Crawl the feed URLs */
-//         for ( URL feedUrl : feedUrlList ) {
-//
-//             Feed feed = DefaultFeed.fromUrl(feedUrl);
-//
-//             assertNotNull(feed);
-//             assertTrue(feed.isValid());
-//
-//             assertNotNull(feed.toJSONString());
-//
-//         }
-//
-//     }
+    @Test
+    public void test4() throws MalformedURLException, IOException {
+
+        /* Create a list of known JSON feeds, */
+        /* lifted from https://jsonfeed.org/version/1.1 */
+        List<URL> feedUrlList = new ArrayList<URL>();
+        feedUrlList.add(new URL("https://shapeof.com/feed.json"));
+        feedUrlList.add(new URL("https://flyingmeat.com/blog/feed.json"));
+        feedUrlList.add(new URL("https://daringfireball.net/feeds/json"));
+        feedUrlList.add(new URL("https://hypercritical.co/feeds/main.json"));
+        feedUrlList.add(new URL("https://inessential.com/feed.json"));
+        feedUrlList.add(new URL("https://jsonfeed.org/feed.json"));
+
+
+        /* Crawl the feed URLs */
+        for ( URL feedUrl : feedUrlList ) {
+
+            Feed feed = DefaultFeed.fromUrl(feedUrl);
+
+            assertNotNull(feed);
+            assertTrue(feed.isValid());
+
+            assertNotNull(feed.toJSONString());
+
+        }
+
+    }
 
 
     /**

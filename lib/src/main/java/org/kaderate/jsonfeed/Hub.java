@@ -31,7 +31,7 @@ import org.json.JSONString;
  * Hub interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.6.0
+ * @version 1.0.0
  */
 public interface Hub extends JSONString {
 

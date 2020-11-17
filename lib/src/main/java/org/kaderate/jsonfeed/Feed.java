@@ -39,7 +39,7 @@ import org.kaderate.jsonfeed.Version;
  * Feed interface
  *
  * @author François Schiettecatte (fschiettecatte@gmail.com)
- * @version 0.6.0
+ * @version 1.0.0
  */
 public interface Feed extends JSONString {
 
