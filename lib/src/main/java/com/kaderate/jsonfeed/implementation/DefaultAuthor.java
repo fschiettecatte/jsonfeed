@@ -15,7 +15,7 @@
 
 
 /* Package location */
-package org.kaderate.jsonfeed.implementation;
+package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
@@ -32,7 +32,7 @@ import org.json.JSONObject;
 
 
 /* Import JSONFeed stuff */
-import org.kaderate.jsonfeed.Author;
+import com.kaderate.jsonfeed.Author;
 
 
 /**

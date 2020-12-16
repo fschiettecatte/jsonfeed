@@ -15,7 +15,7 @@
 
 
 /* Package location */
-package org.kaderate.jsonfeed.implementation;
+package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
@@ -41,17 +41,17 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /* Import JSONFeed stuff */
-import org.kaderate.jsonfeed.Attachment;
-import org.kaderate.jsonfeed.Author;
-import org.kaderate.jsonfeed.Feed;
-import org.kaderate.jsonfeed.Hub;
-import org.kaderate.jsonfeed.Item;
-import org.kaderate.jsonfeed.Version;
-import org.kaderate.jsonfeed.implementation.DefaultAttachment;
-import org.kaderate.jsonfeed.implementation.DefaultAuthor;
-import org.kaderate.jsonfeed.implementation.DefaultFeed;
-import org.kaderate.jsonfeed.implementation.DefaultHub;
-import org.kaderate.jsonfeed.implementation.DefaultItem;
+import com.kaderate.jsonfeed.Attachment;
+import com.kaderate.jsonfeed.Author;
+import com.kaderate.jsonfeed.Feed;
+import com.kaderate.jsonfeed.Hub;
+import com.kaderate.jsonfeed.Item;
+import com.kaderate.jsonfeed.Version;
+import com.kaderate.jsonfeed.implementation.DefaultAttachment;
+import com.kaderate.jsonfeed.implementation.DefaultAuthor;
+import com.kaderate.jsonfeed.implementation.DefaultFeed;
+import com.kaderate.jsonfeed.implementation.DefaultHub;
+import com.kaderate.jsonfeed.implementation.DefaultItem;
 
 
 

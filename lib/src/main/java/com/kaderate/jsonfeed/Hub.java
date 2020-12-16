@@ -15,7 +15,7 @@
 
 
 /* Package location */
-package org.kaderate.jsonfeed;
+package com.kaderate.jsonfeed;
 
 
 /* Import Java stuff */
