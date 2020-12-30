@@ -11,25 +11,29 @@
 plugins {
 
   // Apply the java-library plugin for API and implementation separation.
-  id 'java-library'
+  id "java-library"
 
   // To publish to maven
-  id 'maven-publish'
-  id 'signing'
+  id "maven-publish"
+  id "signing"
 }
 
 
 // Project info
-project.version = '1.1.0'
-project.group = 'com.kaderate'
+project.version = "1.1.0"
+project.group = "com.kaderate"
 project.archivesBaseName = rootProject.name
+
+// Project title & description
+project.ext.title = "JSONFeed"
+project.description = "${project.ext.title} Parser"
 
 
 // Tasks
-tasks.named('jar') {
+tasks.named("jar") {
   manifest {
-    attributes('Implementation-Title': rootProject.name,
-               'Implementation-Version': project.version)
+    attributes("Implementation-Title": rootProject.name,
+               "Implementation-Version": project.version)
   }
 }
 
@@ -53,47 +57,50 @@ repositories {
 dependencies {
 
   // Use JUnit test framework
-  testImplementation 'junit:junit:4.13'
+  testImplementation "junit:junit:4.13"
 
   // This dependency is exported to consumers, that is to say found on their compile classpath
-  api 'org.apache.commons:commons-math3:3.6.1'
+  api "org.apache.commons:commons-math3:3.6.1"
 
   // This dependency is used internally, and not exposed to consumers on their own compile classpath
-  implementation 'com.google.guava:guava:29.0-jre'
+  implementation "com.google.guava:guava:29.0-jre"
 
   // This dependency is used internally, and not exposed to consumers on their own compile classpath
-  implementation 'org.json:json:20201115'
+  implementation "org.json:json:20201115"
 }
 
 
 
 // Publishing
+//
+// https://docs.gradle.org/6.7.1/userguide/publishing_maven.html
+//
 publishing {
   publications {
     mavenJava(MavenPublication) {
       pom {
-        name = 'JSONFeed'
+        name = project.ext.title
         artifactId = rootProject.name
         from components.java
-        description = 'JSONFeed Parser'
-        url = 'https://github.com/fschiettecatte/jsonfeed'
+        description = project.description
+        url = "https://github.com/fschiettecatte/jsonfeed"
         licenses {
           license {
-            name = 'The Apache License, Version 2.0'
-            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            name = "The Apache License, Version 2.0"
+            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
           }
         }
         developers {
           developer {
-            id = 'fschiettecatte@gmail.com'
-            name = 'François Schiettecatte'
-            email = 'fschiettecatte@gmail.com'
+            id = "fschiettecatte@gmail.com"
+            name = "François Schiettecatte"
+            email = "fschiettecatte@gmail.com"
           }
         }
         scm {
-          connection = 'scm:git:git://github.com/fschiettecatte/jsonfeed.git'
-          developerConnection = 'scm:git:ssh://github.com:fschiettecatte/jsonfeed.git'
-          url = 'https://github.com/fschiettecatte/jsonfeed'
+          connection = "scm:git:git://github.com/fschiettecatte/jsonfeed.git"
+          developerConnection = "scm:git:ssh://github.com:fschiettecatte/jsonfeed.git"
+          url = "https://github.com/fschiettecatte/jsonfeed"
         }
       }
     }
@@ -102,7 +109,7 @@ publishing {
     maven {
       def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
       def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-      url = project.version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+      url = project.version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
       credentials {
         username = ossrhUsername
         password = ossrhPassword

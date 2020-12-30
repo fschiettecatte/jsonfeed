@@ -9,7 +9,8 @@
 
 
 // Root project name
-rootProject.name = 'jsonfeed'
+rootProject.name = "jsonfeed"
+
 
 // Project
-include('lib')
+include("lib")
