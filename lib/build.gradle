@@ -57,10 +57,13 @@ repositories {
 dependencies {
 
   // This dependency is used internally, and not exposed to consumers on their own compile classpath
-  implementation "org.json:json:20201115"
+  // https://github.com/stleary/JSON-java
+  // https://search.maven.org/artifact/org.json/json/20210307/bundle
+  implementation "org.json:json:20210307"
 
   // Use JUnit test framework
-  testImplementation "junit:junit:4.13"
+  // https://mvnrepository.com/artifact/junit/junit
+  testImplementation "junit:junit:4.13.2"
 
 }
 
