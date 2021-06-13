@@ -64,8 +64,7 @@ jobs:
     #    uses a compiled language
 
     - run: |
-       ./gradlew build 
-       ./gradlew test 
+       ./gradlew build -PossrhUsername= -PossrhPassword=
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
