@@ -58,8 +58,8 @@ dependencies {
 
   // This dependency is used internally, and not exposed to consumers on their own compile classpath
   // https://github.com/stleary/JSON-java
-  // https://search.maven.org/artifact/org.json/json/20210307/bundle
-  implementation "org.json:json:20210307"
+  // https://search.maven.org/artifact/org.json/json/20211205/bundle
+  implementation "org.json:json:20211205"
 
   // Use JUnit test framework
   // https://mvnrepository.com/artifact/junit/junit
