@@ -71,7 +71,7 @@ dependencies {
 
 // Publishing
 //
-// https://docs.gradle.org/6.7.1/userguide/publishing_maven.html
+// https://docs.gradle.org/7.3/userguide/publishing_maven.html
 //
 publishing {
   publications {
