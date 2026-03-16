@@ -23,8 +23,8 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.StringBuilder;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -228,7 +228,7 @@ public class DefaultFeedTest {
      * Test 1
      */
     @Test
-    public void test1() throws MalformedURLException {
+    public void test1() throws URISyntaxException {
 
         Feed feed = DefaultFeed.fromString(DefaultFeedTest.TEST_STRING_1_0);
 
@@ -237,8 +237,8 @@ public class DefaultFeedTest {
 
         assertEquals(feed.getVersion(), Version.VERSION_1_0);
         assertEquals(feed.getTitle(), "Feed Feed");
-        assertEquals(feed.getHomePageUrl().toString(), "https://ham.org/");
-        assertEquals(feed.getFeedUrl().toString(), "https://ham.org/feed.json");
+        assertEquals(feed.getHomePageUri().toString(), "https://ham.org/");
+        assertEquals(feed.getFeedUri().toString(), "https://ham.org/feed.json");
         assertEquals(feed.getDescription(), "Ham Feed Description");
         assertEquals(feed.getUserComment(), "Ham Feed User Comment");
         assertEquals(feed.getIcon().toString(), "https://ham.org/icon.jpg");
@@ -248,7 +248,7 @@ public class DefaultFeedTest {
         assertNotNull(feed.getAuthor());
         assertTrue(feed.getAuthor().isValid());
         assertEquals(feed.getAuthor().getName(), "Dalek Caan");
-        assertEquals(feed.getAuthor().getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(feed.getAuthor().getUri().toString(), "https://ham.org/authorCaan.html");
         assertEquals(feed.getAuthor().getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertNotNull(feed.getItemList());
@@ -257,16 +257,16 @@ public class DefaultFeedTest {
         assertTrue(feed.getItemList().get(0).isValid());
         assertEquals(feed.getItemList().get(0).getID(), "2");
         assertEquals(feed.getItemList().get(0).getContentText(), "This is a second item.");
-        assertEquals(feed.getItemList().get(0).getUrl().toString(), "https://example.org/second-item");
+        assertEquals(feed.getItemList().get(0).getUri().toString(), "https://example.org/second-item");
         assertNotNull(feed.getItemList().get(0).getAuthor());
         assertTrue(feed.getItemList().get(0).getAuthor().isValid());
         assertEquals(feed.getItemList().get(0).getAuthor().getName(), "Dalek Jast");
-        assertEquals(feed.getItemList().get(0).getAuthor().getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(feed.getItemList().get(0).getAuthor().getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(feed.getItemList().get(0).getAuthor().getAvatar().toString(), "https://ham.org/avatarJast.html");
         assertNotNull(feed.getItemList().get(0).getAttachmentList());
         assertTrue(feed.getItemList().get(0).getAttachmentList().size() == 1);
         assertTrue(feed.getItemList().get(0).getAttachmentList().get(0).isValid());
-        assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getUrl().toString(), "https://ham.org/doctorRevenge.m4v");
+        assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getUri().toString(), "https://ham.org/doctorRevenge.m4v");
         assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getMimeType(), "video/x-m4v");
         assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getTitle(), "Doctor's Revenge");
         assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getSizeInBytes().intValue(), 300);
@@ -275,16 +275,16 @@ public class DefaultFeedTest {
         assertTrue(feed.getItemList().get(1).isValid());
         assertEquals(feed.getItemList().get(1).getID(), "1");
         assertEquals(feed.getItemList().get(1).getContentHtml(), "<p>Hello, world!</p>");
-        assertEquals(feed.getItemList().get(1).getUrl().toString(), "https://example.org/initial-post");
+        assertEquals(feed.getItemList().get(1).getUri().toString(), "https://example.org/initial-post");
         assertNotNull(feed.getItemList().get(1).getAuthor());
         assertTrue(feed.getItemList().get(1).getAuthor().isValid());
         assertEquals(feed.getItemList().get(1).getAuthor().getName(), "Dalek Thay");
-        assertEquals(feed.getItemList().get(1).getAuthor().getUrl().toString(), "https://ham.org/authorThay.html");
+        assertEquals(feed.getItemList().get(1).getAuthor().getUri().toString(), "https://ham.org/authorThay.html");
         assertEquals(feed.getItemList().get(1).getAuthor().getAvatar().toString(), "https://ham.org/avatarThay.html");
         assertNotNull(feed.getItemList().get(1).getAttachmentList());
         assertTrue(feed.getItemList().get(1).getAttachmentList().size() == 1);
         assertTrue(feed.getItemList().get(1).getAttachmentList().get(0).isValid());
-        assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getMimeType(), "video/x-m4v");
         assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getTitle(), "Dalek Invasion");
         assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getSizeInBytes().intValue(), 100);
@@ -294,7 +294,7 @@ public class DefaultFeedTest {
         assertTrue(feed.getHubList().size() == 1);
         assertTrue(feed.getHubList().get(0).isValid());
         assertEquals(feed.getHubList().get(0).getType(), "Tardis");
-        assertEquals(feed.getHubList().get(0).getUrl().toString(), "https://ham.org/tardis.html");
+        assertEquals(feed.getHubList().get(0).getUri().toString(), "https://ham.org/tardis.html");
 
         assertNotNull(feed.getExtensionsJSONObject());
         assertNotNull(feed.getExtensionsJSONObject().get("_blue_shed"));
@@ -313,7 +313,7 @@ public class DefaultFeedTest {
      * Test 2
      */
     @Test
-    public void test2() throws MalformedURLException {
+    public void test2() throws URISyntaxException {
 
         Feed feed = DefaultFeed.fromString(DefaultFeedTest.TEST_STRING_1_1);
 
@@ -322,8 +322,8 @@ public class DefaultFeedTest {
 
         assertEquals(feed.getVersion(), Version.VERSION_1_1);
         assertEquals(feed.getTitle(), "Feed Feed");
-        assertEquals(feed.getHomePageUrl().toString(), "https://ham.org/");
-        assertEquals(feed.getFeedUrl().toString(), "https://ham.org/feed.json");
+        assertEquals(feed.getHomePageUri().toString(), "https://ham.org/");
+        assertEquals(feed.getFeedUri().toString(), "https://ham.org/feed.json");
         assertEquals(feed.getDescription(), "Ham Feed Description");
         assertEquals(feed.getUserComment(), "Ham Feed User Comment");
         assertEquals(feed.getIcon().toString(), "https://ham.org/icon.jpg");
@@ -334,10 +334,10 @@ public class DefaultFeedTest {
         assertNotNull(feed.getAuthorList());
         assertTrue(feed.getAuthorList().get(0).isValid());
         assertEquals(feed.getAuthorList().get(0).getName(), "Dalek Caan");
-        assertEquals(feed.getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(feed.getAuthorList().get(0).getUri().toString(), "https://ham.org/authorCaan.html");
         assertEquals(feed.getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarCaan.html");
         assertEquals(feed.getAuthorList().get(1).getName(), "Dalek Jast");
-        assertEquals(feed.getAuthorList().get(1).getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(feed.getAuthorList().get(1).getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(feed.getAuthorList().get(1).getAvatar().toString(), "https://ham.org/avatarJast.html");
 
         assertNotNull(feed.getItemList());
@@ -346,19 +346,19 @@ public class DefaultFeedTest {
         assertTrue(feed.getItemList().get(0).isValid());
         assertEquals(feed.getItemList().get(0).getID(), "2");
         assertEquals(feed.getItemList().get(0).getContentText(), "This is a second item.");
-        assertEquals(feed.getItemList().get(0).getUrl().toString(), "https://example.org/second-item");
+        assertEquals(feed.getItemList().get(0).getUri().toString(), "https://example.org/second-item");
         assertEquals(feed.getItemList().get(0).getLanguage(), "en-US");
         assertNull(feed.getItemList().get(0).getAuthor());
         assertNotNull(feed.getItemList().get(0).getAuthorList());
         assertTrue(feed.getItemList().get(0).getAuthorList().size() == 1);
         assertTrue(feed.getItemList().get(0).getAuthorList().get(0).isValid());
         assertEquals(feed.getItemList().get(0).getAuthorList().get(0).getName(), "Dalek Sec");
-        assertEquals(feed.getItemList().get(0).getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorSec.html");
+        assertEquals(feed.getItemList().get(0).getAuthorList().get(0).getUri().toString(), "https://ham.org/authorSec.html");
         assertEquals(feed.getItemList().get(0).getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarSec.html");
         assertNotNull(feed.getItemList().get(0).getAttachmentList());
         assertTrue(feed.getItemList().get(0).getAttachmentList().size() == 1);
         assertTrue(feed.getItemList().get(0).getAttachmentList().get(0).isValid());
-        assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getUrl().toString(), "https://ham.org/doctorRevenge.m4v");
+        assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getUri().toString(), "https://ham.org/doctorRevenge.m4v");
         assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getMimeType(), "video/x-m4v");
         assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getTitle(), "Doctor's Revenge");
         assertEquals(feed.getItemList().get(0).getAttachmentList().get(0).getSizeInBytes().intValue(), 300);
@@ -367,19 +367,19 @@ public class DefaultFeedTest {
         assertTrue(feed.getItemList().get(1).isValid());
         assertEquals(feed.getItemList().get(1).getID(), "1");
         assertEquals(feed.getItemList().get(1).getContentHtml(), "<p>Hello, world!</p>");
-        assertEquals(feed.getItemList().get(1).getUrl().toString(), "https://example.org/initial-post");
+        assertEquals(feed.getItemList().get(1).getUri().toString(), "https://example.org/initial-post");
         assertEquals(feed.getItemList().get(1).getLanguage(), "en-US");
         assertNull(feed.getItemList().get(1).getAuthor());
         assertNotNull(feed.getItemList().get(1).getAuthorList());
         assertTrue(feed.getItemList().get(1).getAuthorList().size() == 1);
         assertTrue(feed.getItemList().get(1).getAuthorList().get(0).isValid());
         assertEquals(feed.getItemList().get(1).getAuthorList().get(0).getName(), "Dalek Thay");
-        assertEquals(feed.getItemList().get(1).getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorThay.html");
+        assertEquals(feed.getItemList().get(1).getAuthorList().get(0).getUri().toString(), "https://ham.org/authorThay.html");
         assertEquals(feed.getItemList().get(1).getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarThay.html");
         assertNotNull(feed.getItemList().get(1).getAttachmentList());
         assertTrue(feed.getItemList().get(1).getAttachmentList().size() == 1);
         assertTrue(feed.getItemList().get(1).getAttachmentList().get(0).isValid());
-        assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getMimeType(), "video/x-m4v");
         assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getTitle(), "Dalek Invasion");
         assertEquals(feed.getItemList().get(1).getAttachmentList().get(0).getSizeInBytes().intValue(), 100);
@@ -389,7 +389,7 @@ public class DefaultFeedTest {
         assertTrue(feed.getHubList().size() == 1);
         assertTrue(feed.getHubList().get(0).isValid());
         assertEquals(feed.getHubList().get(0).getType(), "Tardis");
-        assertEquals(feed.getHubList().get(0).getUrl().toString(), "https://ham.org/tardis.html");
+        assertEquals(feed.getHubList().get(0).getUri().toString(), "https://ham.org/tardis.html");
 
         assertNotNull(feed.getExtensionsJSONObject());
         assertNotNull(feed.getExtensionsJSONObject().get("_blue_shed"));
@@ -408,7 +408,7 @@ public class DefaultFeedTest {
      * Test 3
      */
     @Test
-    public void test3() throws MalformedURLException {
+    public void test3() throws URISyntaxException {
 
         Feed feed = DefaultFeed.fromString(DefaultFeedTest.TEST_STRING_1_0);
 
@@ -420,7 +420,7 @@ public class DefaultFeedTest {
         assertNotNull(feed.getAuthor());
         assertTrue(feed.getAuthor().isValid());
         assertEquals(feed.getAuthor().getName(), "Dalek Caan");
-        assertEquals(feed.getAuthor().getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(feed.getAuthor().getUri().toString(), "https://ham.org/authorCaan.html");
         assertEquals(feed.getAuthor().getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertNotNull(feed.getItemList());
@@ -430,14 +430,14 @@ public class DefaultFeedTest {
         assertNotNull(feed.getItemList().get(0).getAuthor());
         assertTrue(feed.getItemList().get(0).getAuthor().isValid());
         assertEquals(feed.getItemList().get(0).getAuthor().getName(), "Dalek Jast");
-        assertEquals(feed.getItemList().get(0).getAuthor().getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(feed.getItemList().get(0).getAuthor().getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(feed.getItemList().get(0).getAuthor().getAvatar().toString(), "https://ham.org/avatarJast.html");
 
         assertTrue(feed.getItemList().get(1).isValid());
         assertNotNull(feed.getItemList().get(1).getAuthor());
         assertTrue(feed.getItemList().get(1).getAuthor().isValid());
         assertEquals(feed.getItemList().get(1).getAuthor().getName(), "Dalek Thay");
-        assertEquals(feed.getItemList().get(1).getAuthor().getUrl().toString(), "https://ham.org/authorThay.html");
+        assertEquals(feed.getItemList().get(1).getAuthor().getUri().toString(), "https://ham.org/authorThay.html");
         assertEquals(feed.getItemList().get(1).getAuthor().getAvatar().toString(), "https://ham.org/avatarThay.html");
 
 
@@ -450,7 +450,7 @@ public class DefaultFeedTest {
         assertNotNull(feed.getAuthorList());
         assertTrue(feed.getAuthorList().get(0).isValid());
         assertEquals(feed.getAuthorList().get(0).getName(), "Dalek Caan");
-        assertEquals(feed.getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(feed.getAuthorList().get(0).getUri().toString(), "https://ham.org/authorCaan.html");
         assertEquals(feed.getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertNotNull(feed.getItemList());
@@ -462,7 +462,7 @@ public class DefaultFeedTest {
         assertTrue(feed.getItemList().get(0).getAuthorList().size() == 1);
         assertTrue(feed.getItemList().get(0).getAuthorList().get(0).isValid());
         assertEquals(feed.getItemList().get(0).getAuthorList().get(0).getName(), "Dalek Jast");
-        assertEquals(feed.getItemList().get(0).getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(feed.getItemList().get(0).getAuthorList().get(0).getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(feed.getItemList().get(0).getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarJast.html");
 
         assertTrue(feed.getItemList().get(1).isValid());
@@ -471,7 +471,7 @@ public class DefaultFeedTest {
         assertTrue(feed.getItemList().get(1).getAuthorList().size() == 1);
         assertTrue(feed.getItemList().get(1).getAuthorList().get(0).isValid());
         assertEquals(feed.getItemList().get(1).getAuthorList().get(0).getName(), "Dalek Thay");
-        assertEquals(feed.getItemList().get(1).getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorThay.html");
+        assertEquals(feed.getItemList().get(1).getAuthorList().get(0).getUri().toString(), "https://ham.org/authorThay.html");
         assertEquals(feed.getItemList().get(1).getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarThay.html");
 
     }
@@ -481,23 +481,23 @@ public class DefaultFeedTest {
      * Test 4
      */
     @Test
-    public void test4() throws MalformedURLException, IOException {
+    public void test4() throws URISyntaxException, IOException {
 
         /* Create a list of known JSON feeds, */
-        /* lifted from https://jsonfeed.org/version/1.1 */
-        List<URL> feedUrlList = new ArrayList<URL>();
-        feedUrlList.add(new URL("https://shapeof.com/feed.json"));
-        feedUrlList.add(new URL("https://flyingmeat.com/blog/feed.json"));
-        feedUrlList.add(new URL("https://daringfireball.net/feeds/json"));
-        feedUrlList.add(new URL("https://hypercritical.co/feeds/main.json"));
-        feedUrlList.add(new URL("https://inessential.com/feed.json"));
-        feedUrlList.add(new URL("https://jsonfeed.org/feed.json"));
+        /* lifted from https://www.jsonfeed.org/version/1.1 */
+        List<URI> feedUriList = new ArrayList<URI>();
+        feedUriList.add(new URI("https://shapeof.com/feed.json"));
+        feedUriList.add(new URI("https://flyingmeat.com/blog/feed.json"));
+        feedUriList.add(new URI("https://daringfireball.net/feeds/json"));
+        feedUriList.add(new URI("https://hypercritical.co/feeds/main.json"));
+        feedUriList.add(new URI("https://inessential.com/feed.json"));
+        feedUriList.add(new URI("https://www.jsonfeed.org/feed.json"));
 
 
-        /* Crawl the feed URLs */
-        for ( URL feedUrl : feedUrlList ) {
+        /* Crawl the feed URIs */
+        for ( URI feedUri : feedUriList ) {
 
-            Feed feed = DefaultFeed.fromUrl(feedUrl);
+            Feed feed = DefaultFeed.fromUri(feedUri);
 
             assertNotNull(feed);
             assertTrue(feed.isValid());
@@ -513,7 +513,7 @@ public class DefaultFeedTest {
      * Test 5
      */
     @Test
-    public void test5() throws MalformedURLException {
+    public void test5() throws URISyntaxException {
 
         List<Item> itemList = new ArrayList<Item>();
         Item item = new DefaultItem("1");
@@ -539,30 +539,30 @@ public class DefaultFeedTest {
      * Test 6
      */
     @Test
-    public void test6() throws MalformedURLException {
+    public void test6() throws URISyntaxException {
 
         List<Item> itemList = new ArrayList<Item>();
         Item item = new DefaultItem("1");
         itemList.add(item);
 
         Feed feed = new DefaultFeed("Feed Feed", itemList)
-                .setHomePageUrl(new URL("https://ham.org/"))
-                .setFeedUrl(new URL("https://ham.org/feed.json"))
+                .setHomePageUri(new URI("https://ham.org/"))
+                .setFeedUri(new URI("https://ham.org/feed.json"))
                 .setDescription("Ham Feed Description")
                 .setUserComment("Ham Feed User Comment")
-                .setNextUrl(new URL("https://ham.org/feed.json?page=2"))
-                .setIcon(new URL("https://ham.org/icon.jpg"))
-                .setFavicon(new URL("https://ham.org/favicon.jpg"))
+                .setNextUri(new URI("https://ham.org/feed.json?page=2"))
+                .setIcon(new URI("https://ham.org/icon.jpg"))
+                .setFavicon(new URI("https://ham.org/favicon.jpg"))
                 .setLanguage("en-US")
                 .setExpired(false);
 
         List<Author> authorList = new ArrayList<Author>();
-        authorList.add(new DefaultAuthor("Dalek Jast", new URL("https://ham.org/authorJast.html"), new URL("https://ham.org/avatarJast.html")));
-        authorList.add(new DefaultAuthor("Dalek Sec", new URL("https://ham.org/authorSec.html"), new URL("https://ham.org/avatarSec.html")));
+        authorList.add(new DefaultAuthor("Dalek Jast", new URI("https://ham.org/authorJast.html"), new URI("https://ham.org/avatarJast.html")));
+        authorList.add(new DefaultAuthor("Dalek Sec", new URI("https://ham.org/authorSec.html"), new URI("https://ham.org/avatarSec.html")));
         feed.setAuthorList(authorList);
 
         List<Hub> hubList = new ArrayList<Hub>();
-        hubList.add(new DefaultHub("Tardis", new URL("https://ham.org/tardis.html")));
+        hubList.add(new DefaultHub("Tardis", new URI("https://ham.org/tardis.html")));
         feed.setHubList(hubList);
 
         JSONObject jsonObject = new JSONObject()
@@ -576,11 +576,11 @@ public class DefaultFeedTest {
         assertTrue(feed.isValid());
 
         assertEquals(feed.getTitle(), "Feed Feed");
-        assertEquals(feed.getHomePageUrl().toString(), "https://ham.org/");
-        assertEquals(feed.getFeedUrl().toString(), "https://ham.org/feed.json");
+        assertEquals(feed.getHomePageUri().toString(), "https://ham.org/");
+        assertEquals(feed.getFeedUri().toString(), "https://ham.org/feed.json");
         assertEquals(feed.getDescription(), "Ham Feed Description");
         assertEquals(feed.getUserComment(), "Ham Feed User Comment");
-        assertEquals(feed.getNextUrl().toString(), "https://ham.org/feed.json?page=2");
+        assertEquals(feed.getNextUri().toString(), "https://ham.org/feed.json?page=2");
         assertEquals(feed.getIcon().toString(), "https://ham.org/icon.jpg");
         assertEquals(feed.getFavicon().toString(), "https://ham.org/favicon.jpg");
         assertEquals(feed.getLanguage(), "en-US");
@@ -590,11 +590,11 @@ public class DefaultFeedTest {
         assertTrue(feed.getAuthorList().size() == 2);
         assertTrue(feed.getAuthorList().get(0).isValid());
         assertEquals(feed.getAuthorList().get(0).getName(), "Dalek Jast");
-        assertEquals(feed.getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(feed.getAuthorList().get(0).getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(feed.getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarJast.html");
         assertTrue(feed.getAuthorList().get(1).isValid());
         assertEquals(feed.getAuthorList().get(1).getName(), "Dalek Sec");
-        assertEquals(feed.getAuthorList().get(1).getUrl().toString(), "https://ham.org/authorSec.html");
+        assertEquals(feed.getAuthorList().get(1).getUri().toString(), "https://ham.org/authorSec.html");
         assertEquals(feed.getAuthorList().get(1).getAvatar().toString(), "https://ham.org/avatarSec.html");
 
         assertNotNull(feed.getItemList());
@@ -606,7 +606,7 @@ public class DefaultFeedTest {
         assertTrue(feed.getHubList().size() == 1);
         assertTrue(feed.getHubList().get(0).isValid());
         assertEquals(feed.getHubList().get(0).getType(), "Tardis");
-        assertEquals(feed.getHubList().get(0).getUrl().toString(), "https://ham.org/tardis.html");
+        assertEquals(feed.getHubList().get(0).getUri().toString(), "https://ham.org/tardis.html");
 
         assertNotNull(feed.getExtensionsJSONObject());
         assertNotNull(feed.getExtensionsJSONObject().getJSONObject("_blue_shed"));

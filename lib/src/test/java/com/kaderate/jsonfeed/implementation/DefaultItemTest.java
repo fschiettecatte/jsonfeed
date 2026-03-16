@@ -19,8 +19,8 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,7 +162,7 @@ public class DefaultItemTest {
      * Test 1
      */
     @Test
-    public void test1() throws MalformedURLException {
+    public void test1() throws URISyntaxException {
 
         Item item = DefaultItem.fromString(DefaultItemTest.TEST_STRING_1_0);
 
@@ -170,8 +170,8 @@ public class DefaultItemTest {
         assertTrue(item.isValid());
 
         assertEquals(item.getID(), "1");
-        assertEquals(item.getUrl().toString(), "https://ham.org/item1.html");
-        assertEquals(item.getExternalUrl().toString(), "https://external.org/item1.html");
+        assertEquals(item.getUri().toString(), "https://ham.org/item1.html");
+        assertEquals(item.getExternalUri().toString(), "https://external.org/item1.html");
         assertEquals(item.getTitle(), "First Item");
         assertEquals(item.getContentText(), "This is the first item text.");
         assertEquals(item.getContentHtml(), "This is the <b>first item</b> HTML.");
@@ -184,7 +184,7 @@ public class DefaultItemTest {
         assertNotNull(item.getAuthor());
         assertTrue(item.getAuthor().isValid());
         assertEquals(item.getAuthor().getName(), "Dalek Jast");
-        assertEquals(item.getAuthor().getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(item.getAuthor().getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(item.getAuthor().getAvatar().toString(), "https://ham.org/avatarJast.html");
 
         assertNotNull(item.getTagList());
@@ -196,14 +196,14 @@ public class DefaultItemTest {
         assertTrue(item.getAttachmentList().size() == 2);
 
         assertTrue(item.getAttachmentList().get(0).isValid());
-        assertEquals(item.getAttachmentList().get(0).getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(item.getAttachmentList().get(0).getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(item.getAttachmentList().get(0).getMimeType(), "video/x-m4v");
         assertEquals(item.getAttachmentList().get(0).getTitle(), "Dalek Invasion");
         assertEquals(item.getAttachmentList().get(0).getSizeInBytes().intValue(), 100);
         assertEquals(item.getAttachmentList().get(0).getDurationInSeconds().intValue(), 200);
 
         assertTrue(item.getAttachmentList().get(1).isValid());
-        assertEquals(item.getAttachmentList().get(1).getUrl().toString(), "https://ham.org/doctorRevenge.m4v");
+        assertEquals(item.getAttachmentList().get(1).getUri().toString(), "https://ham.org/doctorRevenge.m4v");
         assertEquals(item.getAttachmentList().get(1).getMimeType(), "video/x-m4v");
         assertEquals(item.getAttachmentList().get(1).getTitle(), "Doctor's Revenge");
         assertEquals(item.getAttachmentList().get(1).getSizeInBytes().intValue(), 300);
@@ -226,7 +226,7 @@ public class DefaultItemTest {
      * Test 2
      */
     @Test
-    public void test2() throws MalformedURLException {
+    public void test2() throws URISyntaxException {
 
         JSONObject jsonObject1 = new JSONObject()
                 .put("id", "1")
@@ -263,8 +263,8 @@ public class DefaultItemTest {
 
         assertTrue(itemList.get(0).isValid());
         assertEquals(itemList.get(0).getID(), "1");
-        assertEquals(itemList.get(0).getUrl().toString(), "https://ham.org/item1.html");
-        assertEquals(itemList.get(0).getExternalUrl().toString(), "https://external.org/item1.html");
+        assertEquals(itemList.get(0).getUri().toString(), "https://ham.org/item1.html");
+        assertEquals(itemList.get(0).getExternalUri().toString(), "https://external.org/item1.html");
         assertEquals(itemList.get(0).getTitle(), "First Item");
         assertEquals(itemList.get(0).getContentText(), "This is the first item text.");
         assertEquals(itemList.get(0).getContentHtml(), "This is the <b>first item</b> HTML.");
@@ -276,8 +276,8 @@ public class DefaultItemTest {
 
         assertTrue(itemList.get(1).isValid());
         assertEquals(itemList.get(1).getID(), "2");
-        assertEquals(itemList.get(1).getUrl().toString(), "https://ham.org/item2.html");
-        assertEquals(itemList.get(1).getExternalUrl().toString(), "https://external.org/item2.html");
+        assertEquals(itemList.get(1).getUri().toString(), "https://ham.org/item2.html");
+        assertEquals(itemList.get(1).getExternalUri().toString(), "https://external.org/item2.html");
         assertEquals(itemList.get(1).getTitle(), "Second Item");
         assertEquals(itemList.get(1).getContentText(), "This is the second item text.");
         assertEquals(itemList.get(1).getContentHtml(), "This is the <b>second item</b> HTML.");
@@ -294,7 +294,7 @@ public class DefaultItemTest {
      * Test 3
      */
     @Test
-    public void test3() throws MalformedURLException {
+    public void test3() throws URISyntaxException {
 
         Item item = DefaultItem.fromString(DefaultItemTest.TEST_STRING_1_1);
 
@@ -302,8 +302,8 @@ public class DefaultItemTest {
         assertTrue(item.isValid());
 
         assertEquals(item.getID(), "2");
-        assertEquals(item.getUrl().toString(), "https://ham.org/item2.html");
-        assertEquals(item.getExternalUrl().toString(), "https://external.org/item2.html");
+        assertEquals(item.getUri().toString(), "https://ham.org/item2.html");
+        assertEquals(item.getExternalUri().toString(), "https://external.org/item2.html");
         assertEquals(item.getTitle(), "Second Item");
         assertEquals(item.getContentText(), "This is the second item text.");
         assertEquals(item.getContentHtml(), "This is the <b>second item</b> HTML.");
@@ -317,11 +317,11 @@ public class DefaultItemTest {
         assertNotNull(item.getAuthorList());
         assertTrue(item.getAuthorList().get(0).isValid());
         assertEquals(item.getAuthorList().get(0).getName(), "Dalek Jast");
-        assertEquals(item.getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(item.getAuthorList().get(0).getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(item.getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarJast.html");
         assertTrue(item.getAuthorList().get(1).isValid());
         assertEquals(item.getAuthorList().get(1).getName(), "Dalek Sec");
-        assertEquals(item.getAuthorList().get(1).getUrl().toString(), "https://ham.org/authorSec.html");
+        assertEquals(item.getAuthorList().get(1).getUri().toString(), "https://ham.org/authorSec.html");
         assertEquals(item.getAuthorList().get(1).getAvatar().toString(), "https://ham.org/avatarSec.html");
 
         assertNotNull(item.getTagList());
@@ -333,14 +333,14 @@ public class DefaultItemTest {
         assertTrue(item.getAttachmentList().size() == 2);
 
         assertTrue(item.getAttachmentList().get(0).isValid());
-        assertEquals(item.getAttachmentList().get(0).getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(item.getAttachmentList().get(0).getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(item.getAttachmentList().get(0).getMimeType(), "video/x-m4v");
         assertEquals(item.getAttachmentList().get(0).getTitle(), "Dalek Invasion");
         assertEquals(item.getAttachmentList().get(0).getSizeInBytes().intValue(), 100);
         assertEquals(item.getAttachmentList().get(0).getDurationInSeconds().intValue(), 200);
 
         assertTrue(item.getAttachmentList().get(1).isValid());
-        assertEquals(item.getAttachmentList().get(1).getUrl().toString(), "https://ham.org/doctorRevenge.m4v");
+        assertEquals(item.getAttachmentList().get(1).getUri().toString(), "https://ham.org/doctorRevenge.m4v");
         assertEquals(item.getAttachmentList().get(1).getMimeType(), "video/x-m4v");
         assertEquals(item.getAttachmentList().get(1).getTitle(), "Doctor's Revenge");
         assertEquals(item.getAttachmentList().get(1).getSizeInBytes().intValue(), 300);
@@ -363,7 +363,7 @@ public class DefaultItemTest {
      * Test 4
      */
     @Test
-    public void test4() throws MalformedURLException {
+    public void test4() throws URISyntaxException {
 
         JSONObject jsonObject1 = new JSONObject()
                 .put("id", "1")
@@ -402,8 +402,8 @@ public class DefaultItemTest {
 
         assertTrue(itemList.get(0).isValid());
         assertEquals(itemList.get(0).getID(), "1");
-        assertEquals(itemList.get(0).getUrl().toString(), "https://ham.org/item1.html");
-        assertEquals(itemList.get(0).getExternalUrl().toString(), "https://external.org/item1.html");
+        assertEquals(itemList.get(0).getUri().toString(), "https://ham.org/item1.html");
+        assertEquals(itemList.get(0).getExternalUri().toString(), "https://external.org/item1.html");
         assertEquals(itemList.get(0).getTitle(), "First Item");
         assertEquals(itemList.get(0).getContentText(), "This is the first item text.");
         assertEquals(itemList.get(0).getContentHtml(), "This is the <b>first item</b> HTML.");
@@ -416,8 +416,8 @@ public class DefaultItemTest {
 
         assertTrue(itemList.get(1).isValid());
         assertEquals(itemList.get(1).getID(), "2");
-        assertEquals(itemList.get(1).getUrl().toString(), "https://ham.org/item2.html");
-        assertEquals(itemList.get(1).getExternalUrl().toString(), "https://external.org/item2.html");
+        assertEquals(itemList.get(1).getUri().toString(), "https://ham.org/item2.html");
+        assertEquals(itemList.get(1).getExternalUri().toString(), "https://external.org/item2.html");
         assertEquals(itemList.get(1).getTitle(), "Second Item");
         assertEquals(itemList.get(1).getContentText(), "This is the second item text.");
         assertEquals(itemList.get(1).getContentHtml(), "This is the <b>second item</b> HTML.");
@@ -435,7 +435,7 @@ public class DefaultItemTest {
      * Test 5
      */
     @Test
-    public void test5() throws MalformedURLException {
+    public void test5() throws URISyntaxException {
 
         Item item = DefaultItem.fromString(DefaultItemTest.TEST_STRING_1_0);
 
@@ -444,7 +444,7 @@ public class DefaultItemTest {
 
         assertNotNull(item.getAuthor());
         assertEquals(item.getAuthor().getName(), "Dalek Jast");
-        assertEquals(item.getAuthor().getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(item.getAuthor().getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(item.getAuthor().getAvatar().toString(), "https://ham.org/avatarJast.html");
 
         assertTrue(((DefaultItem)item).upgrade(Version.VERSION_1_1));
@@ -452,7 +452,7 @@ public class DefaultItemTest {
 
         assertNotNull(item.getAuthorList());
         assertEquals(item.getAuthorList().get(0).getName(), "Dalek Jast");
-        assertEquals(item.getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(item.getAuthorList().get(0).getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(item.getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarJast.html");
         assertNull(item.getAuthor());
 
@@ -464,7 +464,7 @@ public class DefaultItemTest {
      * Test 6
      */
     @Test
-    public void test6() throws MalformedURLException {
+    public void test6() throws URISyntaxException {
 
         Item item = new DefaultItem("1");
 
@@ -481,24 +481,24 @@ public class DefaultItemTest {
      * Test 7
      */
     @Test
-    public void test7() throws MalformedURLException {
+    public void test7() throws URISyntaxException {
 
         Item item = new DefaultItem("1")
-                .setUrl(new URL("https://ham.org/item1.html"))
-                .setExternalUrl(new URL("https://external.org/item1.html"))
+                .setUri(new URI("https://ham.org/item1.html"))
+                .setExternalUri(new URI("https://external.org/item1.html"))
                 .setTitle("First Item")
                 .setContentText("This is the first item text.")
                 .setContentHtml("This is the <b>first item</b> HTML.")
                 .setSummary("First item summary.")
-                .setImage(new URL("https://ham.org/image1.png"))
-                .setBannerImage(new URL("https://ham.org/banner1.png"))
+                .setImage(new URI("https://ham.org/image1.png"))
+                .setBannerImage(new URI("https://ham.org/banner1.png"))
                 .setDatePublished(OffsetDateTime.parse("2010-02-07T14:04:00-05:00").toInstant())
                 .setDateModified(OffsetDateTime.parse("2010-02-13T14:04:00-05:00").toInstant())
                 .setLanguage("en-US");
 
         List<Author> authorList = new ArrayList<Author>();
-        authorList.add(new DefaultAuthor("Dalek Jast", new URL("https://ham.org/authorJast.html"), new URL("https://ham.org/avatarJast.html")));
-        authorList.add(new DefaultAuthor("Dalek Sec", new URL("https://ham.org/authorSec.html"), new URL("https://ham.org/avatarSec.html")));
+        authorList.add(new DefaultAuthor("Dalek Jast", new URI("https://ham.org/authorJast.html"), new URI("https://ham.org/avatarJast.html")));
+        authorList.add(new DefaultAuthor("Dalek Sec", new URI("https://ham.org/authorSec.html"), new URI("https://ham.org/avatarSec.html")));
         item.setAuthorList(authorList);
 
         List<String> tagList = new ArrayList<String>();
@@ -507,8 +507,8 @@ public class DefaultItemTest {
         item.setTagList(tagList);
 
         List<Attachment> attachmentList = new ArrayList<Attachment>();
-        attachmentList.add(new DefaultAttachment(new URL("https://ham.org/dalekInvasion.m4v"), "video/x-m4v"));
-        attachmentList.add(new DefaultAttachment(new URL("https://ham.org/doctorRevenge.m4v"), "video/x-m4v"));
+        attachmentList.add(new DefaultAttachment(new URI("https://ham.org/dalekInvasion.m4v"), "video/x-m4v"));
+        attachmentList.add(new DefaultAttachment(new URI("https://ham.org/doctorRevenge.m4v"), "video/x-m4v"));
         item.setAttachmentList(attachmentList);
 
         JSONObject jsonObject = new JSONObject()
@@ -522,8 +522,8 @@ public class DefaultItemTest {
         assertTrue(item.isValid());
 
         assertEquals(item.getID(), "1");
-        assertEquals(item.getUrl().toString(), "https://ham.org/item1.html");
-        assertEquals(item.getExternalUrl().toString(), "https://external.org/item1.html");
+        assertEquals(item.getUri().toString(), "https://ham.org/item1.html");
+        assertEquals(item.getExternalUri().toString(), "https://external.org/item1.html");
         assertEquals(item.getTitle(), "First Item");
         assertEquals(item.getContentText(), "This is the first item text.");
         assertEquals(item.getContentHtml(), "This is the <b>first item</b> HTML.");
@@ -538,11 +538,11 @@ public class DefaultItemTest {
         assertTrue(item.getAuthorList().size() == 2);
         assertTrue(item.getAuthorList().get(0).isValid());
         assertEquals(item.getAuthorList().get(0).getName(), "Dalek Jast");
-        assertEquals(item.getAuthorList().get(0).getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(item.getAuthorList().get(0).getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(item.getAuthorList().get(0).getAvatar().toString(), "https://ham.org/avatarJast.html");
         assertTrue(item.getAuthorList().get(1).isValid());
         assertEquals(item.getAuthorList().get(1).getName(), "Dalek Sec");
-        assertEquals(item.getAuthorList().get(1).getUrl().toString(), "https://ham.org/authorSec.html");
+        assertEquals(item.getAuthorList().get(1).getUri().toString(), "https://ham.org/authorSec.html");
         assertEquals(item.getAuthorList().get(1).getAvatar().toString(), "https://ham.org/avatarSec.html");
 
         assertNotNull(item.getTagList());
@@ -553,10 +553,10 @@ public class DefaultItemTest {
         assertNotNull(item.getAttachmentList());
         assertTrue(item.getAttachmentList().size() == 2);
         assertTrue(item.getAttachmentList().get(0).isValid());
-        assertEquals(item.getAttachmentList().get(0).getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(item.getAttachmentList().get(0).getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(item.getAttachmentList().get(0).getMimeType(), "video/x-m4v");
         assertTrue(item.getAttachmentList().get(1).isValid());
-        assertEquals(item.getAttachmentList().get(1).getUrl().toString(), "https://ham.org/doctorRevenge.m4v");
+        assertEquals(item.getAttachmentList().get(1).getUri().toString(), "https://ham.org/doctorRevenge.m4v");
         assertEquals(item.getAttachmentList().get(1).getMimeType(), "video/x-m4v");
 
         assertNotNull(item.getExtensionsJSONObject());
@@ -576,7 +576,7 @@ public class DefaultItemTest {
      * Test 8
      */
     @Test
-    public void test8() throws MalformedURLException {
+    public void test8() throws URISyntaxException {
 
         Item item = new DefaultItem();
         assertFalse(item.isValid());

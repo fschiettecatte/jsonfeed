@@ -19,8 +19,8 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.HashMap;
 
@@ -76,7 +76,7 @@ public class DefaultHubTest {
      * Test 1
      */
     @Test
-    public void test1() throws MalformedURLException {
+    public void test1() throws URISyntaxException {
 
         Hub hub = DefaultHub.fromString(DefaultHubTest.TEST_STRING_1_X);
 
@@ -84,7 +84,7 @@ public class DefaultHubTest {
         assertTrue(hub.isValid());
 
         assertEquals(hub.getType(), "Tardis");
-        assertEquals(hub.getUrl().toString(), "https://ham.org/tardis.html");
+        assertEquals(hub.getUri().toString(), "https://ham.org/tardis.html");
 
         assertNotNull(hub.getExtensionsJSONObject());
         assertNotNull(hub.getExtensionsJSONObject().get("_blue_shed"));
@@ -103,7 +103,7 @@ public class DefaultHubTest {
      * Test 2
      */
     @Test
-    public void test2() throws MalformedURLException {
+    public void test2() throws URISyntaxException {
 
         JSONObject jsonObject1 = new JSONObject()
                 .put("type", "Tardis")
@@ -123,10 +123,10 @@ public class DefaultHubTest {
         assertTrue(hubList.get(1).isValid());
 
         assertEquals(hubList.get(0).getType(), "Tardis");
-        assertEquals(hubList.get(0).getUrl().toString(), "https://ham.org/tardis.html");
+        assertEquals(hubList.get(0).getUri().toString(), "https://ham.org/tardis.html");
 
         assertEquals(hubList.get(1).getType(), "Timeship");
-        assertEquals(hubList.get(1).getUrl().toString(), "https://ham.org/timeship.html");
+        assertEquals(hubList.get(1).getUri().toString(), "https://ham.org/timeship.html");
 
     }
 
@@ -135,14 +135,14 @@ public class DefaultHubTest {
      * Test 3
      */
     @Test
-    public void test3() throws MalformedURLException {
+    public void test3() throws URISyntaxException {
 
-        Hub hub = new DefaultHub("Tardis", new URL("https://ham.org/tardis.html"));
+        Hub hub = new DefaultHub("Tardis", new URI("https://ham.org/tardis.html"));
 
         assertTrue(hub.isValid());
 
         assertEquals(hub.getType(), "Tardis");
-        assertEquals(hub.getUrl().toString(), "https://ham.org/tardis.html");
+        assertEquals(hub.getUri().toString(), "https://ham.org/tardis.html");
 
         assertNotNull(hub.toJSONString());
 
@@ -153,11 +153,11 @@ public class DefaultHubTest {
      * Test 4
      */
     @Test
-    public void test4() throws MalformedURLException {
+    public void test4() throws URISyntaxException {
 
         Hub hub = new DefaultHub()
                 .setType("Tardis")
-                .setUrl(new URL("https://ham.org/tardis.html"));
+                .setUri(new URI("https://ham.org/tardis.html"));
 
         JSONObject jsonObject = new JSONObject()
                 .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")
@@ -170,7 +170,7 @@ public class DefaultHubTest {
         assertTrue(hub.isValid());
 
         assertEquals(hub.getType(), "Tardis");
-        assertEquals(hub.getUrl().toString(), "https://ham.org/tardis.html");
+        assertEquals(hub.getUri().toString(), "https://ham.org/tardis.html");
 
         assertNotNull(hub.getExtensionsJSONObject());
         assertNotNull(hub.getExtensionsJSONObject().getJSONObject("_blue_shed"));
@@ -189,7 +189,7 @@ public class DefaultHubTest {
      * Test 5
      */
     @Test
-    public void test5() throws MalformedURLException {
+    public void test5() throws URISyntaxException {
 
         Hub hub = new DefaultHub();
         assertFalse(hub.isValid());
@@ -199,7 +199,7 @@ public class DefaultHubTest {
         assertFalse(hub.isValid());
 
         hub = new DefaultHub();
-        hub.setUrl(new URL("https://ham.org/tardis.html"));
+        hub.setUri(new URI("https://ham.org/tardis.html"));
         assertFalse(hub.isValid());
 
     }

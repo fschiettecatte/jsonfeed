@@ -19,7 +19,7 @@ package com.kaderate.jsonfeed;
 
 
 /* Import Java stuff */
-import java.net.URL;
+import java.net.URI;
 
 
 /* Import JSON stuff */
@@ -55,39 +55,39 @@ public interface Author extends JSONString {
 
 
     /**
-     * Get the URL
+     * Get the URI
      *
-     * @return  the URL, null if not specified
+     * @return  the URI, null if not specified
      */
-    public URL getUrl();
+    public URI getUri();
 
 
     /**
-     * Set the URL
+     * Set the URI
      *
-     * @param   url  the URL
+     * @param   uri  the URI
      *
      * @return  the author
      */
-    public Author setUrl(URL url);
+    public Author setUri(URI uri);
 
 
     /**
-     * Get the avatar (URL)
+     * Get the avatar (URI)
      *
-     * @return  the avatar URL, null if not specified
+     * @return  the avatar URI, null if not specified
      */
-    public URL getAvatar();
+    public URI getAvatar();
 
 
     /**
-     * Set the avatar (URL)
+     * Set the avatar (URI)
      *
-     * @param   avatar  the avatar URL
+     * @param   avatar  the avatar URI
      *
      * @return  the author
      */
-    public Author setAvatar(URL avatar);
+    public Author setAvatar(URI avatar);
 
 
     /**

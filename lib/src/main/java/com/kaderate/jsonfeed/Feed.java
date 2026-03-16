@@ -19,7 +19,7 @@ package com.kaderate.jsonfeed;
 
 
 /* Import Java stuff */
-import java.net.URL;
+import java.net.URI;
 import java.util.List;
 
 
@@ -71,39 +71,39 @@ public interface Feed extends JSONString {
 
 
     /**
-     * Get the home page URL
+     * Get the home page URI
      *
-     * @return  the home page URL, null if not specified
+     * @return  the home page URI, null if not specified
      */
-    public URL getHomePageUrl();
+    public URI getHomePageUri();
 
 
     /**
-     * Set the home page URL
+     * Set the home page URI
      *
-     * @param   homePageUrl the home page URL
+     * @param   homePageUri the home page URI
      *
      * @return  the feed
      */
-    public Feed setHomePageUrl(URL homePageUrl);
+    public Feed setHomePageUri(URI homePageUri);
 
 
     /**
-     * Get the feed URL
+     * Get the feed URI
      *
-     * @return  the feed URL, null if not specified
+     * @return  the feed URI, null if not specified
      */
-    public URL getFeedUrl();
+    public URI getFeedUri();
 
 
     /**
-     * Set the feed URL
+     * Set the feed URI
      *
-     * @param   feedUrl the feed URL
+     * @param   feedUri the feed URI
      *
      * @return  the feed
      */
-    public Feed setFeedUrl(URL feedUrl);
+    public Feed setFeedUri(URI feedUri);
 
 
     /**
@@ -143,57 +143,57 @@ public interface Feed extends JSONString {
 
 
     /**
-     * Get the next URL
+     * Get the next URI
      *
-     * @return  the next URL, null if not specified
+     * @return  the next URI, null if not specified
      */
-    public URL getNextUrl();
+    public URI getNextUri();
 
 
     /**
-     * Set the next URL
+     * Set the next URI
      *
-     * @param   nextUrl the next URL
+     * @param   nextUri the next URI
      *
      * @return  the feed
      */
-    public Feed setNextUrl(URL nextUrl);
+    public Feed setNextUri(URI nextUri);
 
 
     /**
-     * Get the icon (URL)
+     * Get the icon (URI)
      *
-     * @return  the icon URL, null if not specified
+     * @return  the icon URI, null if not specified
      */
-    public URL getIcon();
+    public URI getIcon();
 
 
     /**
-     * Set the icon (URL)
+     * Set the icon (URI)
      *
-     * @param   icon the icon URL
+     * @param   icon the icon URI
      *
      * @return  the feed
      */
-    public Feed setIcon(URL icon);
+    public Feed setIcon(URI icon);
 
 
     /**
-     * Get the favicon (URL)
+     * Get the favicon (URI)
      *
-     * @return  the favicon URL, null if not specified
+     * @return  the favicon URI, null if not specified
      */
-    public URL getFavicon();
+    public URI getFavicon();
 
 
     /**
-     * Set the favicon (URL)
+     * Set the favicon (URI)
      *
-     * @param   favicon the favicon URL
+     * @param   favicon the favicon URI
      *
      * @return  the feed
      */
-    public Feed setFavicon(URL favicon);
+    public Feed setFavicon(URI favicon);
 
 
     /**

@@ -19,7 +19,7 @@ package com.kaderate.jsonfeed;
 
 
 /* Import Java stuff */
-import java.net.URL;
+import java.net.URI;
 
 
 /* Import JSON stuff */
@@ -36,21 +36,21 @@ import org.json.JSONString;
 public interface Attachment extends JSONString {
 
     /**
-     * Get the URL
+     * Get the URI
      *
-     * @return  the URL, null if not specified
+     * @return  the URI, null if not specified
      */
-    public URL getUrl();
+    public URI getUri();
 
 
     /**
-     * Set the URL
+     * Set the URI
      *
-     * @param   url  the URL
+     * @param   uri  the URI
      *
      * @return  the attachment
      */
-    public Attachment setUrl(URL url);
+    public Attachment setUri(URI uri);
 
 
     /**
