@@ -19,8 +19,8 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -62,15 +62,15 @@ public class DefaultItem implements Item {
 
 
     /**
-     * URL
+     * URI
      */
-    private URL url = null;
+    private URI uri = null;
 
 
     /**
-     * External URL
+     * External URI
      */
-    private URL externalUrl = null;
+    private URI externalUri = null;
 
 
     /**
@@ -98,21 +98,21 @@ public class DefaultItem implements Item {
 
 
     /**
-     * Next URL
+     * Next URI
      */
-    private URL nextUrl = null;
+    private URI nextUri = null;
 
 
     /**
-     * Image (URL)
+     * Image (URI)
      */
-    private URL image = null;
+    private URI image = null;
 
 
     /**
-     * Banner image (URL)
+     * Banner image (URI)
      */
-    private URL bannerImage = null;
+    private URI bannerImage = null;
 
 
     /**
@@ -171,19 +171,19 @@ public class DefaultItem implements Item {
      *
      * @return  the item object
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the external URL is invalid
+     * @exception   URISyntaxException
+     *              If the external URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the image (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the image (URI) is invalid
      *
-     * @exception   MalformedURLException
-     *              If the banner image (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the banner image (URI) is invalid
      */
-    protected static Item fromString(final String jsonString) throws MalformedURLException {
+    protected static Item fromString(final String jsonString) throws URISyntaxException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
@@ -205,19 +205,19 @@ public class DefaultItem implements Item {
      *
      * @return  the item object list
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the external URL is invalid
+     * @exception   URISyntaxException
+     *              If the external URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the image (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the image (URI) is invalid
      *
-     * @exception   MalformedURLException
-     *              If the banner image (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the banner image (URI) is invalid
      */
-    protected static List<Item> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
+    protected static List<Item> fromJsonArray(final JSONArray jsonArray) throws URISyntaxException {
 
         /* Create the item list */
         final List<Item> itemList = new ArrayList<Item>();
@@ -238,31 +238,31 @@ public class DefaultItem implements Item {
      *
      * @param   jsonObject  the item as a JSON object
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the external URL is invalid
+     * @exception   URISyntaxException
+     *              If the external URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the image (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the image (URI) is invalid
      *
-     * @exception   MalformedURLException
-     *              If the banner image (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the banner image (URI) is invalid
      */
-    protected DefaultItem(final JSONObject jsonObject) throws MalformedURLException {
+    protected DefaultItem(final JSONObject jsonObject) throws URISyntaxException {
 
         /* Get the ID */
         this.setID(jsonObject.optString("id", null));
 
-        /* Get the URL */
+        /* Get the URI */
         if ( jsonObject.has("url") == true ) {
-            this.setUrl(new URL(jsonObject.getString("url")));
+            this.setUri(new URI(jsonObject.getString("url")));
         }
 
-        /* Get the external URL */
+        /* Get the external URI */
         if ( jsonObject.has("external_url") == true ) {
-            this.setExternalUrl(new URL(jsonObject.getString("external_url")));
+            this.setExternalUri(new URI(jsonObject.getString("external_url")));
         }
 
         /* Get the title */
@@ -277,14 +277,14 @@ public class DefaultItem implements Item {
         /* Get the summary */
         this.setSummary(jsonObject.optString("summary", null));
 
-        /* Get the image (URL) */
+        /* Get the image (URI) */
         if ( jsonObject.has("image") == true ) {
-            this.setImage(new URL(jsonObject.getString("image")));
+            this.setImage(new URI(jsonObject.getString("image")));
         }
 
-        /* Get the banner image (URL) */
+        /* Get the banner image (URI) */
         if ( jsonObject.has("banner_image") == true ) {
-            this.setBannerImage(new URL(jsonObject.getString("banner_image")));
+            this.setBannerImage(new URI(jsonObject.getString("banner_image")));
         }
 
         /* Get the date published */
@@ -392,30 +392,30 @@ public class DefaultItem implements Item {
 
 
     /**
-     * Get the URL
+     * Get the URI
      *
-     * @return  the URL, null if not specified
+     * @return  the URI, null if not specified
      */
     @Override
-    public URL getUrl() {
+    public URI getUri() {
 
-        return (this.url);
+        return (this.uri);
 
     }
 
 
 
     /**
-     * Set the URL
+     * Set the URI
      *
-     * @param   url  the URL
+     * @param   uri  the URI
      *
      * @return  the item
      */
     @Override
-    public Item setUrl(URL url) {
+    public Item setUri(URI uri) {
 
-        this.url = url;
+        this.uri = uri;
         return (this);
 
     }
@@ -423,30 +423,30 @@ public class DefaultItem implements Item {
 
 
     /**
-     * Get the external URL
+     * Get the external URI
      *
-     * @return  the external URL, null if not specified
+     * @return  the external URI, null if not specified
      */
     @Override
-    public URL getExternalUrl() {
+    public URI getExternalUri() {
 
-        return (this.externalUrl);
+        return (this.externalUri);
 
     }
 
 
 
     /**
-     * Set the external URL
+     * Set the external URI
      *
-     * @param   externalUrl     the external URL
+     * @param   externalUri     the external URI
      *
      * @return  the item
      */
     @Override
-    public Item setExternalUrl(URL externalUrl) {
+    public Item setExternalUri(URI externalUri) {
 
-        this.externalUrl = externalUrl;
+        this.externalUri = externalUri;
         return (this);
 
     }
@@ -578,12 +578,12 @@ public class DefaultItem implements Item {
 
 
     /**
-     * Get the image (URL)
+     * Get the image (URI)
      *
-     * @return  the image URL, null if not specified
+     * @return  the image URI, null if not specified
      */
     @Override
-    public URL getImage() {
+    public URI getImage() {
 
         return (this.image);
 
@@ -592,14 +592,14 @@ public class DefaultItem implements Item {
 
 
     /**
-     * Set the image (URL)
+     * Set the image (URI)
      *
-     * @param   image     the image URL
+     * @param   image     the image URI
      *
      * @return  the item
      */
     @Override
-    public Item setImage(URL image) {
+    public Item setImage(URI image) {
 
         this.image = image;
         return (this);
@@ -609,12 +609,12 @@ public class DefaultItem implements Item {
 
 
     /**
-     * Get the banner image (URL)
+     * Get the banner image (URI)
      *
-     * @return  the banner image URL, null if not specified
+     * @return  the banner image URI, null if not specified
      */
     @Override
-    public URL getBannerImage() {
+    public URI getBannerImage() {
 
         return (this.bannerImage);
 
@@ -623,14 +623,14 @@ public class DefaultItem implements Item {
 
 
     /**
-     * Set the banner image (URL)
+     * Set the banner image (URI)
      *
-     * @param   bannerImage     the banner image URL
+     * @param   bannerImage     the banner image URI
      *
      * @return  the item
      */
     @Override
-    public Item setBannerImage(URL bannerImage) {
+    public Item setBannerImage(URI bannerImage) {
 
         this.bannerImage = bannerImage;
         return (this);
@@ -949,14 +949,14 @@ public class DefaultItem implements Item {
         /* Add the ID */
         jsonObject.put("id", this.getID());
 
-        /* Add the url */
-        if ( this.getUrl() != null ) {
-            jsonObject.put("url", this.getUrl().toString());
+        /* Add the URI */
+        if ( this.getUri() != null ) {
+            jsonObject.put("url", this.getUri().toString());
         }
 
-        /* Add the external url */
-        if ( this.getExternalUrl() != null ) {
-            jsonObject.put("external", this.getExternalUrl().toString());
+        /* Add the external URI */
+        if ( this.getExternalUri() != null ) {
+            jsonObject.put("external", this.getExternalUri().toString());
         }
 
         /* Add the title */
@@ -979,12 +979,12 @@ public class DefaultItem implements Item {
             jsonObject.put("summary", this.getSummary());
         }
 
-        /* Add the image (URL) */
+        /* Add the image (URI) */
         if ( this.getImage() != null ) {
             jsonObject.put("image", this.getImage().toString());
         }
 
-        /* Add the banner image (URL) */
+        /* Add the banner image (URI) */
         if ( this.getBannerImage() != null ) {
             jsonObject.put("banner_image", this.getBannerImage().toString());
         }

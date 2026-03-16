@@ -19,12 +19,14 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.StringBuilder;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -68,15 +70,15 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Home page URL
+     * Home page URI
      */
-    private URL homePageUrl = null;
+    private URI homePageUri = null;
 
 
     /**
-     * Feed URL
+     * Feed URI
      */
-    private URL feedUrl = null;
+    private URI feedUri = null;
 
 
     /**
@@ -92,21 +94,21 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Next URL
+     * Next URI
      */
-    private URL nextUrl = null;
+    private URI nextUri = null;
 
 
     /**
-     * Icon (URL)
+     * Icon (URI)
      */
-    private URL icon = null;
+    private URI icon = null;
 
 
     /**
-     * Favicon (URL)
+     * Favicon (URI)
      */
-    private URL favicon = null;
+    private URI favicon = null;
 
 
     /**
@@ -153,43 +155,51 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Fetch a feed URL and return the feed
+     * Fetch a feed URI and return the feed
      *
-     * @param   feedUrl  the feed url
+     * @param   feedUri  the feed URI
      *
      * @return  the feed object
      *
+     * @exception   MalformedURLException
+     *              If the feed URI could not be converted to a URL
+     *
      * @exception   IOException
-     *              If the feed URL could not be read
+     *              If the feed URI could not be read
      *
-     * @exception   MalformedURLException
-     *              If the home page URL is invalid
+     * @exception   URISyntaxException
+     *              If the home page URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the feed URL is invalid
+     * @exception   URISyntaxException
+     *              If the feed URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the next URL is invalid
+     * @exception   URISyntaxException
+     *              If the next URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the icon (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the icon (URI) is invalid
      *
-     * @exception   MalformedURLException
-     *              If the favicon (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the favicon (URI) is invalid
      *
      * @exception   IllegalArgumentException
      *              If the version is missing or invalid
      */
-    public static Feed fromUrl(final URL feedUrl) throws MalformedURLException, IOException {
+    public static Feed fromUri(final URI feedUri) throws MalformedURLException, URISyntaxException, IOException {
 
-        /* Fetch a URL  */
-        final Reader feedReader = new InputStreamReader(feedUrl.openStream());
+        /* Fetch a URI  */
+        try ( final InputStream feedStream = feedUri.toURL().openStream() )  {
 
-        /* Parse the returned JSON string */
-        final Feed feed = DefaultFeed.fromReader(feedReader);
+            /* Create the feed reader  */
+            final Reader feedReader = new InputStreamReader(feedStream);
 
-        /* Return the feed */
-        return (feed);
+            /* Parse the returned JSON string */
+            final Feed feed = DefaultFeed.fromReader(feedReader);
+
+            /* Return the feed */
+            return (feed);
+
+        }
 
     }
 
@@ -204,25 +214,25 @@ public class DefaultFeed implements Feed {
      * @exception   IOException
      *              If the feed reader could not be read
      *
-     * @exception   MalformedURLException
-     *              If the home page URL is invalid
+     * @exception   URISyntaxException
+     *              If the home page URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the feed URL is invalid
+     * @exception   URISyntaxException
+     *              If the feed URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the next URL is invalid
+     * @exception   URISyntaxException
+     *              If the next URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the icon (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the icon (URI) is invalid
      *
-     * @exception   MalformedURLException
-     *              If the favicon (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the favicon (URI) is invalid
      *
      * @exception   IllegalArgumentException
      *              If the version is missing or invalid
      */
-    public static Feed fromReader(final Reader feedReader) throws MalformedURLException, IOException {
+    public static Feed fromReader(final Reader feedReader) throws URISyntaxException, IOException {
 
         /* Variables to read the JSON string */
         final StringBuilder feedStringBuilder = new StringBuilder();
@@ -250,25 +260,25 @@ public class DefaultFeed implements Feed {
      *
      * @return  the feed object
      *
-     * @exception   MalformedURLException
-     *              If the home page URL is invalid
+     * @exception   URISyntaxException
+     *              If the home page URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the feed URL is invalid
+     * @exception   URISyntaxException
+     *              If the feed URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the next URL is invalid
+     * @exception   URISyntaxException
+     *              If the next URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the icon (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the icon (URI) is invalid
      *
-     * @exception   MalformedURLException
-     *              If the favicon (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the favicon (URI) is invalid
      *
      * @exception   IllegalArgumentException
      *              If the version is missing or invalid
      */
-    public static Feed fromString(final String feedString) throws MalformedURLException {
+    public static Feed fromString(final String feedString) throws URISyntaxException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(feedString);
@@ -287,25 +297,25 @@ public class DefaultFeed implements Feed {
      *
      * @param   jsonObject  the feed as a JSON object
      *
-     * @exception   MalformedURLException
-     *              If the home page URL is invalid
+     * @exception   URISyntaxException
+     *              If the home page URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the feed URL is invalid
+     * @exception   URISyntaxException
+     *              If the feed URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the next URL is invalid
+     * @exception   URISyntaxException
+     *              If the next URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the icon (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the icon (URI) is invalid
      *
-     * @exception   MalformedURLException
-     *              If the favicon (URL) is invalid
+     * @exception   URISyntaxException
+     *              If the favicon (URI) is invalid
      *
      * @exception   IllegalArgumentException
      *              If the version is missing or invalid
      */
-    protected DefaultFeed(final JSONObject jsonObject) throws MalformedURLException {
+    protected DefaultFeed(final JSONObject jsonObject) throws URISyntaxException {
 
         /* Get the version, required */
         if ( jsonObject.has("version") == true ) {
@@ -321,14 +331,14 @@ public class DefaultFeed implements Feed {
         /* Get the title */
         this.setTitle(jsonObject.optString("title", null));
 
-        /* Get the home page URL */
+        /* Get the home page URI */
         if ( jsonObject.has("home_page_url") == true ) {
-            this.setHomePageUrl(new URL(jsonObject.getString("home_page_url")));
+            this.setHomePageUri(new URI(jsonObject.getString("home_page_url")));
         }
 
-        /* Get the feed URL */
+        /* Get the feed URI */
         if ( jsonObject.has("feed_url") == true ) {
-            this.setFeedUrl(new URL(jsonObject.getString("feed_url")));
+            this.setFeedUri(new URI(jsonObject.getString("feed_url")));
         }
 
         /* Get the description */
@@ -337,19 +347,19 @@ public class DefaultFeed implements Feed {
         /* Get the user comment */
         this.setUserComment(jsonObject.optString("user_comment", null));
 
-        /* Get the next URL */
+        /* Get the next URI */
         if ( jsonObject.has("next_url") == true ) {
-            this.setNextUrl(new URL(jsonObject.getString("next_url")));
+            this.setNextUri(new URI(jsonObject.getString("next_url")));
         }
 
-        /* Get the icon (URL) */
+        /* Get the icon (URI) */
         if ( jsonObject.has("icon") == true ) {
-            this.setIcon(new URL(jsonObject.getString("icon")));
+            this.setIcon(new URI(jsonObject.getString("icon")));
         }
 
-        /* Get the favicon (URL) */
+        /* Get the favicon (URI) */
         if ( jsonObject.has("favicon") == true ) {
-            this.setFavicon(new URL(jsonObject.getString("favicon")));
+            this.setFavicon(new URI(jsonObject.getString("favicon")));
         }
 
         /* Get the language */
@@ -468,30 +478,30 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Get the home page URL
+     * Get the home page URI
      *
-     * @return  the home page URL, null if not specified
+     * @return  the home page URI, null if not specified
      */
     @Override
-    public URL getHomePageUrl() {
+    public URI getHomePageUri() {
 
-        return (this.homePageUrl);
+        return (this.homePageUri);
 
     }
 
 
 
     /**
-     * Set the home page URL
+     * Set the home page URI
      *
-     * @param   homePageUrl     the home page URL
+     * @param   homePageUri     the home page URI
      *
      * @return  the feed
      */
     @Override
-    public Feed setHomePageUrl(URL homePageUrl) {
+    public Feed setHomePageUri(URI homePageUri) {
 
-        this.homePageUrl = homePageUrl;
+        this.homePageUri = homePageUri;
         return (this);
 
     }
@@ -499,30 +509,30 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Get the feed URL
+     * Get the feed URI
      *
-     * @return  the feed URL, null if not specified
+     * @return  the feed URI, null if not specified
      */
     @Override
-    public URL getFeedUrl() {
+    public URI getFeedUri() {
 
-        return (this.feedUrl);
+        return (this.feedUri);
 
     }
 
 
 
     /**
-     * Set the feed URL
+     * Set the feed URI
      *
-     * @param   feedUrl     the feed URL
+     * @param   feedUri     the feed URI
      *
      * @return  the feed
      */
     @Override
-    public Feed setFeedUrl(URL feedUrl) {
+    public Feed setFeedUri(URI feedUri) {
 
-        this.feedUrl = feedUrl;
+        this.feedUri = feedUri;
         return (this);
 
     }
@@ -592,30 +602,30 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Get the next URL
+     * Get the next URI
      *
-     * @return  the next URL, null if not specified
+     * @return  the next URI, null if not specified
      */
     @Override
-    public URL getNextUrl() {
+    public URI getNextUri() {
 
-        return (this.nextUrl);
+        return (this.nextUri);
 
     }
 
 
 
     /**
-     * Set the next URL
+     * Set the next URI
      *
-     * @param   nextUrl     the next URL
+     * @param   nextUri     the next URI
      *
      * @return  the feed
      */
     @Override
-    public Feed setNextUrl(URL nextUrl) {
+    public Feed setNextUri(URI nextUri) {
 
-       this.nextUrl = nextUrl;
+       this.nextUri = nextUri;
        return (this);
 
     }
@@ -623,12 +633,12 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Get the icon (URL)
+     * Get the icon (URI)
      *
-     * @return  the icon URL, null if not specified
+     * @return  the icon URI, null if not specified
      */
     @Override
-    public URL getIcon() {
+    public URI getIcon() {
 
         return (this.icon);
 
@@ -637,14 +647,14 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Set the icon (URL)
+     * Set the icon (URI)
      *
-     * @param   icon     the icon URL
+     * @param   icon     the icon URI
      *
      * @return  the feed
      */
     @Override
-    public Feed setIcon(URL icon) {
+    public Feed setIcon(URI icon) {
 
         this.icon = icon;
         return (this);
@@ -654,12 +664,12 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Get the favicon (URL)
+     * Get the favicon (URI)
      *
-     * @return  the favicon URL, null if not specified
+     * @return  the favicon URI, null if not specified
      */
     @Override
-    public URL getFavicon() {
+    public URI getFavicon() {
 
         return (this.favicon);
 
@@ -668,14 +678,14 @@ public class DefaultFeed implements Feed {
 
 
     /**
-     * Set the favicon (URL)
+     * Set the favicon (URI)
      *
-     * @param   favicon     the favicon URL
+     * @param   favicon     the favicon URI
      *
      * @return  the feed
      */
     @Override
-    public Feed setFavicon(URL favicon) {
+    public Feed setFavicon(URI favicon) {
 
         this.favicon = favicon;
         return (this);
@@ -1066,14 +1076,14 @@ public class DefaultFeed implements Feed {
         /* Add the title */
         jsonObject.put("title", this.getTitle());
 
-        /* Add the home page URL */
-        if ( this.getHomePageUrl() != null ) {
-            jsonObject.put("home_page_url", this.getHomePageUrl().toString());
+        /* Add the home page URI */
+        if ( this.getHomePageUri() != null ) {
+            jsonObject.put("home_page_url", this.getHomePageUri().toString());
         }
 
-        /* Add the feed URL */
-        if ( this.getFeedUrl() != null ) {
-            jsonObject.put("feed_url", this.getFeedUrl().toString());
+        /* Add the feed URI */
+        if ( this.getFeedUri() != null ) {
+            jsonObject.put("feed_url", this.getFeedUri().toString());
         }
 
         /* Add the description */
@@ -1086,17 +1096,17 @@ public class DefaultFeed implements Feed {
             jsonObject.put("user_comment", this.getUserComment());
         }
 
-        /* Add the next URL */
-        if ( this.getFeedUrl() != null ) {
-            jsonObject.put("next_url", this.getFeedUrl().toString());
+        /* Add the next URI */
+        if ( this.getFeedUri() != null ) {
+            jsonObject.put("next_url", this.getFeedUri().toString());
         }
 
-        /* Add the icon (URL) */
+        /* Add the icon (URI) */
         if ( this.getIcon() != null ) {
             jsonObject.put("icon", this.getIcon().toString());
         }
 
-        /* Add the favicon (URL) */
+        /* Add the favicon (URI) */
         if ( this.getFavicon() != null ) {
             jsonObject.put("favicon", this.getFavicon().toString());
         }

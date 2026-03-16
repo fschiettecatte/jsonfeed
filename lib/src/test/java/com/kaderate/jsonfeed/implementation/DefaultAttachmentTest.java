@@ -19,8 +19,8 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.HashMap;
 
@@ -79,14 +79,14 @@ public class DefaultAttachmentTest {
      * Test 1
      */
     @Test
-    public void test1() throws MalformedURLException {
+    public void test1() throws URISyntaxException {
 
         Attachment attachment = DefaultAttachment.fromString(DefaultAttachmentTest.TEST_STRING_1_X);
 
         assertNotNull(attachment);
         assertTrue(attachment.isValid());
 
-        assertEquals(attachment.getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(attachment.getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(attachment.getMimeType(), "video/x-m4v");
         assertEquals(attachment.getTitle(), "Dalek Invasion");
         assertEquals(attachment.getSizeInBytes().intValue(), 100);
@@ -109,7 +109,7 @@ public class DefaultAttachmentTest {
      * Test 2
      */
     @Test
-    public void test2() throws MalformedURLException {
+    public void test2() throws URISyntaxException {
 
         JSONObject jsonObject1 = new JSONObject()
                 .put("url", "https://ham.org/dalekInvasion.m4v")
@@ -134,13 +134,13 @@ public class DefaultAttachmentTest {
         assertTrue(attachmentList.get(0).isValid());
         assertTrue(attachmentList.get(1).isValid());
 
-        assertEquals(attachmentList.get(0).getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(attachmentList.get(0).getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(attachmentList.get(0).getMimeType(), "video/x-m4v");
         assertEquals(attachmentList.get(0).getTitle(), "Dalek Invasion");
         assertEquals(attachmentList.get(0).getSizeInBytes().intValue(), 100);
         assertEquals(attachmentList.get(0).getDurationInSeconds().intValue(), 200);
 
-        assertEquals(attachmentList.get(1).getUrl().toString(), "https://ham.org/doctorRevenge.m4v");
+        assertEquals(attachmentList.get(1).getUri().toString(), "https://ham.org/doctorRevenge.m4v");
         assertEquals(attachmentList.get(1).getMimeType(), "video/x-m4v");
         assertEquals(attachmentList.get(1).getTitle(), "Doctor's Revenge");
         assertEquals(attachmentList.get(1).getSizeInBytes().intValue(), 300);
@@ -153,13 +153,13 @@ public class DefaultAttachmentTest {
      * Test 3
      */
     @Test
-    public void test3() throws MalformedURLException {
+    public void test3() throws URISyntaxException {
 
-        Attachment attachment = new DefaultAttachment(new URL("https://ham.org/dalekInvasion.m4v"), "video/x-m4v");
+        Attachment attachment = new DefaultAttachment(new URI("https://ham.org/dalekInvasion.m4v"), "video/x-m4v");
 
         assertTrue(attachment.isValid());
 
-        assertEquals(attachment.getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(attachment.getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(attachment.getMimeType(), "video/x-m4v");
 
         assertNotNull(attachment.toJSONString());
@@ -171,10 +171,10 @@ public class DefaultAttachmentTest {
      * Test 4
      */
     @Test
-    public void test4() throws MalformedURLException {
+    public void test4() throws URISyntaxException {
 
         Attachment attachment = new DefaultAttachment()
-                .setUrl(new URL("https://ham.org/dalekInvasion.m4v"))
+                .setUri(new URI("https://ham.org/dalekInvasion.m4v"))
                 .setMimeType("video/x-m4v")
                 .setSizeInBytes(300)
                 .setDurationInSeconds(400);
@@ -189,7 +189,7 @@ public class DefaultAttachmentTest {
 
         assertTrue(attachment.isValid());
 
-        assertEquals(attachment.getUrl().toString(), "https://ham.org/dalekInvasion.m4v");
+        assertEquals(attachment.getUri().toString(), "https://ham.org/dalekInvasion.m4v");
         assertEquals(attachment.getMimeType(), "video/x-m4v");
         assertEquals(attachment.getSizeInBytes().intValue(), 300);
         assertEquals(attachment.getDurationInSeconds().intValue(), 400);
@@ -211,13 +211,13 @@ public class DefaultAttachmentTest {
      * Test 5
      */
     @Test
-    public void test5() throws MalformedURLException {
+    public void test5() throws URISyntaxException {
 
         Attachment attachment = new DefaultAttachment();
         assertFalse(attachment.isValid());
 
         attachment = new DefaultAttachment();
-        attachment.setUrl(new URL("https://ham.org/dalekInvasion.m4v"));
+        attachment.setUri(new URI("https://ham.org/dalekInvasion.m4v"));
         assertFalse(attachment.isValid());
 
         attachment = new DefaultAttachment();

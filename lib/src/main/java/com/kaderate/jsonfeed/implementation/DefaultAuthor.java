@@ -19,8 +19,8 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,15 +51,15 @@ public class DefaultAuthor implements Author {
 
 
     /**
-     * URL
+     * URI
      */
-    private URL url = null;
+    private URI uri = null;
 
 
     /**
-     * Avatar (URL)
+     * Avatar (URI)
      */
-    private URL avatar = null;
+    private URI avatar = null;
 
 
     /**
@@ -76,13 +76,13 @@ public class DefaultAuthor implements Author {
      *
      * @return  the author object
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the avatar URL is invalid
+     * @exception   URISyntaxException
+     *              If the avatar URI is invalid
      */
-    protected static Author fromString(final String jsonString) throws MalformedURLException {
+    protected static Author fromString(final String jsonString) throws URISyntaxException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
@@ -104,13 +104,13 @@ public class DefaultAuthor implements Author {
      *
      * @return  the author object list
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the avatar URL is invalid
+     * @exception   URISyntaxException
+     *              If the avatar URI is invalid
      */
-    protected static List<Author> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
+    protected static List<Author> fromJsonArray(final JSONArray jsonArray) throws URISyntaxException {
 
         /* Create the author list */
         final List<Author> authorList = new ArrayList<Author>();
@@ -132,25 +132,25 @@ public class DefaultAuthor implements Author {
      *
      * @param   jsonObject  the author as a JSON object
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      *
-     * @exception   MalformedURLException
-     *              If the avatar URL is invalid
+     * @exception   URISyntaxException
+     *              If the avatar URI is invalid
      */
-    protected DefaultAuthor(final JSONObject jsonObject) throws MalformedURLException {
+    protected DefaultAuthor(final JSONObject jsonObject) throws URISyntaxException {
 
         /* Get the name */
         this.setName(jsonObject.optString("name", null));
 
-        /* Get the URL */
+        /* Get the URI */
         if ( jsonObject.has("url") == true ) {
-            this.setUrl(new URL(jsonObject.getString("url")));
+            this.setUri(new URI(jsonObject.getString("url")));
         }
 
-        /* Get the avatar (URL) */
+        /* Get the avatar (URI) */
         if ( jsonObject.has("avatar") == true ) {
-            this.setAvatar(new URL(jsonObject.getString("avatar")));
+            this.setAvatar(new URI(jsonObject.getString("avatar")));
         }
 
 
@@ -169,13 +169,13 @@ public class DefaultAuthor implements Author {
      * Constructor
      *
      * @param   name    the name
-     * @param   url     the URL
-     * @param   avatar  the avatar (URL)
+     * @param   uri     the URI
+     * @param   avatar  the avatar (URI)
      */
-    public DefaultAuthor(final String name, final URL url, final URL avatar) {
+    public DefaultAuthor(final String name, final URI uri, final URI avatar) {
 
         this.setName(name);
-        this.setUrl(url);
+        this.setUri(uri);
         this.setAvatar(avatar);
 
     }
@@ -223,30 +223,30 @@ public class DefaultAuthor implements Author {
 
 
     /**
-     * Get the URL
+     * Get the URI
      *
-     * @return  the URL, null if not specified
+     * @return  the URI, null if not specified
      */
     @Override
-    public URL getUrl() {
+    public URI getUri() {
 
-        return (this.url);
+        return (this.uri);
 
     }
 
 
 
     /**
-     * Set the URL
+     * Set the URI
      *
-     * @param   url  the URL
+     * @param   uri  the URI
      *
      * @return  the author
      */
     @Override
-    public Author setUrl(URL url) {
+    public Author setUri(URI uri) {
 
-        this.url = url;
+        this.uri = uri;
         return (this);
 
     }
@@ -254,12 +254,12 @@ public class DefaultAuthor implements Author {
 
 
     /**
-     * Get the avatar (URL)
+     * Get the avatar (URI)
      *
-     * @return  the avatar URL, null if not specified
+     * @return  the avatar URI, null if not specified
      */
     @Override
-    public URL getAvatar() {
+    public URI getAvatar() {
 
         return (this.avatar);
 
@@ -268,14 +268,14 @@ public class DefaultAuthor implements Author {
 
 
     /**
-     * Set the avatar (URL)
+     * Set the avatar (URI)
      *
-     * @param   avatar  the avatar URL
+     * @param   avatar  the avatar URI
      *
      * @return  the author
      */
     @Override
-    public Author setAvatar(URL avatar) {
+    public Author setAvatar(URI avatar) {
 
         this.avatar = avatar;
         return (this);
@@ -328,7 +328,7 @@ public class DefaultAuthor implements Author {
             return (true);
         }
 
-        if ( this.getUrl() != null ) {
+        if ( this.getUri() != null ) {
             return (true);
         }
 
@@ -358,12 +358,12 @@ public class DefaultAuthor implements Author {
             jsonObject.put("name", this.getName());
         }
 
-        /* Add the url */
-        if ( this.getUrl() != null ) {
-            jsonObject.put("url", this.getUrl().toString());
+        /* Add the URI */
+        if ( this.getUri() != null ) {
+            jsonObject.put("url", this.getUri().toString());
         }
 
-        /* Add the avatar (URL) */
+        /* Add the avatar (URI) */
         if ( this.getAvatar() != null ) {
             jsonObject.put("avatar", this.getAvatar().toString());
         }

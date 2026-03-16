@@ -19,7 +19,7 @@ package com.kaderate.jsonfeed;
 
 
 /* Import Java stuff */
-import java.net.URL;
+import java.net.URI;
 import java.time.Instant;
 import java.util.List;
 
@@ -62,39 +62,39 @@ public interface Item extends JSONString {
 
 
     /**
-     * Get the URL
+     * Get the URI
      *
-     * @return  the URL, null if not specified
+     * @return  the URI, null if not specified
      */
-    public URL getUrl();
+    public URI getUri();
 
 
     /**
-     * Set the URL
+     * Set the URI
      *
-     * @param   url  the URL
+     * @param   uri  the URI
      *
      * @return  the item
      */
-    public Item setUrl(URL url);
+    public Item setUri(URI uri);
 
 
     /**
-     * Get the external URL
+     * Get the external URI
      *
-     * @return  the external URL, null if not specified
+     * @return  the external URI, null if not specified
      */
-    public URL getExternalUrl();
+    public URI getExternalUri();
 
 
     /**
      * Set the external RL
      *
-     * @param   externalUrl the external URL
+     * @param   externalUri the external URI
      *
      * @return  the item
      */
-    public Item setExternalUrl(URL externalUrl);
+    public Item setExternalUri(URI externalUri);
 
 
     /**
@@ -170,39 +170,39 @@ public interface Item extends JSONString {
 
 
     /**
-     * Get the image (URL)
+     * Get the image (URI)
      *
-     * @return  the image URL, null if not specified
+     * @return  the image URI, null if not specified
      */
-    public URL getImage();
+    public URI getImage();
 
 
     /**
-     * Set the image (URL)
+     * Set the image (URI)
      *
-     * @param   image  the image URL
+     * @param   image  the image URI
      *
      * @return  the item
      */
-    public Item setImage(URL image);
+    public Item setImage(URI image);
 
 
     /**
-     * Get the banner image (URL)
+     * Get the banner image (URI)
      *
-     * @return  the banner image URL, null if not specified
+     * @return  the banner image URI, null if not specified
      */
-    public URL getBannerImage();
+    public URI getBannerImage();
 
 
     /**
-     * Set the banner image (URL)
+     * Set the banner image (URI)
      *
-     * @param   bannerImage  the banner image URL
+     * @param   bannerImage  the banner image URI
      *
      * @return  the item
      */
-    public Item setBannerImage(URL bannerImage);
+    public Item setBannerImage(URI bannerImage);
 
 
     /**

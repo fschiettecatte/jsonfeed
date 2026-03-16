@@ -18,17 +18,6 @@
 package com.kaderate.jsonfeed;
 
 
-/* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-
-
-/* Import JSON stuff */
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-
 /* Import JUnit stuff */
 import org.junit.Test;
 import static org.junit.Assert.*;

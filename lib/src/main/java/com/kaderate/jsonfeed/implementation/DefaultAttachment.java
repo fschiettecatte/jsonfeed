@@ -19,8 +19,8 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,9 +45,9 @@ public class DefaultAttachment implements Attachment {
 
 
     /**
-     * URL
+     * URI
      */
-    private URL url = null;
+    private URI uri = null;
 
 
     /**
@@ -88,10 +88,10 @@ public class DefaultAttachment implements Attachment {
      *
      * @return  the author object
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      */
-    protected static Attachment fromString(final String jsonString) throws MalformedURLException {
+    protected static Attachment fromString(final String jsonString) throws URISyntaxException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
@@ -113,10 +113,10 @@ public class DefaultAttachment implements Attachment {
      *
      * @return  the attachment object list
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      */
-    protected static List<Attachment> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
+    protected static List<Attachment> fromJsonArray(final JSONArray jsonArray) throws URISyntaxException {
 
         /* Create the attachment list */
         final List<Attachment> attachmentList = new ArrayList<Attachment>();
@@ -138,14 +138,14 @@ public class DefaultAttachment implements Attachment {
      *
      * @param   jsonObject  the attachment as a JSON object
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      */
-    protected DefaultAttachment(final JSONObject jsonObject) throws MalformedURLException {
+    protected DefaultAttachment(final JSONObject jsonObject) throws URISyntaxException {
 
-        /* Get the URL */
+        /* Get the URI */
         if ( jsonObject.has("url") == true ) {
-            this.setUrl(new URL(jsonObject.getString("url")));
+            this.setUri(new URI(jsonObject.getString("url")));
         }
 
         /* Get the mime type */
@@ -179,12 +179,12 @@ public class DefaultAttachment implements Attachment {
     /**
      * Constructor
      *
-     * @param   url         the URL
+     * @param   uri         the URI
      * @param   mimeType    the mime type
      */
-    public DefaultAttachment(final URL url, final String mimeType) {
+    public DefaultAttachment(final URI uri, final String mimeType) {
 
-        this.setUrl(url);
+        this.setUri(uri);
         this.setMimeType(mimeType);
 
     }
@@ -201,30 +201,30 @@ public class DefaultAttachment implements Attachment {
 
 
     /**
-     * Get the URL
+     * Get the URI
      *
-     * @return  the URL, null if not specified
+     * @return  the URI, null if not specified
      */
     @Override
-    public URL getUrl() {
+    public URI getUri() {
 
-        return (this.url);
+        return (this.uri);
 
     }
 
 
 
     /**
-     * Set the URL
+     * Set the URI
      *
-     * @param   url  the URL
+     * @param   uri  the URI
      *
      * @return  the attachment
      */
     @Override
-    public Attachment setUrl(URL url) {
+    public Attachment setUri(URI uri) {
 
-        this.url = url;
+        this.uri = uri;
         return (this);
 
     }
@@ -395,7 +395,7 @@ public class DefaultAttachment implements Attachment {
     public boolean isValid() {
 
         /* Check the attachment fields */
-        if ( this.getUrl() == null ) {
+        if ( this.getUri() == null ) {
             return (false);
         }
 
@@ -420,8 +420,8 @@ public class DefaultAttachment implements Attachment {
         /* Create the JSON object */
         final JSONObject jsonObject = new JSONObject();
 
-        /* Add the url */
-        jsonObject.put("url", this.getUrl().toString());
+        /* Add the URI */
+        jsonObject.put("url", this.getUri().toString());
 
         /* Add the mime type */
         jsonObject.put("type", this.getMimeType());

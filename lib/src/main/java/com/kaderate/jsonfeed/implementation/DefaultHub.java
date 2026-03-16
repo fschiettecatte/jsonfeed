@@ -19,8 +19,8 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +51,9 @@ public class DefaultHub implements Hub {
 
 
     /**
-     * URL
+     * URI
      */
-    private URL url = null;
+    private URI uri = null;
 
 
     /**
@@ -70,10 +70,10 @@ public class DefaultHub implements Hub {
      *
      * @return  the hub object
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      */
-    protected static Hub fromString(final String jsonString) throws MalformedURLException {
+    protected static Hub fromString(final String jsonString) throws URISyntaxException {
 
         /* Parse the JSON string to a JSON object */
         final JSONObject jsonObject = new JSONObject(jsonString);
@@ -95,10 +95,10 @@ public class DefaultHub implements Hub {
      *
      * @return  the hub object list
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      */
-    protected static List<Hub> fromJsonArray(final JSONArray jsonArray) throws MalformedURLException {
+    protected static List<Hub> fromJsonArray(final JSONArray jsonArray) throws URISyntaxException {
 
         /* Create the hub list */
         final List<Hub> hubList = new ArrayList<Hub>();
@@ -120,17 +120,17 @@ public class DefaultHub implements Hub {
      *
      * @param   jsonObject  the hub as a JSON object
      *
-     * @exception   MalformedURLException
-     *              If the URL is invalid
+     * @exception   URISyntaxException
+     *              If the URI is invalid
      */
-    protected DefaultHub(final JSONObject jsonObject) throws MalformedURLException {
+    protected DefaultHub(final JSONObject jsonObject) throws URISyntaxException {
 
         /* Get the type */
         this.setType(jsonObject.optString("type", null));
 
-        /* Get the URL */
+        /* Get the URI */
         if ( jsonObject.has("url") == true ) {
-            this.setUrl(new URL(jsonObject.getString("url")));
+            this.setUri(new URI(jsonObject.getString("url")));
         }
 
 
@@ -149,12 +149,12 @@ public class DefaultHub implements Hub {
      * Constructor
      *
      * @param   type  the type
-     * @param   url   the URL
+     * @param   uri   the URI
      */
-    public DefaultHub(final String type, final URL url) {
+    public DefaultHub(final String type, final URI uri) {
 
         this.setType(type);
-        this.setUrl(url);
+        this.setUri(uri);
 
     }
 
@@ -201,30 +201,30 @@ public class DefaultHub implements Hub {
 
 
     /**
-     * Get the URL
+     * Get the URI
      *
-     * @return  the URL, null if not specified
+     * @return  the URI, null if not specified
      */
     @Override
-    public URL getUrl() {
+    public URI getUri() {
 
-        return (this.url);
+        return (this.uri);
 
     }
 
 
 
     /**
-     * Set the URL
+     * Set the URI
      *
-     * @param   url  the URL
+     * @param   uri  the URI
      *
      * @return  the hub
      */
     @Override
-    public Hub setUrl(URL url) {
+    public Hub setUri(URI uri) {
 
-        this.url = url;
+        this.uri = uri;
         return (this);
 
     }
@@ -275,7 +275,7 @@ public class DefaultHub implements Hub {
             return (false);
         }
 
-        if ( this.getUrl() == null ) {
+        if ( this.getUri() == null ) {
             return (false);
         }
 
@@ -299,8 +299,8 @@ public class DefaultHub implements Hub {
         /* Add the type */
         jsonObject.put("type", this.getType());
 
-        /* Add the URL */
-        jsonObject.put("url", this.getUrl().toString());
+        /* Add the URI */
+        jsonObject.put("url", this.getUri().toString());
 
         /* Add the extensions */
         if ( this.getExtensionsJSONObject() != null ) {

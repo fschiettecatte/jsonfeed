@@ -19,8 +19,8 @@ package com.kaderate.jsonfeed.implementation;
 
 
 /* Import Java stuff */
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.HashMap;
 
@@ -77,7 +77,7 @@ public class DefaultAuthorTest {
      * Test 1
      */
     @Test
-    public void test1() throws MalformedURLException {
+    public void test1() throws URISyntaxException {
 
         Author author = DefaultAuthor.fromString(DefaultAuthorTest.TEST_STRING_1_X);
 
@@ -85,7 +85,7 @@ public class DefaultAuthorTest {
         assertTrue(author.isValid());
 
         assertEquals(author.getName(), "Dalek Caan");
-        assertEquals(author.getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(author.getUri().toString(), "https://ham.org/authorCaan.html");
         assertEquals(author.getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertNotNull(author.getExtensionsJSONObject());
@@ -105,7 +105,7 @@ public class DefaultAuthorTest {
      * Test 2
      */
     @Test
-    public void test2() throws MalformedURLException {
+    public void test2() throws URISyntaxException {
 
         JSONObject jsonObject1 = new JSONObject()
                 .put("name", "Dalek Caan")
@@ -127,11 +127,11 @@ public class DefaultAuthorTest {
         assertTrue(authorList.get(1).isValid());
 
         assertEquals(authorList.get(0).getName(), "Dalek Caan");
-        assertEquals(authorList.get(0).getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(authorList.get(0).getUri().toString(), "https://ham.org/authorCaan.html");
         assertEquals(authorList.get(0).getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertEquals(authorList.get(1).getName(), "Dalek Jast");
-        assertEquals(authorList.get(1).getUrl().toString(), "https://ham.org/authorJast.html");
+        assertEquals(authorList.get(1).getUri().toString(), "https://ham.org/authorJast.html");
         assertEquals(authorList.get(1).getAvatar().toString(), "https://ham.org/avatarJast.html");
 
     }
@@ -141,14 +141,14 @@ public class DefaultAuthorTest {
      * Test 3
      */
     @Test
-    public void test3() throws MalformedURLException {
+    public void test3() throws URISyntaxException {
 
-        Author author = new DefaultAuthor("Dalek Caan", new URL("https://ham.org/authorCaan.html"), new URL("https://ham.org/avatarCaan.html"));
+        Author author = new DefaultAuthor("Dalek Caan", new URI("https://ham.org/authorCaan.html"), new URI("https://ham.org/avatarCaan.html"));
 
         assertTrue(author.isValid());
 
         assertEquals(author.getName(), "Dalek Caan");
-        assertEquals(author.getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(author.getUri().toString(), "https://ham.org/authorCaan.html");
         assertEquals(author.getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertNotNull(author.toJSONString());
@@ -160,12 +160,12 @@ public class DefaultAuthorTest {
      * Test 4
      */
     @Test
-    public void test4() throws MalformedURLException {
+    public void test4() throws URISyntaxException {
 
         Author author = new DefaultAuthor()
                 .setName("Dalek Caan")
-                .setUrl(new URL("https://ham.org/authorCaan.html"))
-                .setAvatar(new URL("https://ham.org/avatarCaan.html"));
+                .setUri(new URI("https://ham.org/authorCaan.html"))
+                .setAvatar(new URI("https://ham.org/avatarCaan.html"));
 
         JSONObject jsonObject = new JSONObject()
                 .put("about", "https://blueshed-podcasts.com/json-feed-extension-docs")
@@ -178,7 +178,7 @@ public class DefaultAuthorTest {
         assertTrue(author.isValid());
 
         assertEquals(author.getName(), "Dalek Caan");
-        assertEquals(author.getUrl().toString(), "https://ham.org/authorCaan.html");
+        assertEquals(author.getUri().toString(), "https://ham.org/authorCaan.html");
         assertEquals(author.getAvatar().toString(), "https://ham.org/avatarCaan.html");
 
         assertNotNull(author.getExtensionsJSONObject());
